@@ -12,3 +12,20 @@
     font-family: Poppins, system-ui, sans-serif;
   }
 }
+
+.mainNav .active {
+  @apply bg-blue-500 text-white md:bg-transparent md:text-blue-500;
+}
+
+.boxShadow {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 2px 20px 2px rgba(0, 0, 0, 0.23);
+}
+
+.homeForm svg {
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.blueBtn {
+  @apply transition-all duration-200 px-4 py-4 bg-blue-500 text-white hover:bg-blue-600;
+}
