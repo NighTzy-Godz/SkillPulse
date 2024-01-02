@@ -84,12 +84,14 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 
   pfp: {
     type: String,
-    default: "",
+    default:
+      "https://www.kindpng.com/picc/m/451-4517876_default-profile-hd-png-download.png",
   },
 
   coverPhoto: {
     type: String,
-    default: "",
+    default:
+      "https://iwritingsolutions.com/wp-content/uploads/2022/05/you-can-live-now.-thank-you.jpg",
   },
   gender: {
     type: String,
