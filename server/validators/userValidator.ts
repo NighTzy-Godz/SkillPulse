@@ -17,7 +17,7 @@ export interface UserLoginData {
   password: string;
 }
 
-export const userRegisterValidator = (
+export const jobSeekerRegisterValidator = (
   data: UserRegisterData
 ): Joi.ValidationResult => {
   const schema: Schema<UserRegisterData> = Joi.object({
