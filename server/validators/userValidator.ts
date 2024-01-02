@@ -1,18 +1,23 @@
 import Joi, { Schema } from "joi";
 import { GENDER, ROLE } from "../models/User_Model";
 
-interface UserRegisterData {
+export interface UserRegisterData {
   firstName: string;
   lastName: string;
   email: string;
   contact: string;
-  role: ROLE;
   gender: GENDER;
+  role: ROLE;
   password: string;
   confirmPassword: string;
 }
 
-export const jobSeekerRegisterValidator = (
+export interface UserLoginData {
+  email: string;
+  password: string;
+}
+
+export const userRegisterValidator = (
   data: UserRegisterData
 ): Joi.ValidationResult => {
   const schema: Schema<UserRegisterData> = Joi.object({
@@ -33,7 +38,7 @@ export const jobSeekerRegisterValidator = (
     }),
 
     email: Joi.string().min(3).max(30).required().messages({
-      "string.empty": "First Name cannot be empty",
+      "string.empty": "Email cannot be empty",
       "string.base": "This input should be a type of string",
       "string.min": "Email should have atleast 3 characters",
       "string.max": "Email should only contain 30 characters",
@@ -57,6 +62,15 @@ export const jobSeekerRegisterValidator = (
         "string.base": "Gender should be a string.",
       }),
 
+    role: Joi.string()
+      .valid(...Object.values(ROLE))
+      .messages({
+        "string.empty": "User Role is required.",
+        "any.only": "Invalid User Role selected.",
+        "any.required": "User Role is required.",
+        "string.base": "User Role should be a string.",
+      }),
+
     password: Joi.string().min(8).max(25).messages({
       "string.empty": "Password cannot be empty",
       "string.base": "This input should be a type of string.",
@@ -69,6 +83,26 @@ export const jobSeekerRegisterValidator = (
       "string.base": "This input should be a type of string.",
       "string.min": "Confirm Password should have atleast 8 characters",
       "string.max": "Confirm Password should only contain 25 characters",
+    }),
+  });
+
+  return schema.validate(data);
+};
+
+export const userLoginValidator = (
+  data: UserLoginData
+): Joi.ValidationResult => {
+  const schema: Schema<UserLoginData> = Joi.object({
+    email: Joi.string().required().trim().messages({
+      "string.empty": "Email Name cannot be empty",
+      "string.base": "This input should be a type of string",
+      "any.required": "Email is a required field",
+    }),
+
+    password: Joi.string().required().trim().messages({
+      "string.empty": "Password Name cannot be empty",
+      "string.base": "This input should be a type of string",
+      "any.required": "Password is a required field",
     }),
   });
 
