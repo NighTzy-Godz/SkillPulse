@@ -8,14 +8,27 @@ import customBtnTheme from "../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
 import { ROLE, RegisterUserData } from "../interfaces/User";
 import InputError from "../components/common/InputError";
-import { KeyboardEvent } from "react";
+import { KeyboardEvent, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../store/store";
+import { setStatusCode, userRegister } from "../store/slices/auth";
 
 function Register() {
+  const dispatch = useDispatch();
+  const { statusCode } = useSelector((state: State) => state.entities.auth);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<RegisterUserData>();
+
+  useEffect(() => {
+    if (statusCode === 200) {
+      setStatusCode(null);
+      // NOTE: ADD THE NAVIGATION HERE
+    }
+  }, [statusCode]);
 
   const renderOptions = gender.map((item) => {
     return (
@@ -37,7 +50,7 @@ function Register() {
       role: ROLE.JobSeeker,
     };
 
-    console.log(reqBody);
+    dispatch(userRegister(reqBody));
   };
 
   return (

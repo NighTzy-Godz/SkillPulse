@@ -9,7 +9,7 @@ import InputError from "../components/common/InputError";
 import customBtnTheme from "../utils/customBtnTheme";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
-import { userLogin } from "../store/slices/auth";
+import { setStatusCode, userLogin } from "../store/slices/auth";
 
 function Home() {
   const dispatch = useDispatch();
@@ -23,7 +23,12 @@ function Home() {
     handleSubmit,
   } = useForm<LoginUserData>();
 
-  // useEffect(() => {}, [statusCode]);
+  useEffect(() => {
+    if (statusCode === 200) {
+      setStatusCode(null);
+      // NOTE: ADD THE NAVIGATION HERE
+    }
+  }, [statusCode]);
 
   const handleLoginSubmit = (data: LoginUserData) => {
     dispatch(userLogin(data));

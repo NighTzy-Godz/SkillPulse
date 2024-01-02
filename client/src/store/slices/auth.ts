@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LoginUserData } from "../../interfaces/User";
+import { LoginUserData, RegisterUserData } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
 
 interface AuthState {
@@ -35,6 +35,10 @@ const slice = createSlice({
         (auth.token = action.payload.data);
     },
 
+    authRegisterSuccess: (auth, action) => {
+      (auth.loading = false), (auth.statusCode = action.payload.status);
+    },
+
     setStatusCode: (auth, action) => {
       auth.statusCode = action.payload;
     },
@@ -44,7 +48,12 @@ const slice = createSlice({
 export default slice.reducer;
 export const { setStatusCode } = slice.actions;
 
-const { authLoginSuccess, authRequestFailed, authRequested } = slice.actions;
+const {
+  authLoginSuccess,
+  authRequestFailed,
+  authRequested,
+  authRegisterSuccess,
+} = slice.actions;
 
 export const userLogin = (data: LoginUserData) =>
   apiCallBegan({
@@ -55,4 +64,15 @@ export const userLogin = (data: LoginUserData) =>
     onError: authRequestFailed.type,
     onSuccess: authLoginSuccess.type,
     successMsg: "Successfully Logged In",
+  });
+
+export const userRegister = (data: RegisterUserData) =>
+  apiCallBegan({
+    url: "/user/registerUser",
+    data,
+    method: "POST",
+    onStart: authRequested.type,
+    onError: authRequestFailed.type,
+    onSuccess: authRegisterSuccess.type,
+    successMsg: `Successfully Created the Account for ${data.firstName} ${data.lastName}`,
   });
