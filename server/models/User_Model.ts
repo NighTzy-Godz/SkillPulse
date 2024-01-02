@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
-
+import jwt from "jsonwebtoken";
 const DB_URL = "mongodb://localhost:27017/skillpulse";
-
+const jwtSecretPass = "secretPass";
 mongoose
   .connect(DB_URL)
   .then(() => console.log("Connected to the database - User"))
@@ -34,6 +34,7 @@ interface IUser extends Document {
   currPosition?: string;
   bio?: string;
   skills?: string[];
+  generateAuthToken(): string;
 
   education?: {
     schoolName: string;
@@ -222,6 +223,17 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
     },
   ],
 });
+
+userSchema.methods.generateAuthToken = function (this) {
+  return jwt.sign(
+    {
+      _id: this._id,
+      role: this.role,
+      full_name: this.firstName + " " + this.lastName,
+    },
+    jwtSecretPass
+  );
+};
 
 const User = mongoose.model<IUser>("User", userSchema);
 

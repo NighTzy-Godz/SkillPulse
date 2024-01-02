@@ -78,7 +78,8 @@ export const loginUser = async (
     if (!isValidPassword)
       return res.status(401).send("Credentials did not match");
 
-    res.send(existingUser);
+    const token = existingUser.generateAuthToken();
+    res.header("x-auth-token", token).send(token);
   } catch (error) {
     next(error);
   }
