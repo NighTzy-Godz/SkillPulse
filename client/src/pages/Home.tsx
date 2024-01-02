@@ -6,12 +6,7 @@ import { CustomFlowbiteTheme } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { LoginUserData } from "../interfaces/User";
 import InputError from "../components/common/InputError";
-
-const customTheme: CustomFlowbiteTheme["button"] = {
-  color: {
-    blue: "transition-all text-xl duration-200 text-center text-white bg-blue-500 border border-transparent enabled:hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 ",
-  },
-};
+import customBtnTheme from "../utils/customBtnTheme";
 
 function Home() {
   const {
@@ -25,7 +20,7 @@ function Home() {
   };
 
   return (
-    <div className="home md:h-[92dvh] grid items-center ">
+    <div className="home md:h-dvh grid items-center ">
       <div className="container mx-auto">
         <div className="flex gap-5">
           <div className="mb-5 w-1/2">
@@ -91,7 +86,7 @@ function Home() {
                 </div>
 
                 <Button
-                  theme={customTheme}
+                  theme={customBtnTheme}
                   size="md"
                   color="blue"
                   type="submit"

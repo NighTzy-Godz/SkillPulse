@@ -29,3 +29,7 @@
 .blueBtn {
   @apply transition-all duration-200 px-4 py-4 bg-blue-500 text-white hover:bg-blue-600;
 }
+
+.label {
+  @apply text-zinc-700 font-semibold mb-1 block;
+}
