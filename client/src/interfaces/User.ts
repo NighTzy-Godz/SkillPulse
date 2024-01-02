@@ -13,7 +13,7 @@ export interface LoginUserData {
   password: string;
 }
 
-export interface RegisterUserData {
+export interface RegisterJobSeekerData {
   firstName: string;
   lastName: string;
   email: string;

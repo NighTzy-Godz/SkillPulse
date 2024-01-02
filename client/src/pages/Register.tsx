@@ -6,12 +6,12 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import gender from "../data/gender";
 import customBtnTheme from "../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
-import { ROLE, RegisterUserData } from "../interfaces/User";
+import { ROLE, RegisterJobSeekerData } from "../interfaces/User";
 import InputError from "../components/common/InputError";
 import { KeyboardEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
-import { setStatusCode, userRegister } from "../store/slices/auth";
+import { setStatusCode, jobSeekerRegister } from "../store/slices/auth";
 
 function Register() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function Register() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<RegisterUserData>();
+  } = useForm<RegisterJobSeekerData>();
 
   useEffect(() => {
     if (statusCode === 200) {
@@ -44,13 +44,8 @@ function Register() {
     }
   };
 
-  const handleRegisterSubmit = (data: RegisterUserData) => {
-    const reqBody: RegisterUserData = {
-      ...data,
-      role: ROLE.JobSeeker,
-    };
-
-    dispatch(userRegister(reqBody));
+  const handleRegisterSubmit = (data: RegisterJobSeekerData) => {
+    dispatch(jobSeekerRegister(data));
   };
 
   return (
