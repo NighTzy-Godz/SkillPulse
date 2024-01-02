@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { userRegisterValidator } from "../validators/userValidator";
-import User from "../models/User_Model";
+import { jobSeekerRegisterValidator } from "../validators/userValidator";
+import User, { ROLE } from "../models/User_Model";
 import bcrypt from "bcrypt";
 
-export const registerUser = async (
+export const registerJobSeeker = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -14,13 +14,14 @@ export const registerUser = async (
       lastName,
       email,
       contact,
-      role,
       gender,
       password,
       confirmPassword,
     } = req.body;
 
-    const { error } = userRegisterValidator(req.body);
+    const role = ROLE.JobSeeker;
+
+    const { error } = jobSeekerRegisterValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const existingUser = await User.findOne({ email, role });

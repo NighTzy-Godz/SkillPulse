@@ -12,7 +12,7 @@ interface UserRegisterData {
   confirmPassword: string;
 }
 
-export const userRegisterValidator = (
+export const jobSeekerRegisterValidator = (
   data: UserRegisterData
 ): Joi.ValidationResult => {
   const schema: Schema<UserRegisterData> = Joi.object({
@@ -48,15 +48,6 @@ export const userRegisterValidator = (
         "string.base": "Contact should be a type of string",
       }),
 
-    role: Joi.string()
-      .valid(...Object.values(ROLE))
-      .messages({
-        "string.empty": "Role is required.",
-        "any.only": "Invalid role selected.",
-        "any.required": "Role is required.",
-        "string.base": "Role should be a string.",
-      }),
-
     gender: Joi.string()
       .valid(...Object.values(GENDER))
       .messages({
@@ -66,17 +57,17 @@ export const userRegisterValidator = (
         "string.base": "Gender should be a string.",
       }),
 
-    password: Joi.string().min(5).max(25).messages({
+    password: Joi.string().min(8).max(25).messages({
       "string.empty": "Password cannot be empty",
       "string.base": "This input should be a type of string.",
-      "string.min": "Password should have atleast 5 characters",
+      "string.min": "Password should have atleast 8 characters",
       "string.max": "Password should only contain 25 characters",
     }),
 
-    confirmPassword: Joi.string().min(5).max(25).messages({
+    confirmPassword: Joi.string().min(8).max(25).messages({
       "string.empty": "Confirm Password cannot be empty",
       "string.base": "This input should be a type of string.",
-      "string.min": "Confirm Password should have atleast 5 characters",
+      "string.min": "Confirm Password should have atleast 8 characters",
       "string.max": "Confirm Password should only contain 25 characters",
     }),
   });
