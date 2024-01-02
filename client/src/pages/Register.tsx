@@ -6,7 +6,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import gender from "../data/gender";
 import customBtnTheme from "../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
-import { RegisterUserData } from "../interfaces/User";
+import { ROLE, RegisterUserData } from "../interfaces/User";
 import InputError from "../components/common/InputError";
 import { KeyboardEvent } from "react";
 
@@ -32,7 +32,12 @@ function Register() {
   };
 
   const handleRegisterSubmit = (data: RegisterUserData) => {
-    console.log(data);
+    const reqBody: RegisterUserData = {
+      ...data,
+      role: ROLE.JobSeeker,
+    };
+
+    console.log(reqBody);
   };
 
   return (
@@ -165,7 +170,7 @@ function Register() {
                     required: "Password is a required field",
                     minLength: {
                       value: 8,
-                      message: "Password should have atleast8 characters",
+                      message: "Password should have atleast 8 characters",
                     },
                     maxLength: {
                       value: 25,

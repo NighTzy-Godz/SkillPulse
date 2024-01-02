@@ -71,3 +71,5 @@ const api: Middleware =
       if (onError) dispatch({ type: onError, payload: axiosError });
     }
   };
+
+export default api;

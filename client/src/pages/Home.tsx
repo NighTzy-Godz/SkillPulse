@@ -1,5 +1,5 @@
 import { Button, Label, TextInput } from "flowbite-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { HiMail, HiLockClosed } from "react-icons/hi";
 import { CustomFlowbiteTheme } from "flowbite-react";
@@ -7,16 +7,26 @@ import { useForm } from "react-hook-form";
 import { LoginUserData } from "../interfaces/User";
 import InputError from "../components/common/InputError";
 import customBtnTheme from "../utils/customBtnTheme";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../store/store";
+import { userLogin } from "../store/slices/auth";
 
 function Home() {
+  const dispatch = useDispatch();
+  const statusCode = useSelector(
+    (state: State) => state.entities.auth.statusCode
+  );
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<LoginUserData>();
 
+  // useEffect(() => {}, [statusCode]);
+
   const handleLoginSubmit = (data: LoginUserData) => {
-    console.log(data);
+    dispatch(userLogin(data));
   };
 
   return (
