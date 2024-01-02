@@ -79,6 +79,7 @@ export const loginUser = async (
       return res.status(401).send("Credentials did not match");
 
     const token = existingUser.generateAuthToken();
+
     res.header("x-auth-token", token).send(token);
   } catch (error) {
     next(error);
