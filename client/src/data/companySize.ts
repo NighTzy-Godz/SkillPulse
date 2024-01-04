@@ -5,17 +5,17 @@ const companySize = [
     value: "1 - 9",
   },
   {
-    id: 0,
+    id: 1,
     name: "Small Enterprise (11 - 49 Employees)",
     value: "11 - 49",
   },
   {
-    id: 0,
+    id: 2,
     name: "Medium-Sized Enterprise (50 - 249 Employees)",
     value: "50 - 249",
   },
   {
-    id: 0,
+    id: 3,
     name: "Large Enterprise (250+ Employees)",
     value: "250+ ",
   },

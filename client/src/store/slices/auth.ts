@@ -5,8 +5,8 @@ import { apiCallBegan } from "../actions/apiActions";
 interface AuthState {
   loading: boolean;
   statusCode: null | number;
-  token: null | string;
   error: null | string;
+  token: null | string;
 }
 
 const initialState: AuthState = {

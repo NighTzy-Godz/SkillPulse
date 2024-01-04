@@ -3,7 +3,7 @@ import FormHeader from "../components/common/FormHeader";
 import { Button, Label, Select, TextInput } from "flowbite-react";
 import industries from "../data/industry";
 import { FaAddressCard, FaIndustry } from "react-icons/fa";
-import { MdGroups } from "react-icons/md";
+import { MdGroups, MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import companySize from "../data/companySize";
 import customBtnTheme from "../utils/customBtnTheme";
@@ -68,6 +68,30 @@ function RegisterCompany() {
 
               {errors.name && (
                 <InputError msg={errors.name.message as string} />
+              )}
+            </div>
+
+            <div className="w-full mt-10 mb-5">
+              <Label className="label">Company Email</Label>
+              <TextInput
+                sizing="lg"
+                placeholder="Ex. wellsfargo@gmail.com"
+                icon={MdEmail}
+                {...register("email", {
+                  required: "Company Email is a required field",
+                  minLength: {
+                    value: 3,
+                    message: "Company Email should have atleast 3 characters",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "Company Email should only contain 30 characters",
+                  },
+                })}
+              />
+
+              {errors.email && (
+                <InputError msg={errors.email.message as string} />
               )}
             </div>
 

@@ -14,4 +14,5 @@ export interface CompanyRegisterData {
   industry: INDUSTRY;
   size: string;
   location: string;
+  email: string;
 }
