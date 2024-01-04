@@ -46,10 +46,13 @@ function MainNav() {
           <NavLink to="/" className={navBarClass}>
             Home
           </NavLink>
-          <NavLink to="/jobs" className={navBarClass}>
+          <NavLink to="/jobs" className={`cursor-not-allowed ${navBarClass}`}>
             Find Job
           </NavLink>
-          <NavLink to="/postJob" className={navBarClass}>
+          <NavLink
+            to="/postJob"
+            className={`cursor-not-allowed ${navBarClass}`}
+          >
             Post a Job
           </NavLink>
           <NavLink to="/register-company" className={navBarClass}>

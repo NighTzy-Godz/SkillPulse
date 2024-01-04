@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormHeader from "../components/common/FormHeader";
 import { Button, Label, Select, TextInput } from "flowbite-react";
 import industries from "../data/industry";
@@ -10,12 +10,25 @@ import customBtnTheme from "../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
 import { CompanyRegisterData } from "../interfaces/Company";
 import InputError from "../components/common/InputError";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "../store/store";
+import { registerCompany, setStatusCode } from "../store/slices/company";
 function RegisterCompany() {
+  const dispatch = useDispatch();
+  const { statusCode } = useSelector((state: State) => state.entities.company);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CompanyRegisterData>();
+
+  useEffect(() => {
+    if (statusCode === 200) {
+      alert("Lets go, it worked");
+      dispatch(setStatusCode(null));
+    }
+  }, [statusCode]);
 
   const renderIndustryOpts = industries.map((item) => {
     return (
@@ -34,7 +47,7 @@ function RegisterCompany() {
   });
 
   const handleCompanyRegisterSubmit = (data: CompanyRegisterData) => {
-    console.log(data);
+    dispatch(registerCompany(data));
   };
 
   return (
