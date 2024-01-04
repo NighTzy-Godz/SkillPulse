@@ -11,12 +11,13 @@ export const registerCompany = async (
   next: NextFunction
 ) => {
   try {
-    const { name, industry, size, location }: RegisterCompanyData = req.body;
+    const { name, industry, size, location, email }: RegisterCompanyData =
+      req.body;
 
     const { error } = registerCompanyValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const existingCompany = await Company.findOne({ name });
+    const existingCompany = await Company.findOne({ email });
     if (existingCompany)
       return res.status(409).send("This company already exists");
 
@@ -24,6 +25,7 @@ export const registerCompany = async (
       name,
       industry,
       size,
+      email,
       location,
     });
 

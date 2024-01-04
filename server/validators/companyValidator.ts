@@ -1,10 +1,11 @@
 import { INDUSTRY } from "../models/Company_Model";
-import Joi, { Schema, object } from "joi";
+import Joi, { Schema } from "joi";
 export interface RegisterCompanyData {
   name: string;
   industry: INDUSTRY;
   size: string;
   location: string;
+  email: string;
 }
 
 export const registerCompanyValidator = (
@@ -17,6 +18,14 @@ export const registerCompanyValidator = (
       "string.min": "Company Name should have atleast 3 characters",
       "string.max": "Company Name should only contain 30 characters",
       "any.required": "Company Name is a required field",
+    }),
+
+    email: Joi.string().min(3).max(30).trim().required().messages({
+      "string.empty": "Company Email cannot be empty",
+      "string.base": "This input should be a type of string",
+      "string.min": "Company Email should have atleast 3 characters",
+      "string.max": "Company Email should only contain 30 characters",
+      "any.required": "Company Email is a required field",
     }),
 
     industry: Joi.string()

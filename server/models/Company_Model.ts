@@ -13,7 +13,7 @@ export enum INDUSTRY {
   Education = "Education",
   Manufacturing = "Manufacturing",
   Hospitality = "Hospitality",
-  Engineering = "Engineering",
+  Entrepreneurship = "Entrepreneurship",
   Logistics = "Logistics",
 }
 
@@ -22,6 +22,7 @@ interface ICompany extends Document {
   description: string;
   industry: INDUSTRY;
   website: string;
+  email: string;
   logo: string;
   size: string;
   location: string;
@@ -34,6 +35,11 @@ interface ICompany extends Document {
 const companySchema: Schema<ICompany> = new mongoose.Schema(
   {
     name: {
+      type: String,
+      required: true,
+    },
+
+    email: {
       type: String,
       required: true,
     },
