@@ -6,12 +6,14 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import gender from "../data/gender";
 import customBtnTheme from "../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
-import { ROLE, RegisterJobSeekerData } from "../interfaces/User";
+import { RegisterJobSeekerData } from "../interfaces/User";
 import InputError from "../components/common/InputError";
 import { KeyboardEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
 import { setStatusCode, jobSeekerRegister } from "../store/slices/auth";
+import FormHeader from "../components/common/FormHeader";
+import { PiGenderIntersexFill } from "react-icons/pi";
 
 function Register() {
   const dispatch = useDispatch();
@@ -52,11 +54,9 @@ function Register() {
     <div className="py-10 h-dvh grid items-center">
       <div className="container mx-auto">
         <div className="md:w-1/2 mx-auto">
-          <h1 className="text-center text-3xl text-zinc-700 font-medium capitalize">
-            start you career here. get registered
-          </h1>
+          <FormHeader header="start you career here. get registered" />
 
-          <form onSubmit={handleSubmit(handleRegisterSubmit)}>
+          <form onSubmit={handleSubmit(handleRegisterSubmit)} className="form">
             <div className="flex justify-center gap-5 mt-10 mb-5 ">
               <div className="w-full">
                 <Label className="label">First Name</Label>
@@ -160,6 +160,7 @@ function Register() {
                 {...register("gender", {
                   required: "Gender is a required field",
                 })}
+                icon={PiGenderIntersexFill}
               >
                 <option value="">Your Gender</option>
                 {renderOptions}
@@ -231,7 +232,7 @@ function Register() {
                 color="blue"
                 className="w-full"
               >
-                Submit
+                Register as JobSeeker
               </Button>
             </div>
           </form>

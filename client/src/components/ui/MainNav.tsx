@@ -52,6 +52,9 @@ function MainNav() {
           <NavLink to="/postJob" className={navBarClass}>
             Post a Job
           </NavLink>
+          <NavLink to="/register-company" className={navBarClass}>
+            Register Company
+          </NavLink>
         </Navbar.Collapse>
       </div>
     </Navbar>

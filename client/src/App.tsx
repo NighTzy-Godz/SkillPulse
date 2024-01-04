@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import "react-toastify/ReactToastify.min.css";
 import { ToastContainer } from "react-toastify";
+import RegisterCompany from "./pages/RegisterCompany";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route index element={<Home />} />
 
           <Route path="/register" element={<Register />} />
+          <Route path="/register-company" element={<RegisterCompany />} />
         </Route>
       </Routes>
     </BrowserRouter>

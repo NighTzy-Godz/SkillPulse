@@ -55,7 +55,7 @@ function Home() {
           <div className="w-1/2  ">
             <div className="flex justify-center">
               <form
-                className="boxShadow px-5 pt-5 pb-5 homeForm w-2/3 "
+                className="boxShadow px-5 pt-5 pb-5 form w-2/3 "
                 onSubmit={handleSubmit(handleLoginSubmit)}
               >
                 <div className="mb-5">

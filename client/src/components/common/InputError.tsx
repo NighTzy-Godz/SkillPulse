@@ -1,7 +1,7 @@
 import React from "react";
 
 interface InputErrorProps {
-  msg: string;
+  msg: null | string;
 }
 
 function InputError({ msg }: InputErrorProps) {
