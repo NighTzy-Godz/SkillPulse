@@ -36,3 +36,27 @@ export const registerCompany = async (
     next(error);
   }
 };
+
+export const searchCompany = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { searchTerm } = req.params;
+
+    let companies;
+
+    if (!searchTerm) {
+      companies = await Company.find({}).sort({ name: 1 }).limit(15);
+    } else {
+      companies = await Company.find({
+        name: { $regex: new RegExp(searchTerm, "i") },
+      }).sort({ name: 1 });
+    }
+
+    res.send(companies);
+  } catch (error) {
+    next(error);
+  }
+};
