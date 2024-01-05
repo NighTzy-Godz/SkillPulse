@@ -1,6 +1,6 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { HiMail, HiLockClosed } from "react-icons/hi";
 import { CustomFlowbiteTheme } from "flowbite-react";
 import { useForm } from "react-hook-form";
@@ -109,6 +109,15 @@ function Home() {
                 >
                   Login
                 </Button>
+
+                <div className="mt-3">
+                  <Link
+                    to="/register-jobSeeker"
+                    className="text-blue-500 text-sm underline "
+                  >
+                    Register Here
+                  </Link>
+                </div>
               </form>
             </div>
           </div>

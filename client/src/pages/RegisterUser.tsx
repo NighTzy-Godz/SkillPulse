@@ -6,7 +6,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import gender from "../data/gender";
 import customBtnTheme from "../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
-import { RegisterJobSeekerData } from "../interfaces/User";
+import { RegisterUserData } from "../interfaces/User";
 import InputError from "../components/common/InputError";
 import { KeyboardEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,8 +14,9 @@ import { State } from "../store/store";
 import { setStatusCode, jobSeekerRegister } from "../store/slices/auth";
 import FormHeader from "../components/common/FormHeader";
 import { PiGenderIntersexFill } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
-function Register() {
+function RegisterUser() {
   const dispatch = useDispatch();
   const { statusCode } = useSelector((state: State) => state.entities.auth);
 
@@ -23,7 +24,7 @@ function Register() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<RegisterJobSeekerData>();
+  } = useForm<RegisterUserData>();
 
   useEffect(() => {
     if (statusCode === 200) {
@@ -46,7 +47,7 @@ function Register() {
     }
   };
 
-  const handleRegisterSubmit = (data: RegisterJobSeekerData) => {
+  const handleRegisterSubmit = (data: RegisterUserData) => {
     dispatch(jobSeekerRegister(data));
   };
 
@@ -242,4 +243,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterUser;

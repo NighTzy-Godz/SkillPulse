@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LoginUserData, RegisterJobSeekerData } from "../../interfaces/User";
+import { LoginUserData, RegisterUserData } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
 
 interface AuthState {
@@ -66,7 +66,7 @@ export const userLogin = (data: LoginUserData) =>
     successMsg: "Successfully Logged In",
   });
 
-export const jobSeekerRegister = (data: RegisterJobSeekerData) =>
+export const jobSeekerRegister = (data: RegisterUserData) =>
   apiCallBegan({
     url: "/user/registerUser",
     data,

@@ -14,7 +14,7 @@ function MainNav() {
           </span>
         </Navbar.Brand>
         <div className="flex md:order-2">
-          <NavLink to="/register" className={navBarClass}>
+          <NavLink to="/register-user" className={navBarClass}>
             Register
           </NavLink>
           {/* <Dropdown
