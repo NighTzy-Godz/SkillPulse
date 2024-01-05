@@ -1,6 +1,6 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { HiMail, HiLockClosed } from "react-icons/hi";
 import { CustomFlowbiteTheme } from "flowbite-react";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,8 @@ function Home() {
     (state: State) => state.entities.auth.statusCode
   );
 
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
@@ -26,7 +28,7 @@ function Home() {
   useEffect(() => {
     if (statusCode === 200) {
       setStatusCode(null);
-      // NOTE: ADD THE NAVIGATION HERE
+      navigate("/user/profile");
     }
   }, [statusCode]);
 

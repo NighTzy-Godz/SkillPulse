@@ -8,6 +8,7 @@ import RegisterCompany from "./pages/RegisterCompany";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "./store/store";
 import { useEffect } from "react";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,8 @@ function App() {
 
           <Route path="/register-user" element={<RegisterUser />} />
           <Route path="/register-company" element={<RegisterCompany />} />
+
+          <Route path="/user/profile" element={<UserProfile />} />
         </Route>
       </Routes>
     </BrowserRouter>
