@@ -11,10 +11,9 @@ import InputError from "../components/common/InputError";
 import { KeyboardEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
-import { setStatusCode, jobSeekerRegister } from "../store/slices/auth";
+import { setStatusCode, userRegister } from "../store/slices/auth";
 import FormHeader from "../components/common/FormHeader";
 import { PiGenderIntersexFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
 
 function RegisterUser() {
   const dispatch = useDispatch();
@@ -48,7 +47,7 @@ function RegisterUser() {
   };
 
   const handleRegisterSubmit = (data: RegisterUserData) => {
-    dispatch(jobSeekerRegister(data));
+    dispatch(userRegister(data));
   };
 
   return (

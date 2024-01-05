@@ -66,7 +66,7 @@ export const userLogin = (data: LoginUserData) =>
     successMsg: "Successfully Logged In",
   });
 
-export const jobSeekerRegister = (data: RegisterUserData) =>
+export const userRegister = (data: RegisterUserData) =>
   apiCallBegan({
     url: "/user/registerUser",
     data,
