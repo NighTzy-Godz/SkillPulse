@@ -19,7 +19,7 @@ export enum INDUSTRY {
 
 export interface ICompany extends Document {
   name: string;
-  manager: mongoose.Schema.Types.ObjectId;
+  moderators: mongoose.Schema.Types.ObjectId[];
   description: string;
   industry: INDUSTRY;
   website: string;
@@ -27,6 +27,7 @@ export interface ICompany extends Document {
   logo: string;
   size: string;
   location: string;
+  owner: mongoose.Schema.Types.ObjectId;
   coverPhoto: string;
   approved: boolean;
   createdAt: Date;
@@ -40,10 +41,18 @@ const companySchema: Schema<ICompany> = new mongoose.Schema(
       required: true,
     },
 
-    manager: {
+    owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
+
+    moderators: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
 
     email: {
       type: String,
