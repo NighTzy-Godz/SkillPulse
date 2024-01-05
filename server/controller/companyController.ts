@@ -48,7 +48,7 @@ export const searchCompany = async (
     let companies;
 
     if (!searchTerm) {
-      companies = await Company.find({}).sort({ name: 1 }).limit(15);
+      companies = await Company.find({}).sort({ name: 1 }).limit(20);
     } else {
       companies = await Company.find({
         name: { $regex: new RegExp(searchTerm, "i") },

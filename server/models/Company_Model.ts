@@ -19,6 +19,7 @@ export enum INDUSTRY {
 
 export interface ICompany extends Document {
   name: string;
+  manager: mongoose.Schema.Types.ObjectId;
   description: string;
   industry: INDUSTRY;
   website: string;
@@ -37,6 +38,11 @@ const companySchema: Schema<ICompany> = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+    },
+
+    manager: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
 
     email: {

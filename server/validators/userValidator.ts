@@ -1,5 +1,5 @@
 import Joi, { Schema } from "joi";
-import { GENDER, ROLE } from "../models/User_Model";
+import { GENDER } from "../models/User_Model";
 
 export interface UserRegisterData {
   firstName: string;
@@ -7,7 +7,6 @@ export interface UserRegisterData {
   email: string;
   contact: string;
   gender: GENDER;
-  role: ROLE;
   password: string;
   confirmPassword: string;
 }
@@ -17,7 +16,7 @@ export interface UserLoginData {
   password: string;
 }
 
-export const jobSeekerRegisterValidator = (
+export const userRegisterValidator = (
   data: UserRegisterData
 ): Joi.ValidationResult => {
   const schema: Schema<UserRegisterData> = Joi.object({
@@ -60,15 +59,6 @@ export const jobSeekerRegisterValidator = (
         "any.only": "Invalid Gender selected.",
         "any.required": "Gender is required.",
         "string.base": "Gender should be a string.",
-      }),
-
-    role: Joi.string()
-      .valid(...Object.values(ROLE))
-      .messages({
-        "string.empty": "User Role is required.",
-        "any.only": "Invalid User Role selected.",
-        "any.required": "User Role is required.",
-        "string.base": "User Role should be a string.",
       }),
 
     password: Joi.string().min(8).max(25).messages({

@@ -12,17 +12,12 @@ export enum GENDER {
   Female = "Female",
 }
 
-export enum ROLE {
-  JobSeeker = "JobSeeker",
-  Employer = "Employer",
-}
-
 // NOTE: Add a recentSearch field if needed
 
 interface IUser extends Document {
   email: string;
   password: string;
-  role: ROLE;
+
   about: string;
   pfp: string;
   gender: GENDER;
@@ -73,12 +68,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 
   password: {
     type: String,
-    required: true,
-  },
-
-  role: {
-    type: String,
-    enum: Object.values(ROLE),
     required: true,
   },
 

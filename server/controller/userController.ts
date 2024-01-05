@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import {
   UserRegisterData,
   userLoginValidator,
-  jobSeekerRegisterValidator,
+  userRegisterValidator,
 } from "../validators/userValidator";
-import User, { ROLE } from "../models/User_Model";
+import User from "../models/User_Model";
 import bcrypt from "bcrypt";
 
 export const registerJobSeeker = async (
@@ -23,9 +23,7 @@ export const registerJobSeeker = async (
       confirmPassword,
     }: UserRegisterData = req.body;
 
-    const role = ROLE.JobSeeker;
-
-    const { error } = jobSeekerRegisterValidator(req.body);
+    const { error } = userRegisterValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const existingUser = await User.findOne({ email });
@@ -42,7 +40,7 @@ export const registerJobSeeker = async (
       lastName,
       email,
       contact,
-      role,
+
       gender,
     });
 
