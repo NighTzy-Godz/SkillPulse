@@ -219,8 +219,8 @@ userSchema.methods.generateAuthToken = function (this) {
   return jwt.sign(
     {
       _id: this._id,
-      role: this.role,
-      full_name: this.firstName + " " + this.lastName,
+
+      fullName: this.firstName + " " + this.lastName,
     },
     jwtSecretPass
   );
