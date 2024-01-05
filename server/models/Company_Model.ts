@@ -17,7 +17,7 @@ export enum INDUSTRY {
   Logistics = "Logistics",
 }
 
-interface ICompany extends Document {
+export interface ICompany extends Document {
   name: string;
   description: string;
   industry: INDUSTRY;
