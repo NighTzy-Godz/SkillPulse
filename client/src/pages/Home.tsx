@@ -39,9 +39,9 @@ function Home() {
   return (
     <div className="home md:h-dvh grid items-center ">
       <div className="container mx-auto">
-        <div className="flex gap-5">
+        <div className="flex gap-5 items-center">
           <div className="mb-5 w-1/2">
-            <h1 className=" mb-6 font-bold capitalize md:text-8xl text-blue-500">
+            <h1 className=" mb-6 font-bold capitalize md:text-7xl text-blue-500">
               Discover Your Perfect Job
             </h1>
             <p className="mb-16 text-gray-700 md:text-xl">
@@ -55,9 +55,9 @@ function Home() {
           </div>
 
           <div className="w-1/2  ">
-            <div className="flex justify-center">
+            <div className="flex justify-end">
               <form
-                className="boxShadow px-5 pt-5 pb-5 form w-2/3 "
+                className="boxShadow px-5 pt-5 pb-5 form w-3/4 "
                 onSubmit={handleSubmit(handleLoginSubmit)}
               >
                 <div className="mb-5">
@@ -112,7 +112,8 @@ function Home() {
                   Login
                 </Button>
 
-                <div className="mt-3">
+                <div className="mt-3 flex gap-1">
+                  <p className="text-zinc-700 text-sm">Dont have an account?</p>
                   <Link
                     to="/register-jobSeeker"
                     className="text-blue-500 text-sm underline "

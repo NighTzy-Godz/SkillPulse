@@ -10,10 +10,10 @@ function MainNav({ token }: MainNavProps) {
   const navBarClass =
     "transition-all duration-200 block py-2 text-lg pr-4 pl-3  border-b border-gray-100 text-gray-700   md:border-0 md:hover:hover:text-blue-500 md:p-0";
   return (
-    <Navbar fluid className=" py-5 mainNav boxShadow2">
+    <Navbar fluid className="  mainNav boxShadow2 md:py-5 py-3">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
         <Navbar.Brand>
-          <span className="self-center whitespace-nowrap text-blue-500 font-semibold text-2xl dark:text-white lg:text-3xl ">
+          <span className="self-center whitespace-nowrap text-blue-500 font-semibold text-2xl dark:text-white md:text-3xl text-2xl">
             SkillPulse
           </span>
         </Navbar.Brand>
