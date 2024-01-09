@@ -7,6 +7,7 @@ import ProfileIntro from "../components/user/ProfileIntro";
 import ProfileAbout from "../components/user/ProfileAbout";
 import ProfileEducation from "../components/user/ProfileEducation";
 import ProfileLicences from "../components/user/ProfileLicences";
+import ProfileExperience from "../components/user/ProfileExperience";
 
 const string =
   "Collection：SHOCK WAVE 5\r\n" +
@@ -47,6 +48,7 @@ function UserProfile() {
       <div className="container mx-auto">
         <ProfileIntro />
         <ProfileAbout data={string} />
+        <ProfileExperience />
         <ProfileEducation />
         <ProfileLicences />
       </div>

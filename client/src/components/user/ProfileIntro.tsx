@@ -1,10 +1,9 @@
-import React from "react";
 import ProfileCard from "../common/ProfileCard";
-import customBtnTheme from "../../utils/customBtnTheme";
+
 import ProfileOrgBanner from "../common/ProfileOrgBanner";
 import pfp from "../../assets/img/new_me.jpg";
 import bg from "../../assets/img/new_BG.jpg";
-import { Button } from "flowbite-react";
+
 import { FaEdit } from "react-icons/fa";
 function ProfileIntro() {
   return (

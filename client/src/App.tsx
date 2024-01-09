@@ -34,7 +34,7 @@ function App() {
           <Route path="/register-user" element={<RegisterUser />} />
           <Route path="/register-company" element={<RegisterCompany />} />
 
-          <Route path="/user/profile" element={<UserProfile />} />
+          <Route path="/user/profile/:userId" element={<UserProfile />} />
         </Route>
       </Routes>
     </BrowserRouter>

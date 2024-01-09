@@ -33,7 +33,7 @@ function ProfileLicences() {
   return (
     <ProfileCard className="px-8 py-5 mb-4">
       <div className="mb-3 flex justify-between">
-        <h1 className="text-gray-700 text-xl font-bold">Education</h1>
+        <h1 className="text-gray-700 text-xl font-bold">Certifications</h1>
 
         <div className="flex gap-6">
           <div className="cursor-pointer">
