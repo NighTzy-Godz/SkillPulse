@@ -1,29 +1,30 @@
 import React from "react";
 import ProfileCard from "../common/ProfileCard";
+import NoProfileData from "../common/NoProfileData";
 import { FaEdit } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
-import NoProfileData from "../common/NoProfileData";
-function ProfileEducation() {
+
+function ProfileLicences() {
   const education: [] | null = [];
 
-  const renderEducation = () => {
+  const renderLicenses = () => {
     if (!education) return <NoProfileData />;
     return (
       <React.Fragment>
         <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">Asia Pacific College</h3>
-          <p className="text-zinc-500 text-sm">Senior Highschool (STEM)</p>
-          <p className="text-zinc-400 text-sm">June 2022</p>
+          <h3 className="text-zinc-700 font-bold">The Ultimate Git Course</h3>
+          <p className="text-zinc-500 text-sm">Code with Mosh</p>
+          <p className="text-zinc-400 text-sm">Issued on March 2023</p>
         </div>{" "}
         <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">Asia Pacific College</h3>
-          <p className="text-zinc-500 text-sm">Senior Highschool (STEM)</p>
-          <p className="text-zinc-400 text-sm">June 2022</p>
+          <h3 className="text-zinc-700 font-bold">The Ultimate Git Course</h3>
+          <p className="text-zinc-500 text-sm">Code with Mosh</p>
+          <p className="text-zinc-400 text-sm">Issued on March 2023</p>
         </div>{" "}
         <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">Asia Pacific College</h3>
-          <p className="text-zinc-500 text-sm">Senior Highschool (STEM)</p>
-          <p className="text-zinc-400 text-sm">June 2022</p>
+          <h3 className="text-zinc-700 font-bold">The Ultimate Git Course</h3>
+          <p className="text-zinc-500 text-sm">Code with Mosh</p>
+          <p className="text-zinc-400 text-sm">Issued on March 2023</p>
         </div>
       </React.Fragment>
     );
@@ -43,9 +44,9 @@ function ProfileEducation() {
           </div>
         </div>
       </div>
-      {renderEducation()}
+      {renderLicenses()}
     </ProfileCard>
   );
 }
 
-export default ProfileEducation;
+export default ProfileLicences;

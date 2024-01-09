@@ -6,6 +6,7 @@ import ProfileCard from "../components/common/ProfileCard";
 import ProfileIntro from "../components/user/ProfileIntro";
 import ProfileAbout from "../components/user/ProfileAbout";
 import ProfileEducation from "../components/user/ProfileEducation";
+import ProfileLicences from "../components/user/ProfileLicences";
 
 const string =
   "Collection：SHOCK WAVE 5\r\n" +
@@ -47,6 +48,7 @@ function UserProfile() {
         <ProfileIntro />
         <ProfileAbout data={string} />
         <ProfileEducation />
+        <ProfileLicences />
       </div>
     </div>
   );
