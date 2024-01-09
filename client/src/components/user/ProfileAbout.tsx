@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ProfileCard from "../common/ProfileCard";
 
 import { FaEdit } from "react-icons/fa";
+import NoProfileData from "../common/NoProfileData";
 
 interface ProfileAboutProps {
   data: string;
@@ -13,12 +14,7 @@ function ProfileAbout({ data }: ProfileAboutProps) {
   const slicedData = !clicked ? `${data.slice(0, 80)} ...` : data;
 
   const renderAbout = () => {
-    if (!data)
-      return (
-        <p className="text-gray-600 text-lg">
-          No profile data with this category was found.
-        </p>
-      );
+    if (!data) return <NoProfileData />;
 
     return (
       <React.Fragment>
@@ -30,7 +26,7 @@ function ProfileAbout({ data }: ProfileAboutProps) {
   };
 
   return (
-    <ProfileCard className="py-5 px-8">
+    <ProfileCard className="py-5 px-8 mb-5">
       <div className="mb-3 flex justify-between">
         <h1 className="text-gray-700 text-xl font-bold">About</h1>
         <div className="cursor-pointer">

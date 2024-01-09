@@ -5,6 +5,7 @@ import { Button } from "flowbite-react";
 import ProfileCard from "../components/common/ProfileCard";
 import ProfileIntro from "../components/user/ProfileIntro";
 import ProfileAbout from "../components/user/ProfileAbout";
+import ProfileEducation from "../components/user/ProfileEducation";
 
 const string =
   "Collection：SHOCK WAVE 5\r\n" +
@@ -45,6 +46,7 @@ function UserProfile() {
       <div className="container mx-auto">
         <ProfileIntro />
         <ProfileAbout data={string} />
+        <ProfileEducation />
       </div>
     </div>
   );
