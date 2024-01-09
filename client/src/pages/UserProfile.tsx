@@ -41,7 +41,7 @@ const string =
 
 function UserProfile() {
   return (
-    <div className="sm:py-8 ">
+    <div className="sm:py-8 profile">
       <div className="container mx-auto">
         <ProfileIntro />
         <ProfileAbout data={string} />

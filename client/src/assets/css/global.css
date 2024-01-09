@@ -42,3 +42,9 @@
   content: "\00B7";
   margin-right: 10px;
 }
+
+.profile svg {
+  height: 1.5em;
+  width: 1.5em;
+  fill: #71717a;
+}

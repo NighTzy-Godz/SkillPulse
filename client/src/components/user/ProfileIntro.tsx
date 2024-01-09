@@ -5,7 +5,7 @@ import ProfileOrgBanner from "../common/ProfileOrgBanner";
 import pfp from "../../assets/img/new_me.jpg";
 import bg from "../../assets/img/new_BG.jpg";
 import { Button } from "flowbite-react";
-
+import { FaEdit } from "react-icons/fa";
 function ProfileIntro() {
   return (
     <ProfileCard className="mb-4 ">
@@ -17,7 +17,7 @@ function ProfileIntro() {
         />
       </div>
 
-      <div className="p-5">
+      <div className="py-5 px-8">
         <div className="flex justify-between relative ">
           <div className="mt-[-125px]">
             <img
@@ -26,15 +26,8 @@ function ProfileIntro() {
               className=" h-[130px] w-[130px] sm:h-[150px] sm:w-[150px] object-cover rounded-full  "
             />
           </div>
-          <div className="w-[25%] md:w-[15%] ">
-            <Button
-              theme={customBtnTheme}
-              size="sm"
-              color="blue"
-              className="w-full"
-            >
-              Edit Profile
-            </Button>
+          <div className="cursor-pointer">
+            <FaEdit />
           </div>
         </div>
 

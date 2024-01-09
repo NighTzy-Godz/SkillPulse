@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import ProfileCard from "../common/ProfileCard";
 
+import { FaEdit } from "react-icons/fa";
+
 interface ProfileAboutProps {
   data: string;
 }
@@ -28,9 +30,12 @@ function ProfileAbout({ data }: ProfileAboutProps) {
   };
 
   return (
-    <ProfileCard className="p-5">
-      <div className="mb-3">
+    <ProfileCard className="py-5 px-8">
+      <div className="mb-3 flex justify-between">
         <h1 className="text-gray-700 text-xl font-bold">About</h1>
+        <div className="cursor-pointer">
+          <FaEdit />
+        </div>
       </div>
 
       {renderAbout()}
