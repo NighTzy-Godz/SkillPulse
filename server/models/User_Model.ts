@@ -17,7 +17,7 @@ export enum GENDER {
 interface IUser extends Document {
   email: string;
   password: string;
-
+  location: string;
   about: string;
   pfp: string;
   gender: GENDER;
@@ -64,6 +64,11 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+  },
+
+  location: {
+    type: String,
+    default: "",
   },
 
   password: {
