@@ -8,7 +8,7 @@ import { Button } from "flowbite-react";
 
 function ProfileIntro() {
   return (
-    <ProfileCard className="mb-4 pb-5">
+    <ProfileCard className="mb-4 ">
       <div className="h-[30dvh] min-h-[300px]">
         <img
           src={bg}
@@ -17,16 +17,16 @@ function ProfileIntro() {
         />
       </div>
 
-      <div className="px-5">
+      <div className="p-5">
         <div className="flex justify-between relative ">
-          <div className="">
+          <div className="mt-[-125px]">
             <img
               src={pfp}
               alt=""
-              className=" h-[130px] w-[130px] sm:h-[150px] sm:w-[150px] object-cover rounded-full  mt-[-90px]"
+              className=" h-[130px] w-[130px] sm:h-[150px] sm:w-[150px] object-cover rounded-full  "
             />
           </div>
-          <div className="w-[25%] md:w-[15%] mt-6 ">
+          <div className="w-[25%] md:w-[15%] ">
             <Button
               theme={customBtnTheme}
               size="sm"
@@ -40,7 +40,7 @@ function ProfileIntro() {
 
         <div className="flex">
           <div className="flex w-2/3">
-            <div className=" mt-3">
+            <div className=" ">
               <h1 className="text-2xl font-bold text-gray-700">
                 Aser Hubero{" "}
                 <span className="text-gray-500 text-sm  ">(He / Him)</span>
@@ -57,12 +57,11 @@ function ProfileIntro() {
           </div>
         </div>
 
-        <div className="mt-2">
-          {" "}
+        <div className="mt-2 flex gap-2">
           <p className="text-gray-500 text-sm">ajhubero16@gmail.com</p>
-          <p className="text-gray-500 text-sm">0998 490 7193</p>
-          <p className="text-gray-500 text-sm">Nov 19 2003</p>
-          <p className="text-gray-500 text-sm">Taguig City</p>
+          <p className="text-gray-500 text-sm b-dot">0998 490 7193</p>
+          <p className="text-gray-500 text-sm b-dot">Nov 19 2003</p>
+          <p className="text-gray-500 text-sm b-dot">Taguig City</p>
         </div>
       </div>
     </ProfileCard>
