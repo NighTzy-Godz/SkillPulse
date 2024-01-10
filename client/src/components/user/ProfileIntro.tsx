@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { State } from "../../store/store";
 import React, { useState } from "react";
 import UserEditIntroModal from "../modal/UserEditIntroModal";
+import moment from "moment";
 
 function ProfileIntro() {
   const [showModal, setShowModal] = useState(false);
@@ -94,7 +95,12 @@ function ProfileIntro() {
             </div>
           </div>
 
-          <div className="mt-2 flex gap-2">{renderContactDetails}</div>
+          <div className="mt-2 flex gap-2">
+            {renderContactDetails}
+            <p className="text-gray-500 text-sm b-dot">
+              {moment(dateOfBirth).format("MMM Do YYYY")}
+            </p>
+          </div>
         </div>
       </ProfileCard>
       <UserEditIntroModal

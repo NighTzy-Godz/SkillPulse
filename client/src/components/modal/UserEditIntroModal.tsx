@@ -7,11 +7,11 @@ import {
   TextInput,
   Textarea,
 } from "flowbite-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserIntroEditData } from "../../interfaces/User";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
 import { MdEmail, MdContactPhone } from "react-icons/md";
 import { FaAddressCard } from "react-icons/fa";
@@ -21,6 +21,7 @@ import genderData from "../../data/gender";
 import { PiGenderIntersexFill } from "react-icons/pi";
 import { FaLocationDot } from "react-icons/fa6";
 import customBtnTheme from "../../utils/customBtnTheme";
+import { setUserStatusCode, updateUserIntro } from "../../store/slices/user";
 interface UserEditIntroModalProps {
   onModalClose(): void;
   showModal: boolean;
@@ -31,6 +32,13 @@ function UserEditIntroModal({
   onModalClose,
 }: UserEditIntroModalProps) {
   const user = useSelector((state: State) => state.entities.user.userData);
+  const statusCode = useSelector(
+    (state: State) => state.entities.user.statusCode
+  );
+
+  const [selectedDate, setSelectedDate] = useState<Date>();
+
+  const dispatch = useDispatch();
   const {
     firstName,
     lastName,
@@ -67,8 +75,20 @@ function UserEditIntroModal({
     );
   });
 
+  useEffect(() => {
+    if (statusCode === 200) {
+      onModalClose();
+      dispatch(setUserStatusCode(null));
+    }
+  }, [statusCode]);
+
   const handleIntroSubmit = (data: UserIntroEditData) => {
-    console.log(data);
+    const reqBody: UserIntroEditData = {
+      ...data,
+      dateOfBirth: selectedDate as Date,
+    };
+
+    dispatch(updateUserIntro(reqBody));
   };
 
   return (
@@ -143,11 +163,14 @@ function UserEditIntroModal({
 
           <div className="w-full mb-5">
             <Label className="label">Date of Birth</Label>
+
             <Datepicker
-              maxDate={new Date(Date.now())}
               sizing="lg"
-              {...register("dateOfBirth")}
+              onSelectedDateChanged={(date) => setSelectedDate(date)}
             />
+            {errors.dateOfBirth && (
+              <InputError msg={errors.dateOfBirth.message as string} />
+            )}
           </div>
 
           <div className="w-full mb-5">

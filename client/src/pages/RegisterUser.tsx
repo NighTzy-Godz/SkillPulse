@@ -28,7 +28,8 @@ function RegisterUser() {
 
   useEffect(() => {
     if (statusCode === 200) {
-      setStatusCode(null);
+      dispatch(setStatusCode(null));
+
       // NOTE: ADD THE NAVIGATION HERE
     }
   }, [statusCode]);

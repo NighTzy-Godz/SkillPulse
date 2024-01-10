@@ -116,7 +116,7 @@ function Home() {
                 <div className="mt-3 flex gap-1">
                   <p className="text-zinc-700 text-sm">Dont have an account?</p>
                   <Link
-                    to="/register-jobSeeker"
+                    to="/register-user"
                     className="text-blue-500 text-sm underline "
                   >
                     Register Here

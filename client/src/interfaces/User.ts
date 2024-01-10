@@ -31,7 +31,7 @@ export interface UserIntroEditData {
   lastName: string;
   gender: GENDER;
   bio: string;
-  dateOfBirth: Date;
+  dateOfBirth?: Date;
   contact: string;
   location: string;
   email: string;

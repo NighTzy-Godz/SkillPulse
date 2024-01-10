@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser } from "../../interfaces/User";
+import { IUser, UserIntroEditData } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
 
 interface UserState {
@@ -36,10 +36,30 @@ const slice = createSlice({
       user.error = null;
       user.userData = action.payload.data;
     },
+
+    userUpdateIntroSuccess: (user, action) => {
+      (user.loading = false),
+        (user.error = null),
+        (user.userData = action.payload.data);
+
+      console.log(action.payload);
+      user.statusCode = action.payload.status;
+    },
+
+    setUserStatusCode: (user, action) => {
+      user.statusCode = action.payload;
+    },
   },
 });
 
-const { userRequested, userRequestFailed, userGetDataSuccess } = slice.actions;
+export const { setUserStatusCode } = slice.actions;
+
+const {
+  userRequested,
+  userRequestFailed,
+  userGetDataSuccess,
+  userUpdateIntroSuccess,
+} = slice.actions;
 
 export const getUserData = (userId: string) =>
   apiCallBegan({
@@ -49,4 +69,14 @@ export const getUserData = (userId: string) =>
     onSuccess: userGetDataSuccess.type,
   });
 
+export const updateUserIntro = (data: UserIntroEditData) =>
+  apiCallBegan({
+    url: "/user/updateUserIntro",
+    data,
+    method: "PUT",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userUpdateIntroSuccess.type,
+    successMsg: "Successfullt Updated Your Intro!",
+  });
 export default slice.reducer;
