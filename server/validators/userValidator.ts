@@ -56,7 +56,7 @@ export const userUpdateIntroValidator = (
         "string.base": "Gender should be a string.",
       }),
 
-    dateofBirth: Joi.date().iso().messages({
+    dateOfBirth: Joi.date().iso().messages({
       "date.base": "Invalid date format. Please use a valid date.",
       "date.format":
         "Invalid date format. Please use the ISO 8601 format (e.g., YYYY-MM-DD).",
@@ -85,8 +85,7 @@ export const userUpdateIntroValidator = (
       "string.max": "Location should only contain 50 characters",
     }),
 
-    bio: Joi.string().min(5).max(250).trim().messages({
-      "string.empty": "Bio cannot be empty",
+    bio: Joi.string().min(5).max(250).trim().allow("").messages({
       "string.base": "This input should be a type of string",
       "string.min": "Bio should have atleast 6 characters",
       "string.max": "Bio should only contain 250 characters",

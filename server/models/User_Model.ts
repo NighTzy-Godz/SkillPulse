@@ -90,7 +90,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 
   dateOfBirth: {
     type: Date,
-    required: true,
+    default: Date.now(),
   },
 
   pfp: {

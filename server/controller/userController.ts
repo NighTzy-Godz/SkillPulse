@@ -45,16 +45,23 @@ export const updateUserIntro = async (
     const { error } = userUpdateIntroValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const currUser = req.user?._id;
-    const foundUser = await User.findOne({ _id: currUser });
+    const currentUserId = req.user?._id;
+    const foundUser = await User.findOne({ _id: currentUserId });
 
     if (!foundUser) return res.status(404).send("User did not found");
 
-    const usedEmail = await User.findOne({ email, _id: { $ne: currUser } });
+    const usedEmail = await User.findOne({
+      email,
+      _id: { $ne: currentUserId },
+    });
     if (usedEmail) return res.status(409).send("User with this email exists");
 
-    const usedContact = await User.findOne({ contact, _id: { $ne: currUser } });
-    if (usedContact) return res.status(409).send("User with this email exists");
+    const usedContact = await User.findOne({
+      contact,
+      _id: { $ne: currentUserId },
+    });
+    if (usedContact)
+      return res.status(409).send("User with this contact exists");
 
     foundUser.set({
       firstName,
@@ -67,8 +74,8 @@ export const updateUserIntro = async (
       dateOfBirth,
     });
 
-    // await foundUser.save();
-    console.log(foundUser);
+    await foundUser.save();
+
     res.send(foundUser);
   } catch (error) {
     next(error);
