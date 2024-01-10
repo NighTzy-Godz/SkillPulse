@@ -3,30 +3,32 @@ import ProfileCard from "../common/ProfileCard";
 import { FaEdit } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 import NoProfileData from "../common/NoProfileData";
+import { useSelector } from "react-redux";
+import { State } from "../../store/store";
+import moment from "moment";
 function ProfileEducation() {
-  const education: [] | null = [];
+  const education = useSelector(
+    (state: State) => state.entities.user.userData?.education
+  );
 
   const renderEducation = () => {
-    if (!education) return <NoProfileData />;
-    return (
-      <React.Fragment>
-        <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">Asia Pacific College</h3>
-          <p className="text-zinc-500 text-sm">Senior Highschool (STEM)</p>
-          <p className="text-zinc-400 text-sm">June 2022</p>
-        </div>{" "}
-        <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">Asia Pacific College</h3>
-          <p className="text-zinc-500 text-sm">Senior Highschool (STEM)</p>
-          <p className="text-zinc-400 text-sm">June 2022</p>
-        </div>{" "}
-        <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">Asia Pacific College</h3>
-          <p className="text-zinc-500 text-sm">Senior Highschool (STEM)</p>
-          <p className="text-zinc-400 text-sm">June 2022</p>
-        </div>
-      </React.Fragment>
-    );
+    if (education?.length === 0)
+      return (
+        <NoProfileData msg="This User did not put some Education at the moment" />
+      );
+    return education?.map((item) => {
+      return (
+        <React.Fragment>
+          <div className="mb-5">
+            <h3 className="text-zinc-700 font-bold">{item.schoolName}</h3>
+            <p className="text-zinc-500 text-sm">{item.degree}</p>
+            <p className="text-zinc-400 text-sm">
+              {moment(item.graduateYear).format("MMM Do")}
+            </p>
+          </div>{" "}
+        </React.Fragment>
+      );
+    });
   };
 
   return (

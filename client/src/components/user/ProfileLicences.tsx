@@ -1,33 +1,32 @@
-import React from "react";
 import ProfileCard from "../common/ProfileCard";
 import NoProfileData from "../common/NoProfileData";
 import { FaEdit } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
+import { useSelector } from "react-redux";
+import { State } from "../../store/store";
+import moment from "moment";
 
 function ProfileLicences() {
-  const education: [] | null = [];
+  const certifications = useSelector(
+    (state: State) => state.entities.user.userData?.certifications
+  );
 
-  const renderLicenses = () => {
-    if (!education) return <NoProfileData />;
-    return (
-      <React.Fragment>
+  const renderCertifications = () => {
+    if (certifications?.length === 0)
+      return (
+        <NoProfileData msg="This User did not put some Certifications at the moment" />
+      );
+    return certifications?.map((item) => {
+      return (
         <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">The Ultimate Git Course</h3>
-          <p className="text-zinc-500 text-sm">Code with Mosh</p>
-          <p className="text-zinc-400 text-sm">Issued on March 2023</p>
-        </div>{" "}
-        <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">The Ultimate Git Course</h3>
-          <p className="text-zinc-500 text-sm">Code with Mosh</p>
-          <p className="text-zinc-400 text-sm">Issued on March 2023</p>
-        </div>{" "}
-        <div className="mb-5">
-          <h3 className="text-zinc-700 font-bold">The Ultimate Git Course</h3>
-          <p className="text-zinc-500 text-sm">Code with Mosh</p>
-          <p className="text-zinc-400 text-sm">Issued on March 2023</p>
+          <h3 className="text-zinc-700 font-bold">{item.name}</h3>
+          <p className="text-zinc-500 text-sm">{item.organization}</p>
+          <p className="text-zinc-400 text-sm">
+            {moment(item.issueDate).format("MMM Do")}
+          </p>
         </div>
-      </React.Fragment>
-    );
+      );
+    });
   };
 
   return (
@@ -44,7 +43,7 @@ function ProfileLicences() {
           </div>
         </div>
       </div>
-      {renderLicenses()}
+      {renderCertifications()}
     </ProfileCard>
   );
 }

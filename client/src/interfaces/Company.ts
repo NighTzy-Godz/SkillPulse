@@ -1,3 +1,5 @@
+import { IUser } from "./User";
+
 export enum INDUSTRY {
   Information_Technology = "Information Technology",
   Healthcare = "Healthcare",
@@ -15,4 +17,22 @@ export interface CompanyRegisterData {
   size: string;
   location: string;
   email: string;
+}
+
+export interface ICompany {
+  isCompany: boolean;
+  name: string;
+  moderators: IUser[];
+  description: string;
+  industry: INDUSTRY;
+  website: string;
+  email: string;
+  logo: string;
+  size: string;
+  location: string;
+  owner: IUser;
+  coverPhoto: string;
+  approved: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

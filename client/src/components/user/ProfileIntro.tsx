@@ -35,7 +35,12 @@ function ProfileIntro() {
   };
 
   const renderContactDetails = contactDetails.map((item) => {
-    if (item) return <p className="text-gray-500 text-sm b-dot">{item}</p>;
+    if (item)
+      return (
+        <p key={item} className="text-gray-500 text-sm b-dot">
+          {item}
+        </p>
+      );
   });
 
   return (

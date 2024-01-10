@@ -1,11 +1,13 @@
 import React from "react";
 
-function NoProfileData() {
+interface NoProfileDataProps {
+  msg: string;
+}
+
+function NoProfileData({ msg }: NoProfileDataProps) {
   return (
     <React.Fragment>
-      <p className="text-gray-600 text-lg">
-        No profile data with this category was found.
-      </p>
+      <p className="text-gray-600 text-lg">{msg}</p>
     </React.Fragment>
   );
 }

@@ -1,48 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileCard from "../common/ProfileCard";
 
 import { FaEdit } from "react-icons/fa";
 import NoProfileData from "../common/NoProfileData";
-const data =
-  "Collection：SHOCK WAVE 5\r\n" +
-  "\r\n" +
-  "Category：Basketball Shoes\r\n" +
-  "\r\n" +
-  "Gender：Men\r\n" +
-  "\r\n" +
-  "Upper：Mesh/PP FILM/SYNTHE PU\r\n" +
-  "\r\n" +
-  "Outsole：TPU/rubber/carbon fiber\r\n" +
-  "\r\n" +
-  "Sytle No：112331106\r\n" +
-  "\r\n" +
-  "\r\n" +
-  "\r\n" +
-  "Logistics Services：\r\n" +
-  "\r\n" +
-  "Usually it takes about 2 days from our warehouse to Shopee Sorting Center, then takes about 7-14 days to receiving address, you can check with the carrier and tracking number when it arrives.\r\n" +
-  "\r\n" +
-  "\r\n" +
-  "\r\n" +
-  "Customer Services Worktime：\r\n" +
-  "\r\n" +
-  "From 9am. to 8pm. in every workday, if you have any question during our non-work time, we will respone you as soon as in worktime.\r\n" +
-  "\r\n" +
-  "\r\n" +
-  "\r\n" +
-  "Notes：\r\n" +
-  "\r\n" +
-  "Due to the light and screen setting difference, the items color may be slightly different from the pictures.\r\n" +
-  "\r\n" +
-  "Please choose the appropriate size according to the size chart.";
+import { useSelector } from "react-redux";
+import { State } from "../../store/store";
 
 function ProfileAbout() {
-  const [clicked, setClicked] = useState(false);
+  const user = useSelector((state: State) => state.entities.user.userData);
 
-  const slicedData = !clicked ? `${data.slice(0, 80)} ...` : data;
+  const [clicked, setClicked] = useState(false);
+  const [slicedData, setSlicedData] = useState("");
+  useEffect(() => {
+    if (user && !clicked) {
+      setSlicedData(user.about.slice(0, 80));
+    } else {
+      setSlicedData(user?.about as string);
+    }
+  }, []);
 
   const renderAbout = () => {
-    if (!data) return <NoProfileData />;
+    if (!user?.about)
+      return (
+        <NoProfileData msg="This User did not put some introduction at the moment" />
+      );
 
     return (
       <React.Fragment>
@@ -52,7 +33,10 @@ function ProfileAbout() {
       </React.Fragment>
     );
   };
-
+  const renderParagraph = () => {
+    if (user?.about && clicked) return "... see less";
+    else if (user?.about && !clicked) "... see more";
+  };
   return (
     <ProfileCard className="py-5 px-8 mb-5">
       <div className="mb-3 flex justify-between">
@@ -69,7 +53,7 @@ function ProfileAbout() {
           className="absolute text-sm text-gray-500 right-0 bottom-0 cursor-pointer hover:underline"
           onClick={() => setClicked(!clicked)}
         >
-          {clicked ? "... see less" : "... see more"}
+          {renderParagraph()}
         </p>
       </div>
     </ProfileCard>

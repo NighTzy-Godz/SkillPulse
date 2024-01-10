@@ -1,6 +1,13 @@
+import { ICompany } from "./Company";
+
 export enum GENDER {
   Male = "Male",
   Female = "Female",
+}
+
+export enum JobType {
+  FULL_TIME = "Full Time",
+  PART_TIME = "Part Time",
 }
 
 export interface LoginUserData {
@@ -29,7 +36,7 @@ export interface IUser {
   pfp: string;
   gender: GENDER;
   coverPhoto: string;
-  company?: string;
+  company?: ICompany;
   firstName: string;
   lastName: string;
   contact: string;
@@ -45,7 +52,8 @@ export interface IUser {
   }[];
 
   experience?: {
-    company: string;
+    jobType: JobType;
+    company: ICompany;
     position: string;
     startDate: Date;
     endDate: Date;
