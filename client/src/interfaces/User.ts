@@ -21,6 +21,7 @@ export interface RegisterUserData {
 
 export interface IUser {
   role: string;
+  dateOfBirth: Date;
   email: string;
   password: string;
   location: string;
