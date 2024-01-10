@@ -12,10 +12,16 @@ export enum GENDER {
   Female = "Female",
 }
 
+export enum JobType {
+  FULL_TIME = "Full Time",
+  PART_TIME = "Part Time",
+}
+
 // NOTE: Add a recentSearch field if needed
 
 interface IUser extends Document {
-  isUser: boolean;
+  role: string;
+  dateOfBirth: Date;
   email: string;
   password: string;
   location: string;
@@ -44,6 +50,7 @@ interface IUser extends Document {
     startDate: Date;
     endDate: Date;
     desc: string;
+    jobType: JobType;
   }[];
 
   projects?: {
@@ -62,9 +69,9 @@ interface IUser extends Document {
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
-  isUser: {
-    type: Boolean,
-    default: true,
+  role: {
+    type: String,
+    default: "User",
   },
   email: {
     type: String,
@@ -78,6 +85,11 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 
   password: {
     type: String,
+    required: true,
+  },
+
+  dateOfBirth: {
+    type: Date,
     required: true,
   },
 
@@ -159,6 +171,12 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
         ref: "Company",
       },
 
+      jobType: {
+        type: String,
+        enum: Object.values(JobType),
+        required: true,
+      },
+
       position: {
         type: String,
         required: true,
@@ -229,8 +247,7 @@ userSchema.methods.generateAuthToken = function (this) {
   return jwt.sign(
     {
       _id: this._id,
-      isUser: this.isUser,
-      fullName: this.firstName + " " + this.lastName,
+      role: this.role,
     },
     jwtSecretPass
   );
