@@ -50,6 +50,12 @@ export const updateUserIntro = async (
 
     if (!foundUser) return res.status(404).send("User did not found");
 
+    const usedEmail = await User.findOne({ email, _id: { $ne: currUser } });
+    if (usedEmail) return res.status(409).send("User with this email exists");
+
+    const usedContact = await User.findOne({ contact, _id: { $ne: currUser } });
+    if (usedContact) return res.status(409).send("User with this email exists");
+
     foundUser.set({
       firstName,
       lastName,
@@ -61,8 +67,8 @@ export const updateUserIntro = async (
       dateOfBirth,
     });
 
-    await foundUser.save();
-
+    // await foundUser.save();
+    console.log(foundUser);
     res.send(foundUser);
   } catch (error) {
     next(error);
