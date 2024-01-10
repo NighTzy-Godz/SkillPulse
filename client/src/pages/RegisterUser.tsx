@@ -8,12 +8,13 @@ import customBtnTheme from "../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
 import { RegisterUserData } from "../interfaces/User";
 import InputError from "../components/common/InputError";
-import { KeyboardEvent, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
 import { setStatusCode, userRegister } from "../store/slices/auth";
 import FormHeader from "../components/common/FormHeader";
 import { PiGenderIntersexFill } from "react-icons/pi";
+import handleNumbersOnly from "../utils/handleNumbersOnly";
 
 function RegisterUser() {
   const dispatch = useDispatch();
@@ -39,12 +40,6 @@ function RegisterUser() {
       </option>
     );
   });
-
-  const handleNumbersOnly = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (!/[0-9]|Backspace/.test(e.key)) {
-      e.preventDefault();
-    }
-  };
 
   const handleRegisterSubmit = (data: RegisterUserData) => {
     dispatch(userRegister(data));

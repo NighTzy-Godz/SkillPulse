@@ -26,6 +26,17 @@ export interface RegisterUserData {
   confirmPassword: string;
 }
 
+export interface UserIntroEditData {
+  firstName: string;
+  lastName: string;
+  gender: GENDER;
+  bio: string;
+  dateOfBirth: Date;
+  contact: string;
+  location: string;
+  email: string;
+}
+
 export interface IUser {
   _id: string;
   role: string;

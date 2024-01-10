@@ -43,8 +43,10 @@ function MainNav({ token }: MainNavProps) {
               </Dropdown.Item>
               <Dropdown.Item>
                 <Link to="#">Saved Jobs</Link>
+              </Dropdown.Item>{" "}
+              <Dropdown.Item>
+                <Link to="/register-company">Register Company</Link>
               </Dropdown.Item>
-
               <Dropdown.Divider />
               <Dropdown.Item>Sign out</Dropdown.Item>
             </Dropdown>
@@ -72,11 +74,6 @@ function MainNav({ token }: MainNavProps) {
           >
             Post a Job
           </NavLink>
-          {token && (
-            <NavLink to="/register-company" className={navBarClass}>
-              Register Company
-            </NavLink>
-          )}
         </Navbar.Collapse>
       </div>
     </Navbar>
