@@ -7,7 +7,7 @@ import {
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
 
-export const registerJobSeeker = async (
+export const registerUser = async (
   req: Request,
   res: Response,
   next: NextFunction
