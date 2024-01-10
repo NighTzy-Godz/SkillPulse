@@ -3,6 +3,7 @@ import {
   UserRegisterData,
   userLoginValidator,
   userRegisterValidator,
+  userUpdateIntroValidator,
 } from "../validators/userValidator";
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
@@ -19,6 +20,50 @@ export const getUserData = async (
     if (!currUser) return res.status(404).send("User did not found");
 
     res.send(currUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUserIntro = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      gender,
+      bio,
+      email,
+      location,
+      contact,
+      dateOfBirth,
+    } = req.body;
+
+    const { error } = userUpdateIntroValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currUser = req.user?._id;
+    const foundUser = await User.findOne({ _id: currUser });
+
+    if (!foundUser) return res.status(404).send("User did not found");
+
+    foundUser.set({
+      firstName,
+      lastName,
+      gender,
+      bio,
+      email,
+      location,
+      contact,
+      dateOfBirth,
+    });
+
+    await foundUser.save();
+
+    res.send(foundUser);
   } catch (error) {
     next(error);
   }
