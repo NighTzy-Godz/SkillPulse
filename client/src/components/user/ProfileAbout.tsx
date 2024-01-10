@@ -13,11 +13,11 @@ function ProfileAbout() {
   const [slicedData, setSlicedData] = useState("");
   useEffect(() => {
     if (user && !clicked) {
-      setSlicedData(user.about.slice(0, 80));
+      setSlicedData(user?.about?.slice(0, 80));
     } else {
       setSlicedData(user?.about as string);
     }
-  }, []);
+  }, [user]);
 
   const renderAbout = () => {
     if (!user?.about)

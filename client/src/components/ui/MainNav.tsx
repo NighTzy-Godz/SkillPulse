@@ -1,12 +1,18 @@
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
+import { useSelector } from "react-redux";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { State } from "../../store/store";
 
 interface MainNavProps {
   token: null | string;
 }
 
 function MainNav({ token }: MainNavProps) {
+  const user = useSelector((state: State) => state.entities.user.userData);
+  const userId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?._id
+  );
   const navBarClass =
     "transition-all duration-200 block py-2 text-lg pr-4 pl-3  border-b border-gray-100 text-gray-700   md:border-0 md:hover:hover:text-blue-500 md:p-0";
   return (
@@ -22,23 +28,23 @@ function MainNav({ token }: MainNavProps) {
             <Dropdown
               arrowIcon={false}
               inline
-              label={
-                <Avatar
-                  alt="User settings"
-                  img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                  rounded
-                />
-              }
+              label={<Avatar alt="User settings" img={user?.pfp} rounded />}
             >
               <Dropdown.Header>
-                <span className="block text-sm">Bonnie Green</span>
+                <span className="block text-sm">
+                  {user?.firstName} {user?.lastName}
+                </span>
                 <span className="block truncate text-sm font-medium">
-                  name@flowbite.com
+                  {user?.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>Dashboard</Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
+              <Dropdown.Item>
+                <Link to={`/user/profile/${userId}`}>Profile</Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link to="#">Saved Jobs</Link>
+              </Dropdown.Item>
+
               <Dropdown.Divider />
               <Dropdown.Item>Sign out</Dropdown.Item>
             </Dropdown>
