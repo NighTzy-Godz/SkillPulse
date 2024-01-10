@@ -15,6 +15,7 @@ export enum GENDER {
 // NOTE: Add a recentSearch field if needed
 
 interface IUser extends Document {
+  isUser: boolean;
   email: string;
   password: string;
   location: string;
@@ -61,6 +62,10 @@ interface IUser extends Document {
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
+  isUser: {
+    type: Boolean,
+    default: true,
+  },
   email: {
     type: String,
     required: true,
@@ -224,7 +229,7 @@ userSchema.methods.generateAuthToken = function (this) {
   return jwt.sign(
     {
       _id: this._id,
-
+      isUser: this.isUser,
       fullName: this.firstName + " " + this.lastName,
     },
     jwtSecretPass

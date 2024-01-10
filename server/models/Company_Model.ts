@@ -18,6 +18,7 @@ export enum INDUSTRY {
 }
 
 export interface ICompany extends Document {
+  isCompany: boolean;
   name: string;
   moderators: mongoose.Schema.Types.ObjectId[];
   description: string;
@@ -36,6 +37,10 @@ export interface ICompany extends Document {
 
 const companySchema: Schema<ICompany> = new mongoose.Schema(
   {
+    isCompany: {
+      type: Boolean,
+      default: true,
+    },
     name: {
       type: String,
       required: true,

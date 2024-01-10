@@ -7,6 +7,23 @@ import {
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
 
+export const getUserData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { userId } = req.params;
+
+    const currUser = await User.findOne({ _id: userId });
+    if (!currUser) return res.status(404).send("User did not found");
+
+    res.send(currUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const registerUser = async (
   req: Request,
   res: Response,
