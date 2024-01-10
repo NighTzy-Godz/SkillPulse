@@ -35,7 +35,6 @@ interface IUser extends Document {
     schoolName: string;
     degree: string;
     graduateYear: string;
-    desc: string;
   }[];
 
   experience?: {
@@ -43,6 +42,7 @@ interface IUser extends Document {
     position: string;
     startDate: Date;
     endDate: Date;
+    desc: string;
   }[];
 
   projects?: {
@@ -50,7 +50,7 @@ interface IUser extends Document {
     link: string;
     desc: string;
     startDate: Date;
-    endDate: Date;
+    endDate: Date | string;
   }[];
 
   certifications?: {
@@ -144,11 +144,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
         type: String,
         required: true,
       },
-
-      desc: {
-        type: String,
-        default: "",
-      },
     },
   ],
 
@@ -166,6 +161,11 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
       startDate: {
         type: Date,
         required: true,
+      },
+
+      desc: {
+        type: String,
+        default: "",
       },
 
       endDate: {
@@ -195,7 +195,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
       },
 
       endDate: {
-        type: Date,
+        type: Date || String,
         required: true,
       },
     },
