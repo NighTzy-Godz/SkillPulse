@@ -232,7 +232,7 @@ function RegisterUser() {
                 color="blue"
                 className="w-full"
               >
-                Register as JobSeeker
+                Register User
               </Button>
             </div>
           </form>

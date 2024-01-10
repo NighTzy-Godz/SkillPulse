@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "./store/store";
 import { useEffect } from "react";
 import UserProfile from "./pages/UserProfile";
+import { jwtDecode } from "jwt-decode";
+import { setDecodedModel } from "./store/slices/auth";
+import AuthNavigator from "./pages/AuthNavigator";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +23,8 @@ function App() {
   useEffect(() => {
     if (!token) return;
     try {
+      const decodedUser = jwtDecode(token);
+      dispatch(setDecodedModel(decodedUser));
       localStorage.setItem("token", token);
     } catch (error) {}
   }, [token]);
@@ -30,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeLayout token={token} />}>
           <Route index element={<Home />} />
+          <Route path="/cold-login" element={<AuthNavigator />} />
 
           <Route path="/register-user" element={<RegisterUser />} />
           <Route path="/register-company" element={<RegisterCompany />} />

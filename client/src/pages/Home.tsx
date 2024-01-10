@@ -27,8 +27,9 @@ function Home() {
 
   useEffect(() => {
     if (statusCode === 200) {
-      setStatusCode(null);
-      navigate("/user/profile");
+      dispatch(setStatusCode(null));
+
+      navigate("/cold-login");
     }
   }, [statusCode]);
 

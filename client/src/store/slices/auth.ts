@@ -2,11 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LoginUserData, RegisterUserData } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
 
+export interface DecodedModel {
+  _id: string;
+  role: string;
+}
+
 interface AuthState {
   loading: boolean;
   statusCode: null | number;
   error: null | string;
   token: null | string;
+  decodedModel: null | DecodedModel;
 }
 
 const initialState: AuthState = {
@@ -14,6 +20,7 @@ const initialState: AuthState = {
   statusCode: null,
   error: null,
   token: null,
+  decodedModel: null,
 };
 
 const slice = createSlice({
@@ -42,11 +49,15 @@ const slice = createSlice({
     setStatusCode: (auth, action) => {
       auth.statusCode = action.payload;
     },
+
+    setDecodedModel: (auth, action) => {
+      auth.decodedModel = action.payload;
+    },
   },
 });
 
 export default slice.reducer;
-export const { setStatusCode } = slice.actions;
+export const { setStatusCode, setDecodedModel } = slice.actions;
 
 const {
   authLoginSuccess,
