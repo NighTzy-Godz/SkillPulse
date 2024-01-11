@@ -9,7 +9,7 @@ import {
 } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { UserIntroEditData } from "../../interfaces/User";
+import { GENDER, IUser, UserIntroEditData } from "../../interfaces/User";
 
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
@@ -32,6 +32,7 @@ function UserEditIntroModal({
   onModalClose,
 }: UserEditIntroModalProps) {
   const user = useSelector((state: State) => state.entities.user.userData);
+  const loading = useSelector((state: State) => state.entities.user.loading);
   const statusCode = useSelector(
     (state: State) => state.entities.user.statusCode
   );
@@ -50,21 +51,23 @@ function UserEditIntroModal({
     dateOfBirth,
   } = user || {};
 
+  const values: UserIntroEditData = {
+    firstName: firstName as string,
+    lastName: lastName as string,
+    gender: gender as GENDER,
+    bio: bio as string,
+    email: email as string,
+    location: location as string,
+    contact: contact as string,
+    dateOfBirth,
+  };
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm<UserIntroEditData>({
-    defaultValues: {
-      firstName,
-      lastName,
-      gender,
-      bio,
-      email,
-      location,
-      contact,
-      dateOfBirth,
-    },
+    values,
   });
 
   const renderGenderOptions = genderData.map((item) => {
@@ -90,6 +93,8 @@ function UserEditIntroModal({
 
     dispatch(updateUserIntro(reqBody));
   };
+
+  if (loading) return <h1>LOADING.....</h1>;
 
   return (
     <Modal dismissible show={showModal} onClose={onModalClose} size="3xl">
