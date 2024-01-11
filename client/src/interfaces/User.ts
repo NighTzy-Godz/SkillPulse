@@ -37,6 +37,10 @@ export interface UserIntroEditData {
   email: string;
 }
 
+export interface UserAboutEditData {
+  about: string;
+}
+
 export interface IUser {
   _id: string;
   role: string;
