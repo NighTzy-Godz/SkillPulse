@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser, UserIntroEditData } from "../../interfaces/User";
+import {
+  IUser,
+  UserAboutEditData,
+  UserIntroEditData,
+} from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
 
 interface UserState {
@@ -42,8 +46,16 @@ const slice = createSlice({
         (user.error = null),
         (user.userData = action.payload.data);
 
-      console.log(action.payload);
       user.statusCode = action.payload.status;
+    },
+
+    userUpdateAboutSuccess: (user, action) => {
+      if (user.userData) {
+        user.userData.about = action.payload.data.about;
+      }
+      (user.error = null),
+        (user.loading = false),
+        (user.statusCode = action.payload.statuts);
     },
 
     setUserStatusCode: (user, action) => {
@@ -59,6 +71,7 @@ const {
   userRequestFailed,
   userGetDataSuccess,
   userUpdateIntroSuccess,
+  userUpdateAboutSuccess,
 } = slice.actions;
 
 export const getUserData = (userId: string) =>
@@ -77,6 +90,17 @@ export const updateUserIntro = (data: UserIntroEditData) =>
     onStart: userRequested.type,
     onError: userRequestFailed.type,
     onSuccess: userUpdateIntroSuccess.type,
-    successMsg: "Successfullt Updated Your Intro!",
+    successMsg: "Successfully Updated Your Intro!",
+  });
+
+export const updateUserAbout = (data: UserAboutEditData) =>
+  apiCallBegan({
+    url: "/user/updateUserAbout",
+    data,
+    method: "PUT",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userUpdateAboutSuccess.type,
+    successMsg: "Successfully Updated Your About!",
   });
 export default slice.reducer;

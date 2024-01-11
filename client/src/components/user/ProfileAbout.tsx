@@ -8,35 +8,38 @@ import { State } from "../../store/store";
 import UserEditAboutModal from "../modal/UserEditAboutModal";
 
 function ProfileAbout() {
-  const user = useSelector((state: State) => state.entities.user.userData);
+  const about = useSelector(
+    (state: State) => state.entities.user.userData?.about
+  );
   const [showModal, setShowModal] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [slicedData, setSlicedData] = useState("");
   useEffect(() => {
-    if (user && !clicked) {
-      setSlicedData(user?.about?.slice(0, 80));
+    if (about && !clicked) {
+      setSlicedData(`${about?.slice(0, 150)} ...`);
     } else {
-      setSlicedData(user?.about as string);
+      setSlicedData(about as string);
     }
-  }, [user, clicked]);
+  }, [about, clicked]);
 
   const renderAbout = () => {
-    if (!user?.about)
+    if (!about)
       return (
         <NoProfileData msg="This User did not put some introduction at the moment" />
       );
 
     return (
       <React.Fragment>
-        <p className="mb-5 text-gray-600 text-sm whitespace-pre-wrap">
+        <p className="mb-5 text-gray-600 text-sm whitespace-pre-wrap pb-5">
           {slicedData}
         </p>
       </React.Fragment>
     );
   };
+
   const renderParagraph = () => {
-    if (user?.about && clicked) return "... see less";
-    else if (user?.about && !clicked) "... see more";
+    if (about && clicked) return "... see less";
+    else if (about && !clicked) return "... see more";
   };
 
   const handleCloseModal = () => {
@@ -60,7 +63,7 @@ function ProfileAbout() {
 
         <div className="relative">
           <p
-            className="absolute text-sm text-gray-500 right-0 bottom-0 cursor-pointer hover:underline"
+            className="absolute text-sm text-gray-500 right-0 bottom-0 cursor-pointer hover:underline "
             onClick={() => setClicked(!clicked)}
           >
             {renderParagraph()}

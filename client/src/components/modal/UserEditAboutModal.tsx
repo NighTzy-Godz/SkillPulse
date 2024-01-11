@@ -1,11 +1,12 @@
 import { Button, Label, Modal, Textarea } from "flowbite-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { UserAboutEditData } from "../../interfaces/User";
 import InputError from "../common/InputError";
 import customBtnTheme from "../../utils/customBtnTheme";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
+import { setUserStatusCode, updateUserAbout } from "../../store/slices/user";
 interface UserEditAboutModalProps {
   onModalClose(): void;
   showModal: boolean;
@@ -15,8 +16,13 @@ function UserEditAboutModal({
   showModal,
   onModalClose,
 }: UserEditAboutModalProps) {
+  const dispatch = useDispatch();
   const userAbout = useSelector(
     (state: State) => state.entities.user.userData?.about
+  );
+
+  const statusCode = useSelector(
+    (state: State) => state.entities.user.statusCode
   );
 
   const {
@@ -29,8 +35,15 @@ function UserEditAboutModal({
     },
   });
 
+  useEffect(() => {
+    if (statusCode === 200) {
+      dispatch(setUserStatusCode(null));
+      onModalClose();
+    }
+  }, [statusCode]);
+
   const handleAboutSubmit = (data: UserAboutEditData) => {
-    console.log(data);
+    dispatch(updateUserAbout(data));
   };
 
   return (
@@ -48,8 +61,8 @@ function UserEditAboutModal({
               rows={15}
               {...register("about", {
                 maxLength: {
-                  value: 250,
-                  message: "About Field can only contain 250 characters",
+                  value: 1000,
+                  message: "About Field can only contain 1000 characters",
                 },
               })}
               placeholder="Tell us something about yourself"
