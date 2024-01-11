@@ -22,6 +22,10 @@ export interface UserIntroEditData {
   email: string;
 }
 
+export interface UserAboutEditData {
+  about: string;
+}
+
 export interface UserLoginData {
   email: string;
   password: string;
@@ -89,6 +93,19 @@ export const userUpdateIntroValidator = (
       "string.base": "This input should be a type of string",
       "string.min": "Bio should have atleast 6 characters",
       "string.max": "Bio should only contain 250 characters",
+    }),
+  });
+
+  return schema.validate(data);
+};
+
+export const userUpdateAboutValidator = (
+  data: UserAboutEditData
+): Joi.ValidationResult => {
+  const schema: Schema<UserAboutEditData> = Joi.object({
+    about: Joi.string().max(1000).messages({
+      "string.max": "About Field can only contain 1000 characters",
+      "string.base": "This input should be a type of string",
     }),
   });
 

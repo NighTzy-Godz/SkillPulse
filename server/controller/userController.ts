@@ -82,6 +82,33 @@ export const updateUserIntro = async (
   }
 };
 
+export const updateUserAbout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { about } = req.body;
+
+    const { error } = userUpdateIntroValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currentUserId = req.user?._id;
+    const foundUser = await User.findOne({ _id: currentUserId }).select(
+      "about"
+    );
+    if (!foundUser) return res.status(404).send("User did not found");
+
+    foundUser.about = about;
+
+    await foundUser.save();
+
+    res.send(foundUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const registerUser = async (
   req: Request,
   res: Response,
