@@ -5,6 +5,7 @@ import { faker, fakerEN } from "@faker-js/faker";
 import { RegisterCompanyData } from "../validators/companyValidator";
 import industries from "../data/industries";
 import companySize from "../data/companySize";
+import User from "../models/User_Model";
 mongoose
   .connect(DB_URL)
   .then(() => console.log("Connected to the Datebase - Company "))
@@ -25,8 +26,12 @@ const generateCompanyData = (): RegisterCompanyData => {
 
 const seedCompanies = async (qty: number) => {
   try {
+    const userIds = await User.find({}).select("_id");
+
     for (let i = 0; i < qty; i++) {
       const newCompany = new Company(generateCompanyData());
+      newCompany.owner =
+        userIds[Math.floor(Math.random() * userIds.length)]._id;
       await newCompany.save();
       console.log(newCompany);
     }

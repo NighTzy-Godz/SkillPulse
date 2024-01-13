@@ -20,7 +20,6 @@ export enum INDUSTRY {
 export interface ICompany extends Document {
   isCompany: boolean;
   name: string;
-  moderators: mongoose.Schema.Types.ObjectId[];
   description: string;
   industry: INDUSTRY;
   website: string;
@@ -30,7 +29,7 @@ export interface ICompany extends Document {
   location: string;
   owner: mongoose.Schema.Types.ObjectId;
   coverPhoto: string;
-  approved: boolean;
+
   createdAt: Date;
   updatedAt: Date;
 }
