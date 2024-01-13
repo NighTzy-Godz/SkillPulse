@@ -4,6 +4,7 @@ import {
   userLoginValidator,
   userRegisterValidator,
   userUpdateIntroValidator,
+  userUpdateAboutValidator,
 } from "../validators/userValidator";
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
@@ -90,7 +91,7 @@ export const updateUserAbout = async (
   try {
     const { about } = req.body;
 
-    const { error } = userUpdateIntroValidator(req.body);
+    const { error } = userUpdateAboutValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
     const currentUserId = req.user?._id;

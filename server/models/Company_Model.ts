@@ -52,13 +52,6 @@ const companySchema: Schema<ICompany> = new mongoose.Schema(
       required: true,
     },
 
-    moderators: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-
     email: {
       type: String,
       required: true,
@@ -94,11 +87,6 @@ const companySchema: Schema<ICompany> = new mongoose.Schema(
       type: String,
       default:
         "https://iwritingsolutions.com/wp-content/uploads/2022/05/you-can-live-now.-thank-you.jpg",
-    },
-
-    approved: {
-      type: Boolean,
-      default: false,
     },
   },
   { timestamps: true }

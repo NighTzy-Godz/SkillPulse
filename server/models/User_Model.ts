@@ -12,7 +12,7 @@ export enum GENDER {
   Female = "Female",
 }
 
-export enum JobType {
+export enum EmploymentType {
   FULL_TIME = "Full Time",
   PART_TIME = "Part Time",
 }
@@ -45,12 +45,14 @@ interface IUser extends Document {
   }[];
 
   experience?: {
-    company: string;
+    defaultLogo: string;
+    company: mongoose.Schema.Types.ObjectId | string;
     position: string;
     startDate: Date;
-    endDate: Date;
+    endDate: Date | string;
     desc: string;
-    jobType: JobType;
+    jobType: EmploymentType;
+    location: string;
   }[];
 
   projects?: {
@@ -69,6 +71,10 @@ interface IUser extends Document {
 }
 
 const userSchema: Schema<IUser> = new mongoose.Schema({
+  about: {
+    type: String,
+    default: "",
+  },
   role: {
     type: String,
     default: "User",
@@ -166,14 +172,19 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 
   experience: [
     {
+      defaultLogo: {
+        type: String,
+        default:
+          "https://i.pinimg.com/originals/ec/d9/c2/ecd9c2e8ed0dbbc96ac472a965e4afda.jpg",
+      },
       company: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId || String,
         ref: "Company",
       },
 
       jobType: {
         type: String,
-        enum: Object.values(JobType),
+        enum: Object.values(EmploymentType),
         required: true,
       },
 
@@ -186,13 +197,18 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
         required: true,
       },
 
+      location: {
+        type: String,
+        default: "",
+      },
+
       desc: {
         type: String,
         default: "",
       },
 
       endDate: {
-        type: Date,
+        type: Date || String,
         required: true,
       },
     },
