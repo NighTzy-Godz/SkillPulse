@@ -176,7 +176,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
         required: true,
       },
 
-      jobType: {
+      employmentType: {
         type: String,
         enum: Object.values(EmploymentType),
         required: true,
@@ -202,7 +202,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
       },
 
       endDate: {
-        type: Date || String,
+        type: mongoose.Schema.Types.Mixed,
         required: true,
       },
     },

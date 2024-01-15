@@ -46,7 +46,9 @@ export const addUserExp = async (
     if (error) return res.status(400).send(error.details[0].message);
 
     const currUserId = req.user?._id;
-    const foundUser = await User.findOne({ _id: currUserId });
+    const foundUser = await User.findOne({ _id: currUserId }).select(
+      "experience"
+    );
     if (!foundUser) return res.status(404).send("User did not found");
 
     foundUser.experience?.push({

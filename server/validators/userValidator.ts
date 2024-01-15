@@ -74,13 +74,9 @@ export const userAddExpValidator = (
     }),
 
     endDate: Joi.alternatives(
-      Joi.date().iso().messages({
-        "date.base": "Invalid date format. Please use a valid date.",
-        "date.format":
-          "Invalid date format. Please use the ISO 8601 format (e.g., YYYY-MM-DD).",
-      }),
-      Joi.string()
-    ).required(),
+      Joi.string().valid("Present"),
+      Joi.date()
+    ).optional(),
   });
 
   return schema.validate(data);
