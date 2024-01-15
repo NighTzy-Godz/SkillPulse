@@ -22,7 +22,6 @@ export interface CompanyRegisterData {
 export interface ICompany {
   isCompany: boolean;
   name: string;
-  moderators: IUser[];
   description: string;
   industry: INDUSTRY;
   website: string;
@@ -32,7 +31,6 @@ export interface ICompany {
   location: string;
   owner: IUser;
   coverPhoto: string;
-  approved: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

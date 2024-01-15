@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   IUser,
   UserAboutEditData,
+  UserAddExpData,
   UserIntroEditData,
 } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
@@ -49,13 +50,21 @@ const slice = createSlice({
       user.statusCode = action.payload.status;
     },
 
+    userAddExpSuccess: (user, action) => {
+      (user.loading = false), (user.error = null);
+      if (user.userData) {
+        user.userData.experience = action.payload.data.experience;
+      }
+      user.statusCode = action.payload.status;
+    },
+
     userUpdateAboutSuccess: (user, action) => {
       if (user.userData) {
         user.userData.about = action.payload.data.about;
       }
       (user.error = null),
         (user.loading = false),
-        (user.statusCode = action.payload.statuts);
+        (user.statusCode = action.payload.status);
     },
 
     setUserStatusCode: (user, action) => {
@@ -72,6 +81,7 @@ const {
   userGetDataSuccess,
   userUpdateIntroSuccess,
   userUpdateAboutSuccess,
+  userAddExpSuccess,
 } = slice.actions;
 
 export const getUserData = (userId: string) =>
@@ -93,6 +103,17 @@ export const updateUserIntro = (data: UserIntroEditData) =>
     successMsg: "Successfully Updated Your Intro!",
   });
 
+export const addUserExp = (data: UserAddExpData) =>
+  apiCallBegan({
+    url: "/user/addUserExp",
+    data,
+    method: "POST",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userAddExpSuccess.type,
+    successMsg: "Successfully Added Your Experience!",
+  });
+
 export const updateUserAbout = (data: UserAboutEditData) =>
   apiCallBegan({
     url: "/user/updateUserAbout",
@@ -103,4 +124,5 @@ export const updateUserAbout = (data: UserAboutEditData) =>
     onSuccess: userUpdateAboutSuccess.type,
     successMsg: "Successfully Updated Your About!",
   });
+
 export default slice.reducer;

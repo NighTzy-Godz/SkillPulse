@@ -59,7 +59,7 @@ function UserEditIntroModal({
     email: email as string,
     location: location as string,
     contact: contact as string,
-    dateOfBirth,
+    dateOfBirth: dateOfBirth as Date,
   };
 
   const {

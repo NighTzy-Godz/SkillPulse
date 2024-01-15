@@ -1,11 +1,11 @@
-import { ICompany } from "./Company";
+import { ICompany, INDUSTRY } from "./Company";
 
 export enum GENDER {
   Male = "Male",
   Female = "Female",
 }
 
-export enum JobType {
+export enum employmentType {
   FULL_TIME = "Full Time",
   PART_TIME = "Part Time",
 }
@@ -24,6 +24,15 @@ export interface RegisterUserData {
 
   password: string;
   confirmPassword: string;
+}
+
+export interface UserAddExpData {
+  position: string;
+  employmentType: employmentType;
+  company: string;
+
+  startDate: Date;
+  endDate: Date | string;
 }
 
 export interface UserIntroEditData {
@@ -68,8 +77,8 @@ export interface IUser {
   }[];
 
   experience?: {
-    jobType: JobType;
-    company: ICompany;
+    employmentType: employmentType;
+    company: string;
     position: string;
     startDate: Date;
     endDate: Date;
