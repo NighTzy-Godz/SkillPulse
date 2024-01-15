@@ -45,14 +45,13 @@ interface IUser extends Document {
   }[];
 
   experience?: {
-    defaultLogo: string;
-    company: mongoose.Schema.Types.ObjectId | string;
+    company: string;
     position: string;
     startDate: Date;
     endDate: Date | string;
-    desc: string;
-    jobType: EmploymentType;
-    location: string;
+    desc?: string;
+    employmentType: EmploymentType;
+    location?: string;
   }[];
 
   projects?: {
@@ -172,14 +171,9 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
 
   experience: [
     {
-      defaultLogo: {
-        type: String,
-        default:
-          "https://i.pinimg.com/originals/ec/d9/c2/ecd9c2e8ed0dbbc96ac472a965e4afda.jpg",
-      },
       company: {
-        type: mongoose.Schema.Types.ObjectId || String,
-        ref: "Company",
+        type: String,
+        required: true,
       },
 
       jobType: {

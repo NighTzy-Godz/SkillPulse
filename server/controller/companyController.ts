@@ -60,7 +60,7 @@ export const searchCompany = async (
         name: { $regex: new RegExp(searchTerm, "i") },
       }).sort({ name: 1 });
     }
-
+    console.log(searchTerm);
     res.send(companies);
   } catch (error) {
     next(error);

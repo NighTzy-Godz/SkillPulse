@@ -5,6 +5,8 @@ import {
   userRegisterValidator,
   userUpdateIntroValidator,
   userUpdateAboutValidator,
+  UserAddExpData,
+  userAddExpValidator,
 } from "../validators/userValidator";
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
@@ -21,6 +23,43 @@ export const getUserData = async (
     if (!currUser) return res.status(404).send("User did not found");
 
     res.send(currUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addUserExp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      position,
+      employmentType,
+      company,
+      endDate,
+      startDate,
+    }: UserAddExpData = req.body;
+
+    const { error } = userAddExpValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currUserId = req.user?._id;
+    const foundUser = await User.findOne({ _id: currUserId });
+    if (!foundUser) return res.status(404).send("User did not found");
+
+    foundUser.experience?.push({
+      position,
+      company,
+      employmentType,
+      startDate,
+      endDate,
+    });
+
+    await foundUser.save();
+
+    res.send(foundUser);
   } catch (error) {
     next(error);
   }
