@@ -49,6 +49,12 @@
   fill: #71717a;
 }
 
+.hamburger svg {
+  height: 1.7em;
+  width: 1.7em;
+  fill: #71717a;
+}
+
 .mainNav img {
   object-fit: cover;
 }
