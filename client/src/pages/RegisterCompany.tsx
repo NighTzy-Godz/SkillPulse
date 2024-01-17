@@ -12,10 +12,13 @@ import { CompanyRegisterData } from "../interfaces/Company";
 import InputError from "../components/common/InputError";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
-import { registerCompany, setStatusCode } from "../store/slices/company";
+
+import { useNavigate } from "react-router-dom";
+import { setUserStatusCode, userRegisterCompany } from "../store/slices/user";
 function RegisterCompany() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { statusCode } = useSelector((state: State) => state.entities.company);
+  const { statusCode } = useSelector((state: State) => state.entities.user);
 
   const {
     register,
@@ -25,8 +28,8 @@ function RegisterCompany() {
 
   useEffect(() => {
     if (statusCode === 200) {
-      alert("Lets go, it worked");
-      dispatch(setStatusCode(null));
+      dispatch(setUserStatusCode(null));
+      return navigate("/company-navigator");
     }
   }, [statusCode]);
 
@@ -47,7 +50,7 @@ function RegisterCompany() {
   });
 
   const handleCompanyRegisterSubmit = (data: CompanyRegisterData) => {
-    dispatch(registerCompany(data));
+    dispatch(userRegisterCompany(data));
   };
 
   return (

@@ -20,6 +20,7 @@ export interface CompanyRegisterData {
 }
 
 export interface ICompany {
+  _id: string;
   isCompany: boolean;
   name: string;
   description: string;

@@ -10,6 +10,9 @@ interface MainNavProps {
 
 function MainNav({ token }: MainNavProps) {
   const user = useSelector((state: State) => state.entities.user.userData);
+  const companyFound = useSelector(
+    (state: State) => state.entities.user.registeredCompany
+  );
   const userId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
@@ -45,7 +48,13 @@ function MainNav({ token }: MainNavProps) {
                 <Link to="#">Saved Jobs</Link>
               </Dropdown.Item>{" "}
               <Dropdown.Item>
-                <Link to="/register-company">Register Company</Link>
+                {companyFound ? (
+                  <Link to={`/company/profile/${companyFound._id}`}>
+                    Manage: {companyFound.name}
+                  </Link>
+                ) : (
+                  <Link to="/register-company">Register Company</Link>
+                )}
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item>Sign out</Dropdown.Item>

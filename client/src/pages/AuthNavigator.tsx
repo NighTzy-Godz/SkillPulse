@@ -10,8 +10,6 @@ function AuthNavigator() {
   useEffect(() => {
     if (decodedModel?.role === "User")
       return navigate(`/user/profile/${decodedModel._id}`);
-    else if (decodedModel?.role === "Company")
-      return navigate(`/company/profile/${decodedModel?._id}`);
   }, [decodedModel]);
 
   return null;

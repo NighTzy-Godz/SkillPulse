@@ -12,6 +12,8 @@ import UserProfile from "./pages/UserProfile";
 import { jwtDecode } from "jwt-decode";
 import { setDecodedModel } from "./store/slices/auth";
 import AuthNavigator from "./pages/AuthNavigator";
+import CompanyProfile from "./pages/CompanyProfile";
+import CompanyNavigator from "./pages/CompanyNavigator";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,11 +38,16 @@ function App() {
         <Route path="/" element={<HomeLayout token={token} />}>
           <Route index element={<Home />} />
           <Route path="/cold-login" element={<AuthNavigator />} />
+          <Route path="/company-navigator" element={<CompanyNavigator />} />
 
           <Route path="/register-user" element={<RegisterUser />} />
           <Route path="/register-company" element={<RegisterCompany />} />
 
           <Route path="/user/profile/:userId" element={<UserProfile />} />
+          <Route
+            path="/company/profile/:companyId"
+            element={<CompanyProfile />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

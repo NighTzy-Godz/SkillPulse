@@ -47,7 +47,6 @@ function ProfileExperience() {
       );
 
     return experience?.map((item) => {
-      console.log(moment.duration(moment().diff(item.startDate)));
       return (
         <React.Fragment>
           <div className="flex gap-2">

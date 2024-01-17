@@ -6,12 +6,14 @@ import {
   UserIntroEditData,
 } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
+import { ICompany, CompanyRegisterData } from "../../interfaces/Company";
 
 interface UserState {
   loading: boolean;
   statusCode: null | number;
   error: null | string;
 
+  registeredCompany: null | ICompany;
   userData: null | IUser;
 }
 
@@ -20,6 +22,7 @@ const initialState: UserState = {
   statusCode: null,
   error: null,
 
+  registeredCompany: null,
   userData: null,
 };
 
@@ -67,6 +70,13 @@ const slice = createSlice({
         (user.statusCode = action.payload.status);
     },
 
+    userRegisterCompanySuccess: (user, action) => {
+      user.loading = false;
+      user.error = null;
+      user.statusCode = action.payload.status;
+      user.registeredCompany = action.payload.data;
+    },
+
     setUserStatusCode: (user, action) => {
       user.statusCode = action.payload;
     },
@@ -82,6 +92,7 @@ const {
   userUpdateIntroSuccess,
   userUpdateAboutSuccess,
   userAddExpSuccess,
+  userRegisterCompanySuccess,
 } = slice.actions;
 
 export const getUserData = (userId: string) =>
@@ -112,6 +123,17 @@ export const addUserExp = (data: UserAddExpData) =>
     onError: userRequestFailed.type,
     onSuccess: userAddExpSuccess.type,
     successMsg: "Successfully Added Your Experience!",
+  });
+
+export const userRegisterCompany = (data: CompanyRegisterData) =>
+  apiCallBegan({
+    url: "/company/registerCompany",
+    data,
+    method: "POST",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userRegisterCompanySuccess.type,
+    successMsg: "Successfully Registered the Company!",
   });
 
 export const updateUserAbout = (data: UserAboutEditData) =>

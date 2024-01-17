@@ -51,13 +51,6 @@ const slice = createSlice({
 
 export const { setStatusCode } = slice.actions;
 
-const {
-  companyRequested,
-  companyRequestFailed,
-  companyRegisteredSuccess,
-  companySearchSuccess,
-} = slice.actions;
-
 // export const searchCompany = (searchTerm: string) => {
 //   console.log(searchTerm);
 //   return apiCallBegan({
@@ -67,16 +60,5 @@ const {
 //     onSuccess: companySearchSuccess.type,
 //   });
 // };
-
-export const registerCompany = (data: CompanyRegisterData) =>
-  apiCallBegan({
-    url: "/company/registerCompany",
-    data,
-    method: "POST",
-    onStart: companyRequested.type,
-    onError: companyRequestFailed.type,
-    onSuccess: companyRegisteredSuccess.type,
-    successMsg: "Successfully Registered the Company!",
-  });
 
 export default slice.reducer;
