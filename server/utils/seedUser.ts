@@ -11,8 +11,8 @@ import User, { GENDER } from "../models/User_Model";
 
 mongoose
   .connect(DB_URL)
-  .then(() => console.log("Connected to the Datebase - Company "))
-  .catch((err) => console.log("Error on Company - ", err));
+  .then(() => console.log("Connected to the Datebase - User "))
+  .catch((err) => console.log("Error on User - ", err));
 
 const generateUserData = (): UserRegisterData => {
   return {

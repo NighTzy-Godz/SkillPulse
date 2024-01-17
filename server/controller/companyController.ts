@@ -43,6 +43,10 @@ export const registerCompany = async (
     const currUser = req.user?._id;
     const user = await User.findOne({ _id: currUser }).select("company");
     if (!user) return res.status(404).send("User did not found");
+    if (user.company)
+      return res
+        .status(409)
+        .send("You already registered your company with this user.");
 
     const existingCompany = await Company.findOne({ email });
     if (existingCompany)
@@ -59,7 +63,10 @@ export const registerCompany = async (
 
     user.company = newCompany._id;
 
-    await Promise.all([newCompany.save({ session }), user.save({ session })]);
+    await Promise.all([newCompany.save(), user.save()]);
+
+    await session.commitTransaction();
+    session.endSession();
 
     res.send(newCompany);
   } catch (error) {
