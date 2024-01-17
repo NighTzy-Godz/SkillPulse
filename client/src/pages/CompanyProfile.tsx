@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getCompanyData } from "../store/slices/company";
+import { State } from "../store/store";
+import CompanyIntro from "../components/company/CompanyIntro";
+import CompanyAbout from "../components/company/CompanyAbout";
 
 function CompanyProfile() {
+  const dispatch = useDispatch();
+  const { companyId } = useParams();
+
+  const { currCompany } = useSelector((state: State) => state.entities.company);
+  console.log(currCompany);
+  useEffect(() => {
+    dispatch(getCompanyData(companyId as string));
+  }, []);
   return (
-    <div>
-      <h1>Company Profile Here</h1>
+    <div className="sm:py-8 profile">
+      <div className="container mx-auto">
+        <CompanyIntro />
+        <CompanyAbout />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CompanyRegisterData, ICompany } from "../../interfaces/Company";
+import { ICompany } from "../../interfaces/Company";
 import { apiCallBegan } from "../actions/apiActions";
 
 interface CompanyState {
@@ -8,6 +8,7 @@ interface CompanyState {
   error: null | string;
 
   companySearchResult: null | ICompany[];
+  currCompany: null | ICompany;
 }
 
 const initialState: CompanyState = {
@@ -16,6 +17,7 @@ const initialState: CompanyState = {
   error: null,
 
   companySearchResult: null,
+  currCompany: null,
 };
 
 const slice = createSlice({
@@ -31,16 +33,10 @@ const slice = createSlice({
       company.error = action.payload;
     },
 
-    companyRegisteredSuccess: (company, action) => {
+    companyGetDataSuccess: (company, action) => {
       company.loading = false;
       company.error = null;
-      company.statusCode = action.payload.status;
-    },
-
-    companySearchSuccess: (company, action) => {
-      (company.loading = false),
-        (company.error = null),
-        (company.companySearchResult = action.payload.data);
+      company.currCompany = action.payload.data;
     },
 
     setStatusCode: (company, action) => {
@@ -51,14 +47,15 @@ const slice = createSlice({
 
 export const { setStatusCode } = slice.actions;
 
-// export const searchCompany = (searchTerm: string) => {
-//   console.log(searchTerm);
-//   return apiCallBegan({
-//     url: `/company/search/${searchTerm}`,
-//     onStart: companyRequested.type,
-//     onError: companyRequestFailed.type,
-//     onSuccess: companySearchSuccess.type,
-//   });
-// };
+const { companyRequested, companyRequestFailed, companyGetDataSuccess } =
+  slice.actions;
+
+export const getCompanyData = (companyId: string) =>
+  apiCallBegan({
+    url: `/company/getCompanyData/${companyId}`,
+    onStart: companyRequested.type,
+    onError: companyRequestFailed.type,
+    onSuccess: companyGetDataSuccess.type,
+  });
 
 export default slice.reducer;
