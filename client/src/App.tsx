@@ -14,9 +14,14 @@ import { setDecodedModel } from "./store/slices/auth";
 import AuthNavigator from "./pages/AuthNavigator";
 import CompanyProfile from "./pages/CompanyProfile";
 import CompanyNavigator from "./pages/CompanyNavigator";
+import { getUserData } from "./store/slices/user";
 
 function App() {
   const dispatch = useDispatch();
+  const userId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?._id
+  );
+  const user = useSelector((state: State) => state.entities.user.userData);
 
   const authToken = useSelector((state: State) => state.entities.auth.token);
   const localToken = localStorage.getItem("token");
@@ -30,6 +35,12 @@ function App() {
       localStorage.setItem("token", token);
     } catch (error) {}
   }, [token]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUserData(userId as string));
+    }
+  }, [userId]);
 
   return (
     <BrowserRouter>

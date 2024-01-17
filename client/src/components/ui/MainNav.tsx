@@ -1,5 +1,5 @@
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link, NavLink } from "react-router-dom";
 import { State } from "../../store/store";
@@ -9,15 +9,14 @@ interface MainNavProps {
 }
 
 function MainNav({ token }: MainNavProps) {
-  const user = useSelector((state: State) => state.entities.user.userData);
-  const companyFound = useSelector(
-    (state: State) => state.entities.user.registeredCompany
-  );
   const userId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
+  const user = useSelector((state: State) => state.entities.user.userData);
+  const companyFound = user?.company;
+
   const navBarClass =
-    "transition-all duration-200 block py-2 text-lg pr-4 pl-3  border-b border-gray-100 text-gray-700   md:border-0 md:hover:hover:text-blue-500 md:p-0";
+    "transition-all duration-200 block py-2 text-lg pr-4 pl-3  border-b border-gray-100 text-gray-700 md:border-0 md:hover:hover:text-blue-500 md:p-0";
   return (
     <Navbar fluid className="  mainNav boxShadow2 md:py-5 py-3">
       <div className="container mx-auto flex flex-wrap items-center justify-between">

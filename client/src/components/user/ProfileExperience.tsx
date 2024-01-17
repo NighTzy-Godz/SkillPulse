@@ -48,7 +48,7 @@ function ProfileExperience() {
 
     return experience?.map((item) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={item.company}>
           <div className="flex gap-2">
             <div className="mb-5 w-full">
               <h3 className="text-zinc-700 font-bold text-lg">
