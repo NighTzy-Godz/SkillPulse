@@ -5,13 +5,35 @@ import {
 } from "../validators/companyValidator";
 import Company from "../models/Company_Model";
 import User from "../models/User_Model";
+import mongoose from "mongoose";
+
+export const getCompanyData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { companyId } = req.params;
+
+    const foundCompany = await Company.findOne({ _id: companyId });
+
+    if (!foundCompany) return res.status(404).send("Company did not found");
+
+    res.send(foundCompany);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const registerCompany = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  const session = await mongoose.startSession();
+
   try {
+    session.startTransaction();
     const { name, industry, size, location, email }: RegisterCompanyData =
       req.body;
 
@@ -19,7 +41,7 @@ export const registerCompany = async (
     if (error) return res.status(400).send(error.details[0].message);
 
     const currUser = req.user?._id;
-    const user = await User.findOne({ _id: currUser });
+    const user = await User.findOne({ _id: currUser }).select("company");
     if (!user) return res.status(404).send("User did not found");
 
     const existingCompany = await Company.findOne({ email });
@@ -35,10 +57,14 @@ export const registerCompany = async (
       owner: currUser,
     });
 
-    await newCompany.save();
+    user.company = newCompany._id;
+
+    await Promise.all([newCompany.save({ session }), user.save({ session })]);
 
     res.send(newCompany);
   } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
     next(error);
   }
 };
