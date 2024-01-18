@@ -24,7 +24,7 @@ function CompanyIntro() {
     if (!description)
       return <NoProfileData msg="Company Bio has not been set yet" />;
 
-    return description;
+    return <p className="text-gray-600">{description}</p>;
   };
   return (
     <React.Fragment>
@@ -57,7 +57,7 @@ function CompanyIntro() {
               <span className="text-gray-500 text-sm  ">(Company)</span>
             </h1>
 
-            <p className="text-gray-600">{renderDescription()}</p>
+            {renderDescription()}
           </div>
 
           <div className="mt-5">
