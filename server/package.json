@@ -6,8 +6,8 @@
   "scripts": {
     "build": "npx tsc",
     "dev": "concurrently \" npx tsc -w\" \"nodemon dist/server.js\" ",
-    "seedCompany": "node dist/utils/seedCompany.js",
-    "seedUser": "node dist/utils/seedUser.js",
+    "seedCompany": "node dist/seeds/seedCompany.js",
+    "seedUser": "node dist/seeds/seedUser.js",
     "start": "ts-node server.ts"
   },
   "keywords": [],

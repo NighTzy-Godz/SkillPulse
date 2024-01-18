@@ -1,9 +1,12 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express, { json, urlencoded } from "express";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes";
 import companyRoutes from "./routes/companyRoutes";
 
-const PORT = 8080;
+const PORT = process.env.PORT;
 const app = express();
 
 app.use(cors());

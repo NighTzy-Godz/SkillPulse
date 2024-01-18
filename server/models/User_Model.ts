@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import jwt from "jsonwebtoken";
-const DB_URL = "mongodb://localhost:27017/skillpulse";
+const DB_URL = process.env.DB_URL as string;
 const jwtSecretPass = "secretPass";
 mongoose
   .connect(DB_URL)

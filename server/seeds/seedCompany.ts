@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import Company, { ICompany, INDUSTRY } from "../models/Company_Model";
-const DB_URL = "mongodb://localhost:27017/skillpulse";
+const DB_URL = process.env.DB_URL as string;
 import { faker, fakerEN } from "@faker-js/faker";
 import { RegisterCompanyData } from "../validators/companyValidator";
 import industries from "../data/industries";
