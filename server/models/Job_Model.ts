@@ -14,7 +14,7 @@ interface IJob extends Document {
   salary: string;
   employmentType: EmploymentType;
   location: string;
-  requirments: string;
+
   savedBy: mongoose.Schema.Types.ObjectId[];
   applicants: mongoose.Schema.Types.ObjectId[];
   createdAt: Date;
@@ -32,6 +32,7 @@ const jobSchema: Schema<IJob> = new mongoose.Schema(
       ref: "Company",
       required: true,
     },
+
     description: {
       type: String,
       required: true,
