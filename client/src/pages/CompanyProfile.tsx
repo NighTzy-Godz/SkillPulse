@@ -11,10 +11,11 @@ function CompanyProfile() {
   const { companyId } = useParams();
 
   const { currCompany } = useSelector((state: State) => state.entities.company);
-  console.log(currCompany);
+
   useEffect(() => {
-    dispatch(getCompanyData(companyId as string));
-  }, []);
+    if (companyId && !currCompany)
+      dispatch(getCompanyData(companyId as string));
+  }, [companyId, currCompany]);
   return (
     <div className="sm:py-8 profile">
       <div className="container mx-auto">

@@ -34,38 +34,47 @@ function MainNav({ token }: MainNavProps) {
         </div>
 
         <div className="flex items-center md:order-2 ">
-          <Dropdown
-            inline
-            size="xs"
-            arrowIcon={false}
-            label={<Avatar alt="User settings" img={user?.pfp} rounded />}
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">
-                {user?.firstName} {user?.lastName}
-              </span>
-              <span className="block truncate text-sm font-medium">
-                {user?.email}
-              </span>
-            </Dropdown.Header>
-            <Dropdown.Item>
-              <Link to={`/user/profile/${userId}`}>Profile</Link>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <Link to="#">Saved Jobs</Link>
-            </Dropdown.Item>{" "}
-            <Dropdown.Item>
-              {companyFound ? (
-                <Link to={`/company/profile/${companyFound._id}`}>
-                  Manage: {companyFound.name}
-                </Link>
-              ) : (
-                <Link to="/register-company">Register Company</Link>
-              )}
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
-          </Dropdown>
+          {token ? (
+            <Dropdown
+              inline
+              size="xs"
+              arrowIcon={false}
+              label={<Avatar alt="User settings" img={user?.pfp} rounded />}
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">
+                  {user?.firstName} {user?.lastName}
+                </span>
+                <span className="block truncate text-sm font-medium">
+                  {user?.email}
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item>
+                <Link to={`/user/profile/${userId}`}>Profile</Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link to="#">Saved Jobs</Link>
+              </Dropdown.Item>{" "}
+              <Dropdown.Item>
+                {companyFound ? (
+                  <Link to={`/company/profile/${companyFound._id}`}>
+                    Manage: {companyFound.name}
+                  </Link>
+                ) : (
+                  <Link to="/register-company">Register Company</Link>
+                )}
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item>
+                <Link to="/logout">Logout</Link>
+              </Dropdown.Item>
+            </Dropdown>
+          ) : (
+            <NavLink to="/register-user" className={navBarClass}>
+              Register
+            </NavLink>
+          )}
+
           <div
             className="md:hidden block mt-1 ml-1 hamburger"
             onClick={() => setToggle(!toggle)}

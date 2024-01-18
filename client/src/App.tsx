@@ -15,6 +15,7 @@ import AuthNavigator from "./pages/AuthNavigator";
 import CompanyProfile from "./pages/CompanyProfile";
 import CompanyNavigator from "./pages/CompanyNavigator";
 import { getUserData } from "./store/slices/user";
+import Logout from "./pages/Logout";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function App() {
   }, [token]);
 
   useEffect(() => {
-    if (userId) {
+    if (userId && !user) {
       dispatch(getUserData(userId as string));
     }
   }, [userId]);
@@ -48,8 +49,6 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeLayout token={token} />}>
           <Route index element={<Home />} />
-          <Route path="/cold-login" element={<AuthNavigator />} />
-          <Route path="/company-navigator" element={<CompanyNavigator />} />
 
           <Route path="/register-user" element={<RegisterUser />} />
           <Route path="/register-company" element={<RegisterCompany />} />
@@ -59,6 +58,10 @@ function App() {
             path="/company/profile/:companyId"
             element={<CompanyProfile />}
           />
+
+          <Route path="/cold-login" element={<AuthNavigator />} />
+          <Route path="/company-navigator" element={<CompanyNavigator />} />
+          <Route path="/logout" element={<Logout />} />
         </Route>
       </Routes>
     </BrowserRouter>
