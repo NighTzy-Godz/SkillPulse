@@ -117,8 +117,8 @@ function MainNav({ token }: MainNavProps) {
               )}
               {token && isCompanyRoute && (
                 <NavLink
-                  to="/postJob"
-                  className={`cursor-not-allowed ${navBarClass}`}
+                  to={`/company/${user?.company?._id}/createJob`}
+                  className={`${navBarClass}`}
                 >
                   Post a Job
                 </NavLink>
