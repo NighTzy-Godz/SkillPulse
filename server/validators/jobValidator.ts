@@ -24,16 +24,20 @@ export const createJobValidator = (
     description: Joi.string().min(30).max(3000).required().messages({
       "any.required": "Job Description is a required field",
       "string.base": "Job Description should be a type of string",
-      "string.min": "Job Descriptionshould contain atleast 30 characters",
+      "string.min": "Job Description should contain atleast 30 characters",
       "string.max": "Job Description should only contain 3000 characters",
       "string.empty": "Job Description cannot be empty",
     }),
 
-    salary: Joi.string().required().messages({
-      "any.required": "Job Salary is a required field",
-      "string.base": "Job Salary should be a type of string",
-      "string.empty": "Job Salarycannot be empty",
-    }),
+    salary: Joi.string()
+      .pattern(/^[0-9]/)
+      .required()
+      .messages({
+        "any.required": "Job Salary is a required field",
+        "string.base": "Job Salary should be a type of string",
+        "string.pattern.base": "Job Salary should only contain numbers",
+        "string.empty": "Job Salary cannot be empty",
+      }),
 
     location: Joi.string().min(10).max(60).trim().required().messages({
       "string.empty": "Job Location cannot be empty",
