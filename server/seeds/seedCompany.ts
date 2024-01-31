@@ -1,5 +1,7 @@
+import dotenv from "dotenv";
+dotenv.config();
 import mongoose from "mongoose";
-import Company, { ICompany, INDUSTRY } from "../models/Company_Model";
+import Company, { INDUSTRY } from "../models/Company_Model";
 const DB_URL = process.env.DB_URL as string;
 import { faker, fakerEN } from "@faker-js/faker";
 import { RegisterCompanyData } from "../validators/companyValidator";
@@ -8,8 +10,8 @@ import companySize from "../data/companySize";
 import User from "../models/User_Model";
 mongoose
   .connect(DB_URL)
-  .then(() => console.log("Connected to the Datebase - Company "))
-  .catch((err) => console.log("Error on Company - ", err));
+  .then(() => console.log("Connected to the Datebase (SEED)- Company "))
+  .catch((err) => console.log("Error on Company (SEED)- ", err));
 
 const generateCompanyData = (): RegisterCompanyData => {
   return {
@@ -40,4 +42,4 @@ const seedCompanies = async (qty: number) => {
   }
 };
 
-seedCompanies(40);
+seedCompanies(2);

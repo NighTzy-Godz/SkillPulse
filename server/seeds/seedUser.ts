@@ -1,5 +1,7 @@
-import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
+import mongoose from "mongoose";
 const DB_URL = process.env.DB_URL as string;
 import { faker, fakerEN } from "@faker-js/faker";
 
@@ -11,8 +13,8 @@ import User, { GENDER } from "../models/User_Model";
 
 mongoose
   .connect(DB_URL)
-  .then(() => console.log("Connected to the Datebase - User "))
-  .catch((err) => console.log("Error on User - ", err));
+  .then(() => console.log("Connected to the Datebase (Seed)  - User "))
+  .catch((err) => console.log("Error on User (Seed) - ", err));
 
 const generateUserData = (): UserRegisterData => {
   return {
