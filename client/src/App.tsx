@@ -17,6 +17,7 @@ import CompanyNavigator from "./pages/CompanyNavigator";
 import { getUserData } from "./store/slices/user";
 import Logout from "./pages/Logout";
 import CreateJob from "./pages/CreateJob";
+import Jobs from "./pages/Jobs";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +62,8 @@ function App() {
           />
 
           <Route path="/company/:companyId/createJob" element={<CreateJob />} />
+
+          <Route path="/searchJobs" element={<Jobs />} />
 
           <Route path="/cold-login" element={<AuthNavigator />} />
           <Route path="/company-navigator" element={<CompanyNavigator />} />

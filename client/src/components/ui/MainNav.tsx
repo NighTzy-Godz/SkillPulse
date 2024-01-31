@@ -102,17 +102,13 @@ function MainNav({ token }: MainNavProps) {
                   Home
                 </NavLink>
               )}
-
-              <NavLink to="/companies" className={navBarClass}>
-                Companies
+              <NavLink to="/searchJobs" className={`${navBarClass}`}>
+                Find a Job
               </NavLink>
 
               {token && isUserRoute && (
-                <NavLink
-                  to="/jobs"
-                  className={`cursor-not-allowed ${navBarClass}`}
-                >
-                  Find a Job
+                <NavLink to="/companies" className={navBarClass}>
+                  Companies
                 </NavLink>
               )}
               {token && isCompanyRoute && (
