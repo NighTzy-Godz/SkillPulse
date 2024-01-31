@@ -42,3 +42,38 @@ export const createJob = async (
     next(error);
   }
 };
+
+export const searchJobs = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { jobSearch, page } = req.query;
+
+    const LIMIT = 10;
+    const pageNumber = parseInt(page as string) || 1;
+    const skip = (pageNumber - 1) * LIMIT;
+
+    const query = jobSearch
+      ? {
+          title: { $regex: new RegExp(jobSearch as string, "i") },
+        }
+      : {};
+
+    const [jobResults, jobResultCount] = await Promise.all([
+      Job.find(query).limit(LIMIT).skip(skip),
+      Job.countDocuments(query),
+    ]);
+
+    const resContent = {
+      totalCount: jobResultCount,
+      data: jobResults,
+      currPage: page,
+    };
+
+    res.send(resContent);
+  } catch (error) {
+    next(error);
+  }
+};
