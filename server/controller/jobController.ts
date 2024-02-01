@@ -51,7 +51,7 @@ export const searchJobs = async (
   try {
     const { jobSearch, page } = req.query;
 
-    const LIMIT = 10;
+    const LIMIT = 15;
     const pageNumber = parseInt(page as string) || 1;
     const skip = (pageNumber - 1) * LIMIT;
 
@@ -62,14 +62,14 @@ export const searchJobs = async (
       : {};
 
     const [jobResults, jobResultCount] = await Promise.all([
-      Job.find(query).limit(LIMIT).skip(skip),
+      Job.find(query).limit(LIMIT).skip(skip).populate("company"),
       Job.countDocuments(query),
     ]);
 
     const resContent = {
       totalCount: jobResultCount,
       data: jobResults,
-      currPage: page,
+      currPage: pageNumber,
     };
 
     res.send(resContent);

@@ -10,6 +10,7 @@ import bcrypt from "bcrypt";
 import { UserRegisterData } from "../validators/userValidator";
 import gender from "../data/gender";
 import User, { GENDER } from "../models/User_Model";
+import Company from "../models/Company_Model";
 
 mongoose
   .connect(DB_URL)
@@ -31,6 +32,7 @@ const generateUserData = (): UserRegisterData => {
 const seedUser = async (qty: number) => {
   try {
     const salt = await bcrypt.genSalt(10);
+
     for (let i = 0; i < qty; i++) {
       const newUser = await User.create(generateUserData());
       newUser.password = await bcrypt.hash(newUser.password, salt);

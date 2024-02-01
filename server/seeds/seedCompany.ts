@@ -28,18 +28,22 @@ const generateCompanyData = (): RegisterCompanyData => {
 
 const seedCompanies = async (qty: number) => {
   try {
-    const userIds = await User.find({}).select("_id");
+    const userIds = await User.find({}).select("_id company");
 
     for (let i = 0; i < qty; i++) {
+      const user = userIds[Math.floor(Math.random() * userIds.length)];
       const newCompany = new Company(generateCompanyData());
+
       newCompany.owner =
         userIds[Math.floor(Math.random() * userIds.length)]._id;
+
+      user.company = newCompany._id;
       await newCompany.save();
-      console.log(newCompany);
+      await user.save();
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-seedCompanies(2);
+seedCompanies(100);

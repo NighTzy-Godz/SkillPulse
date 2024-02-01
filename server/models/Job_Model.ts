@@ -37,6 +37,12 @@ const jobSchema: Schema<IJob> = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    salary: {
+      type: String,
+      required: true,
+    },
+
     employmentType: {
       type: String,
       enum: Object.values(EmploymentType),
