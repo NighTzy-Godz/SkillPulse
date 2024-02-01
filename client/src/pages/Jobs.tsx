@@ -21,6 +21,7 @@ function Jobs() {
 
   const dispatch = useDispatch();
 
+  console.log(currPage);
   useEffect(() => {
     dispatch(getSearchedJobs(jobSearchQuery));
   }, []);
@@ -40,6 +41,7 @@ function Jobs() {
       <div className="container mx-auto overflow-hidden">
         <div className="flex gap-4 max-h-[82dvh]">
           <JobList
+            currPage={currPage}
             currJob={selectedJob}
             onJobSelectChange={handleSelectJobChange}
           />
