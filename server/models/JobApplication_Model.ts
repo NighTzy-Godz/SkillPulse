@@ -23,23 +23,31 @@ interface IJobApplication extends Document {
   updatedAt: Date;
 }
 
-const jobApplicationSchema: Schema<IJobApplication> = new mongoose.Schema({
-  jobId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Job",
-  },
+const jobApplicationSchema: Schema<IJobApplication> = new mongoose.Schema(
+  {
+    jobId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Job",
+    },
 
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
 
-  status: {
-    type: String,
-    enum: Object.values(ApplicationStatus),
-    default: ApplicationStatus.PENDING,
+    status: {
+      type: String,
+      enum: Object.values(ApplicationStatus),
+      default: ApplicationStatus.PENDING,
+    },
+
+    resume: {
+      type: String,
+      required: true,
+    },
   },
-});
+  { timestamps: true }
+);
 
 const JobApplication = mongoose.model<IJobApplication>(
   "JobApplication",
