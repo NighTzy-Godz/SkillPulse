@@ -11,11 +11,14 @@ import ReactPaginate from "react-paginate";
 
 import { useSearchParams } from "react-router-dom";
 import SearchBar from "../components/common/SearchBar";
+import NoJobSearch from "../components/job/NoJobSearch";
 
 function Jobs() {
   const { jobs, totalCount } = useSelector(
     (state: State) => state.entities.job.jobResults
   );
+
+  const [searchedJob, setSearchJob] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams({
     jobSearch: "",
@@ -77,6 +80,8 @@ function Jobs() {
       return prev;
     });
 
+    setSearchJob(jobSearch as string);
+
     const formQueryData: SearchJobQuery = {
       ...queryData,
       page: 1,
@@ -85,23 +90,11 @@ function Jobs() {
     dispatch(getSearchedJobs(formQueryData));
   };
 
-  return (
-    <div className="py-10 ">
-      <div className="container mx-auto overflow-hidden">
+  const renderContent = () => {
+    if (jobs.length > 0)
+      return (
         <div className="flex gap-4 max-h-[82dvh]">
-          <form
-            className="w-2/5  max-h-screen overflow-y-auto"
-            action=""
-            onSubmit={handleFormSubmit}
-          >
-            <div className="mb-2">
-              <SearchBar
-                value={jobSearch as string}
-                placeholder="Search Job Here ..."
-                onChange={handleSearchChange}
-              />
-            </div>
-
+          <div className="w-2/5  max-h-screen overflow-y-auto">
             <JobList
               currJob={selectedJob}
               onJobSelectChange={handleSelectJobChange}
@@ -115,10 +108,27 @@ function Jobs() {
               previousLabel="< "
               onPageChange={handlePageChange}
             />
-          </form>
+          </div>
 
           <JobDescription job={selectedJob} />
         </div>
+      );
+
+    return <NoJobSearch jobSearch={searchedJob} />;
+  };
+
+  return (
+    <div className="py-10 ">
+      <div className="container mx-auto overflow-hidden">
+        <form className="mb-5" onSubmit={handleFormSubmit}>
+          <SearchBar
+            value={jobSearch as string}
+            placeholder="Search Job Here ..."
+            onChange={handleSearchChange}
+          />
+        </form>
+        <div className="mb-5"></div>
+        {renderContent()}
       </div>
     </div>
   );
