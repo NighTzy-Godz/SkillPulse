@@ -18,6 +18,7 @@ interface UserState {
   registeredCompany: null | ICompany;
   userData: null | IUser;
   userJobs: null | IJob[];
+  userSelectedJob: null | IJob;
 }
 
 const initialState: UserState = {
@@ -28,6 +29,7 @@ const initialState: UserState = {
   registeredCompany: null,
   userData: null,
   userJobs: null,
+  userSelectedJob: null,
 };
 
 const slice = createSlice({
@@ -93,13 +95,23 @@ const slice = createSlice({
         (user.userJobs = action.payload.data);
     },
 
+    userSelectedJobSuccess: (user, action) => {
+      (user.loading = false),
+        (user.error = null),
+        (user.userSelectedJob = action.payload.data);
+    },
+
     setUserStatusCode: (user, action) => {
       user.statusCode = action.payload;
+    },
+
+    setUserSelectedJob: (user, action) => {
+      user.userSelectedJob = action.payload;
     },
   },
 });
 
-export const { setUserStatusCode } = slice.actions;
+export const { setUserSelectedJob, setUserStatusCode } = slice.actions;
 
 const {
   userRequested,
@@ -110,7 +122,16 @@ const {
   userAddExpSuccess,
   userRegisterCompanySuccess,
   userApplyJobSuccess,
+  userSelectedJobSuccess,
 } = slice.actions;
+
+export const userGetSelectedJob = (jobId: string) =>
+  apiCallBegan({
+    url: `/job/getJobDescription/${jobId}`,
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userSelectedJobSuccess.type,
+  });
 
 export const userApplyJob = (data: UserApplyJobData, jobId: string) =>
   apiCallBegan({

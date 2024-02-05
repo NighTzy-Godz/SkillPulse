@@ -11,10 +11,15 @@ import ReactPaginate from "react-paginate";
 import { useSearchParams } from "react-router-dom";
 import SearchBar from "../components/common/SearchBar";
 import NoJobSearch from "../components/job/NoJobSearch";
+import { setUserSelectedJob } from "../store/slices/user";
 
 function AllJobs() {
   const { jobs, totalCount } = useSelector(
     (state: State) => state.entities.job.jobResults
+  );
+
+  const selectedJob = useSelector(
+    (state: State) => state.entities.user.userSelectedJob
   );
 
   const [searchedJob, setSearchJob] = useState("");
@@ -30,7 +35,6 @@ function AllJobs() {
     jobSearch,
     page: parseInt(page as string),
   };
-  const [selectedJob, setSelectedJob] = useState<IJob>(jobs[0]);
 
   const dispatch = useDispatch();
 
@@ -41,12 +45,12 @@ function AllJobs() {
 
   useEffect(() => {
     if (jobs.length > 0) {
-      setSelectedJob(jobs[0]);
+      dispatch(setUserSelectedJob(jobs[0]));
     }
   }, [jobs]);
 
   const handleSelectJobChange = (job: IJob) => {
-    setSelectedJob(job);
+    dispatch(setUserSelectedJob(job));
   };
 
   const handlePageChange = ({ selected: page }: any) => {
@@ -94,7 +98,7 @@ function AllJobs() {
         <div className="flex gap-4 max-h-[82dvh]">
           <div className="w-2/5  max-h-screen overflow-y-auto">
             <JobList
-              currJob={selectedJob}
+              currJob={selectedJob as IJob}
               onJobSelectChange={handleSelectJobChange}
             />
             <ReactPaginate
@@ -108,7 +112,7 @@ function AllJobs() {
             />
           </div>
 
-          <JobDescription job={selectedJob} />
+          <JobDescription job={selectedJob as IJob} />
         </div>
       );
 

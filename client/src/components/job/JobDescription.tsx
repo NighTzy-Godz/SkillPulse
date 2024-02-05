@@ -5,13 +5,16 @@ import { IJob } from "../../interfaces/Job";
 
 import formatDate, { findDuration } from "../../utils/dateDuration";
 import formatMoney from "../../utils/formatMoney";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 interface JobDescriptionProps {
   job: IJob;
 }
 
 function JobDescription({ job }: JobDescriptionProps) {
+  const { pathname } = useLocation();
+  const isApplying = pathname.includes("applyJob");
+
   const {
     _id,
     title,
@@ -45,17 +48,19 @@ function JobDescription({ job }: JobDescriptionProps) {
           <p className=" b-dot  text-zinc-700 ">{formatMoney(salary)}</p>
         </div>
 
-        <div className="flex gap-4">
-          <Link
-            to={`/user/applyJob/${_id}`}
-            className="transition-all text-sm px-3 flex items-center rounded-lg duration-200 text-center text-white bg-blue-500 border border-transparent hover:bg-blue-600 focus:ring-4 focus:ring-blue-300"
-          >
-            Apply Now
-          </Link>
-          <Button color="customGreen" theme={customBtnTheme}>
-            Save Job
-          </Button>
-        </div>
+        {!isApplying && (
+          <div className="flex gap-4">
+            <Link
+              to={`/user/applyJob/${_id}`}
+              className="transition-all text-sm px-3 flex items-center rounded-lg duration-200 text-center text-white bg-blue-500 border border-transparent hover:bg-blue-600 focus:ring-4 focus:ring-blue-300"
+            >
+              Apply Now
+            </Link>
+            <Button color="customGreen" theme={customBtnTheme}>
+              Save Job
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="pb-6">

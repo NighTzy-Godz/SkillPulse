@@ -8,15 +8,21 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { AiOutlineLoading } from "react-icons/ai";
 import { UserApplyJobData } from "../interfaces/User";
-import { setUserStatusCode, userApplyJob } from "../store/slices/user";
+import {
+  setUserStatusCode,
+  userApplyJob,
+  userGetSelectedJob,
+} from "../store/slices/user";
 import customBtnTheme from "../utils/customBtnTheme";
+import JobDescription from "../components/job/JobDescription";
+import { IJob } from "../interfaces/Job";
 
 function ApplyJob() {
   const { jobId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { statusCode, loading } = useSelector(
+  const { statusCode, loading, userSelectedJob } = useSelector(
     (state: State) => state.entities.user
   );
 
@@ -34,6 +40,12 @@ function ApplyJob() {
     }
   }, [statusCode]);
 
+  useEffect(() => {
+    if (!userSelectedJob) {
+      dispatch(userGetSelectedJob(jobId as string));
+    }
+  }, [jobId]);
+
   const handleApplicationSubmit = (data: UserApplyJobData) => {
     const { resume } = data;
     const form = new FormData();
@@ -44,10 +56,10 @@ function ApplyJob() {
   };
 
   return (
-    <div className="py-20 h-[91dvh] grid place-items-center">
+    <div className="py-10 ">
       <div className="container mx-auto">
-        <div className="md:w-1/2 mx-auto ">
-          <div className="boxShadow2 px-5 py-7">
+        <div className="flex gap-4 justify-start h-[82dvh] ">
+          <div className="w-2/5 boxShadow2 h-fit px-5 py-7">
             <h1 className="text-3xl font-semibold capitalize text-center text-zinc-700 mb-10">
               just upload your resume to get that dream job!
             </h1>
@@ -87,6 +99,8 @@ function ApplyJob() {
               </Button>
             </form>
           </div>
+
+          <JobDescription job={userSelectedJob as IJob} />
         </div>
       </div>
     </div>
