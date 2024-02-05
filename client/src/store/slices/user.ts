@@ -17,6 +17,7 @@ interface UserState {
 
   registeredCompany: null | ICompany;
   userData: null | IUser;
+  userJobs: null | IJob[];
 }
 
 const initialState: UserState = {
@@ -26,6 +27,7 @@ const initialState: UserState = {
 
   registeredCompany: null,
   userData: null,
+  userJobs: null,
 };
 
 const slice = createSlice({
@@ -83,6 +85,12 @@ const slice = createSlice({
       (user.loading = false),
         (user.error = null),
         (user.statusCode = action.payload.status);
+    },
+
+    userJobsSuccess: (user, action) => {
+      (user.loading = false),
+        (user.error = null),
+        (user.userJobs = action.payload.data);
     },
 
     setUserStatusCode: (user, action) => {

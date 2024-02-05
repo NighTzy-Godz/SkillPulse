@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import mongoose from "mongoose";
 const jwtSecretPass = "secretPass";
 interface DecodedUser {
-  _id: string;
+  _id: unknown | mongoose.Types.ObjectId;
   fullName: string;
 }
 

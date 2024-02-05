@@ -12,7 +12,7 @@ import User from "../models/User_Model";
 import bcrypt from "bcrypt";
 import Job from "../models/Job_Model";
 import JobApplication from "../models/JobApplication_Model";
-import { cloudinary } from "../cloudinary";
+import { ObjectId } from "mongoose";
 
 export const userJobApplied = async (
   req: Request,
@@ -35,9 +35,14 @@ export const userJobApplied = async (
     const job = await Job.findOne({ _id: jobId }).select("applicants _id");
     if (!job) return res.status(404).send("Job Post did not found");
 
-    const userApplied = await Job.findOne({ applicants: { $in: currUserId } });
+    const userApplied = await Job.findOne({
+      applicants: { $in: currUserId },
+    }).select("_id");
+
     if (userApplied)
       return res.status(409).send("You already applied to this job posting");
+
+    job.applicants.push(currUserId as ObjectId);
 
     const newJobApplication = new JobApplication({
       userId: currUserId,
@@ -46,9 +51,27 @@ export const userJobApplied = async (
       resume: resume.path,
     });
 
-    await newJobApplication.save();
+    await Promise.all([newJobApplication.save(), job.save()]);
 
     res.send(newJobApplication);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserJobs = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const currUserId = req.user?._id;
+    const currUser = await User.findOne({ _id: currUserId }).select("_id");
+    if (!currUser) return res.status(404).send("User did not found");
+
+    const userJobs = await JobApplication.find({ userId: currUserId });
+
+    res.send(userJobs);
   } catch (error) {
     next(error);
   }
