@@ -10,6 +10,7 @@ mongoose
 enum ApplicationStatus {
   PENDING = "Pending",
   REVIEWING = "Reviewing",
+  PROCEEDING = "Proceeding",
   REJECTED = "Rejected",
   ACCEPTED = "Accepted",
 }

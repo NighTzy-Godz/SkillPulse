@@ -12,6 +12,7 @@ import User from "../models/User_Model";
 import bcrypt from "bcrypt";
 import Job from "../models/Job_Model";
 import JobApplication from "../models/JobApplication_Model";
+import { cloudinary } from "../cloudinary";
 
 export const userJobApplied = async (
   req: Request,
@@ -19,7 +20,7 @@ export const userJobApplied = async (
   next: NextFunction
 ) => {
   try {
-    const { jobId, status } = req.body;
+    const { jobId } = req.params;
 
     if (!req.file) {
       return res.status(400).send("Resume cannot be empty");
@@ -41,11 +42,11 @@ export const userJobApplied = async (
     const newJobApplication = new JobApplication({
       userId: currUserId,
       jobId,
-      status,
+      status: "Pending",
       resume: resume.path,
     });
 
-    console.log(newJobApplication);
+    await newJobApplication.save();
 
     res.send(newJobApplication);
   } catch (error) {

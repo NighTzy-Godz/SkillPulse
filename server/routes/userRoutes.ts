@@ -22,7 +22,12 @@ router.get("/getUserData/:userId", getUserData);
 router.put("/updateUserIntro", [isAuth], updateUserIntro);
 router.put("/updateUserAbout", [isAuth], updateUserAbout);
 
-router.post("/applyJob", upload.single("resume"), [isAuth], userJobApplied);
+router.post(
+  "/applyJob/:jobId",
+  upload.single("resume"),
+  [isAuth],
+  userJobApplied
+);
 router.post("/registerUser", registerUser);
 router.post("/loginUser", loginUser);
 router.post("/addUserExp", [isAuth], addUserExp);
