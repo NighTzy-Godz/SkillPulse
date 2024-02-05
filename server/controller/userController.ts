@@ -12,13 +12,15 @@ import User from "../models/User_Model";
 import bcrypt from "bcrypt";
 import Job from "../models/Job_Model";
 import JobApplication from "../models/JobApplication_Model";
-import { ObjectId } from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 
 export const userJobApplied = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     const { jobId } = req.params;
 
@@ -54,8 +56,13 @@ export const userJobApplied = async (
 
     await Promise.all([newJobApplication.save(), job.save()]);
 
+    await session.commitTransaction();
+    session.endSession();
+
     res.send(newJobApplication);
   } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
     next(error);
   }
 };
