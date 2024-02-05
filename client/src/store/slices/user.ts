@@ -3,10 +3,12 @@ import {
   IUser,
   UserAboutEditData,
   UserAddExpData,
+  UserApplyJobData,
   UserIntroEditData,
 } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
 import { ICompany, CompanyRegisterData } from "../../interfaces/Company";
+import { IJob } from "../../interfaces/Job";
 
 interface UserState {
   loading: boolean;
@@ -77,6 +79,12 @@ const slice = createSlice({
       user.registeredCompany = action.payload.data;
     },
 
+    userApplyJobSuccess: (user, action) => {
+      (user.loading = false),
+        (user.error = null),
+        (user.statusCode = action.payload.status);
+    },
+
     setUserStatusCode: (user, action) => {
       user.statusCode = action.payload;
     },
@@ -93,7 +101,19 @@ const {
   userUpdateAboutSuccess,
   userAddExpSuccess,
   userRegisterCompanySuccess,
+  userApplyJobSuccess,
 } = slice.actions;
+
+export const userApplyJob = (data: UserApplyJobData, jobId: string) =>
+  apiCallBegan({
+    url: `/user/applyJob/${jobId}`,
+    data,
+    method: "POST",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userApplyJobSuccess.type,
+    successMsg: "Successfully applied to the job post!",
+  });
 
 export const getUserData = (userId: string) =>
   apiCallBegan({

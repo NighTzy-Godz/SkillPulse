@@ -17,6 +17,8 @@ import CompanyNavigator from "./pages/CompanyNavigator";
 import { getUserData } from "./store/slices/user";
 import Logout from "./pages/Logout";
 import CreateJob from "./pages/CreateJob";
+import AllJobs from "./pages/AllJobs";
+import ApplyJob from "./pages/ApplyJob";
 import Jobs from "./pages/Jobs";
 
 function App() {
@@ -56,6 +58,9 @@ function App() {
           <Route path="/register-company" element={<RegisterCompany />} />
 
           <Route path="/user/profile/:userId" element={<UserProfile />} />
+          <Route path="/user/applyJob/:jobId" element={<ApplyJob />} />
+          <Route path="/user/jobs" element={<Jobs />} />
+
           <Route
             path="/company/profile/:companyId"
             element={<CompanyProfile />}
@@ -63,7 +68,7 @@ function App() {
 
           <Route path="/company/:companyId/createJob" element={<CreateJob />} />
 
-          <Route path="/searchJobs" element={<Jobs />} />
+          <Route path="/searchJobs" element={<AllJobs />} />
 
           <Route path="/cold-login" element={<AuthNavigator />} />
           <Route path="/company-navigator" element={<CompanyNavigator />} />

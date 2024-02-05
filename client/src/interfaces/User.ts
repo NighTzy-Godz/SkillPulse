@@ -10,6 +10,10 @@ export enum employmentType {
   PART_TIME = "Part Time",
 }
 
+export interface UserApplyJobData {
+  resume: FileList;
+}
+
 export interface LoginUserData {
   email: string;
   password: string;

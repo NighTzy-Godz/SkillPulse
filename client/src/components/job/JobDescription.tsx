@@ -2,9 +2,10 @@ import React from "react";
 import customBtnTheme from "../../utils/customBtnTheme";
 import { Button } from "flowbite-react";
 import { IJob } from "../../interfaces/Job";
-import moment from "moment";
+
 import formatDate, { findDuration } from "../../utils/dateDuration";
 import formatMoney from "../../utils/formatMoney";
+import { Link } from "react-router-dom";
 
 interface JobDescriptionProps {
   job: IJob;
@@ -12,6 +13,7 @@ interface JobDescriptionProps {
 
 function JobDescription({ job }: JobDescriptionProps) {
   const {
+    _id,
     title,
     company,
     createdAt,
@@ -44,9 +46,12 @@ function JobDescription({ job }: JobDescriptionProps) {
         </div>
 
         <div className="flex gap-4">
-          <Button color="blue" theme={customBtnTheme}>
+          <Link
+            to={`/user/applyJob/${_id}`}
+            className="transition-all text-sm px-3 flex items-center rounded-lg duration-200 text-center text-white bg-blue-500 border border-transparent hover:bg-blue-600 focus:ring-4 focus:ring-blue-300"
+          >
             Apply Now
-          </Button>
+          </Link>
           <Button color="customGreen" theme={customBtnTheme}>
             Save Job
           </Button>
