@@ -5,7 +5,7 @@ import { IJob } from "../../interfaces/Job";
 
 import formatDate, { findDuration } from "../../utils/dateDuration";
 import formatMoney from "../../utils/formatMoney";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface JobDescriptionProps {
   job: IJob;

@@ -106,7 +106,7 @@ function MainNav({ token }: MainNavProps) {
                 Find a Job
               </NavLink>
 
-              {token && isUserRoute && (
+              {token && (
                 <NavLink to="/companies" className={navBarClass}>
                   Companies
                 </NavLink>
