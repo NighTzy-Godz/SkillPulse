@@ -6,6 +6,8 @@ import { IJob } from "../../interfaces/Job";
 import formatDate, { findDuration } from "../../utils/dateDuration";
 import formatMoney from "../../utils/formatMoney";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { State } from "../../store/store";
 
 interface JobDescriptionProps {
   job: IJob;
@@ -14,6 +16,10 @@ interface JobDescriptionProps {
 function JobDescription({ job }: JobDescriptionProps) {
   const { pathname } = useLocation();
   const isApplying = pathname.includes("applyJob");
+
+  const currUserId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?._id
+  );
 
   const {
     _id,
@@ -25,7 +31,29 @@ function JobDescription({ job }: JobDescriptionProps) {
     employmentType,
     location,
     salary,
+    savedBy,
   } = job || {};
+
+  const hasApplied = applicants?.find((item) => item === currUserId);
+
+  const renderApplyButton = () => {
+    if (hasApplied) {
+      return (
+        <Button color="blue" theme={customBtnTheme}>
+          Applied
+        </Button>
+      );
+    }
+
+    return (
+      <Link
+        to={`/user/applyJob/${_id}`}
+        className="transition-all text-sm px-3 flex items-center rounded-lg duration-200 text-center text-white bg-blue-500 border border-transparent hover:bg-blue-600 focus:ring-4 focus:ring-blue-300"
+      >
+        Apply Now
+      </Link>
+    );
+  };
 
   return (
     <div className="w-3/5 max-h-screen  overflow-y-auto p-5 ">
@@ -50,12 +78,7 @@ function JobDescription({ job }: JobDescriptionProps) {
 
         {!isApplying && (
           <div className="flex gap-4">
-            <Link
-              to={`/user/applyJob/${_id}`}
-              className="transition-all text-sm px-3 flex items-center rounded-lg duration-200 text-center text-white bg-blue-500 border border-transparent hover:bg-blue-600 focus:ring-4 focus:ring-blue-300"
-            >
-              Apply Now
-            </Link>
+            {renderApplyButton()}
             <Button color="customGreen" theme={customBtnTheme}>
               Save Job
             </Button>

@@ -1,5 +1,5 @@
 import { ICompany } from "./Company";
-import { employmentType } from "./User";
+import { IUser, employmentType } from "./User";
 
 export interface CreateJobData {
   title: string;
@@ -29,8 +29,8 @@ export interface IJob {
   employmentType: employmentType;
   location: string;
 
-  savedBy: string[];
-  applicants: string;
+  savedBy: string[] | IUser[];
+  applicants: string[] | IUser[];
   createdAt: Date;
   updatedAt: Date;
 }
