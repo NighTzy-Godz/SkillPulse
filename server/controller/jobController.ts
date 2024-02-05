@@ -77,3 +77,20 @@ export const searchJobs = async (
     next(error);
   }
 };
+
+export const getJobDescription = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { jobId } = req.params;
+
+    const job = await Job.findOne({ _id: jobId });
+    if (!job) return res.status(404).send("Job did not found");
+
+    res.send(job);
+  } catch (error) {
+    next(error);
+  }
+};

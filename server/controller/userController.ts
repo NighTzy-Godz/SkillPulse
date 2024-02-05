@@ -36,6 +36,7 @@ export const userJobApplied = async (
     if (!job) return res.status(404).send("Job Post did not found");
 
     const userApplied = await Job.findOne({
+      _id: jobId,
       applicants: { $in: currUserId },
     }).select("_id");
 
