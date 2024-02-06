@@ -8,7 +8,12 @@ import formatMoney from "../../utils/formatMoney";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
-import { userSaveJob, userUnsaveJob } from "../../store/slices/job";
+import {
+  setUserSelectedJob,
+  userSaveJob,
+  userUnsaveJob,
+} from "../../store/slices/job";
+import { toast } from "react-toastify";
 
 function JobDescription() {
   const { pathname } = useLocation();
@@ -21,6 +26,16 @@ function JobDescription() {
   const currUserId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
+
+  const jobs = useSelector(
+    (state: State) => state.entities.job.jobResults.jobs
+  );
+
+  useEffect(() => {
+    if (!selectedJob) {
+      dispatch(setUserSelectedJob(jobs[0]));
+    }
+  }, [selectedJob]);
 
   const {
     _id,
@@ -46,6 +61,8 @@ function JobDescription() {
   useEffect(() => {}, [selectedJob]);
 
   const handleSaveJob = (jobId: string) => {
+    if (!currUserId) return toast.error("Login first before saving this job");
+
     const reqBody: SaveUnsaveJobData = {
       jobId,
     };
@@ -63,6 +80,20 @@ function JobDescription() {
         </Button>
       );
     }
+
+    if (!currUserId)
+      return (
+        <Button
+          color="blue"
+          theme={customBtnTheme}
+          onClick={() => {
+            if (!currUserId)
+              return toast.error("Login first before saving this job");
+          }}
+        >
+          Apply Job
+        </Button>
+      );
 
     return (
       <Link

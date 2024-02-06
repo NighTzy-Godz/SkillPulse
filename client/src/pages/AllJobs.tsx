@@ -14,12 +14,9 @@ import NoJobSearch from "../components/job/NoJobSearch";
 import { setUserSelectedJob } from "../store/slices/job";
 
 function AllJobs() {
+  const dispatch = useDispatch();
   const { jobs, totalCount } = useSelector(
     (state: State) => state.entities.job.jobResults
-  );
-
-  const selectedJob = useSelector(
-    (state: State) => state.entities.job.selectedJob
   );
 
   const [searchedJob, setSearchJob] = useState("");
@@ -36,18 +33,10 @@ function AllJobs() {
     page: parseInt(page as string),
   };
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getSearchedJobs(queryData));
   }, [page]);
-
-  useEffect(() => {
-    if (jobs.length > 0) {
-      dispatch(setUserSelectedJob(jobs[0]));
-    }
-  }, [jobs]);
 
   const handleSelectJobChange = (job: IJob) => {
     dispatch(setUserSelectedJob(job));
@@ -97,10 +86,7 @@ function AllJobs() {
       return (
         <div className="flex gap-4 max-h-[75dvh]">
           <div className="w-2/5  max-h-screen overflow-y-auto">
-            <JobList
-              currJob={selectedJob as IJob}
-              onJobSelectChange={handleSelectJobChange}
-            />
+            <JobList onJobSelectChange={handleSelectJobChange} />
             <ReactPaginate
               forcePage={parseInt(page as string) - 1}
               className="paginate flex flex-wrap gap-2 my-5"
