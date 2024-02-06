@@ -28,6 +28,7 @@ router.post(
   [isAuth],
   userJobApplied
 );
+
 router.post("/registerUser", registerUser);
 router.post("/loginUser", loginUser);
 router.post("/addUserExp", [isAuth], addUserExp);

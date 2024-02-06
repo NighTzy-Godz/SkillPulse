@@ -3,7 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import mongoose from "mongoose";
 const jwtSecretPass = "secretPass";
 interface DecodedUser {
-  _id: unknown | mongoose.Types.ObjectId;
+  _id: unknown | mongoose.ObjectId;
   fullName: string;
 }
 

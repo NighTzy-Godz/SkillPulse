@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { CreateJobData, createJobValidator } from "../validators/jobValidator";
 import Company from "../models/Company_Model";
 import Job from "../models/Job_Model";
+import User from "../models/User_Model";
+import { ObjectId } from "mongoose";
 
 export const createJob = async (
   req: Request,
@@ -88,6 +90,64 @@ export const getJobDescription = async (
 
     const job = await Job.findOne({ _id: jobId });
     if (!job) return res.status(404).send("Job did not found");
+
+    res.send(job);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const saveJob = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { jobId } = req.body;
+
+    const currUserId = req.user?._id;
+    const currUser = await User.findOne({ _id: currUserId });
+    if (!currUser) return res.status(404).send("User did not found");
+
+    const job = await Job.findOne({ _id: jobId }).populate("company");
+    if (!job)
+      return res
+        .status(404)
+        .send("Job Post did not found. Cannot save this time");
+
+    const isSaved = job.savedBy.find((item) => item.toString() === currUserId);
+    if (isSaved) return res.status(409).send("You already saved this job");
+
+    job.savedBy.push(currUserId as ObjectId);
+    await job.save();
+
+    res.send(job);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const unsaveJob = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { jobId } = req.body;
+
+    const currUserId = req.user?._id;
+    const currUser = await User.findOne({ _id: currUserId });
+    if (!currUser) return res.status(404).send("User did not found");
+
+    const job = await Job.findOneAndUpdate(
+      {
+        _id: jobId,
+      },
+      { $pull: { savedBy: currUserId } },
+      { new: true }
+    ).populate("company");
+
+    if (!job) return res.status(400).send("Job did not found");
 
     res.send(job);
   } catch (error) {
