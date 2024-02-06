@@ -20,6 +20,10 @@ export interface SearchJobResponse {
   currPage: number;
 }
 
+export interface SaveUnsaveJobData {
+  jobId: string;
+}
+
 export interface IJob {
   _id: string;
   title: string;

@@ -8,7 +8,7 @@ import {
 } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
 import { ICompany, CompanyRegisterData } from "../../interfaces/Company";
-import { IJob } from "../../interfaces/Job";
+import { IJob, SaveUnsaveJobData } from "../../interfaces/Job";
 
 interface UserState {
   loading: boolean;
@@ -104,14 +104,10 @@ const slice = createSlice({
     setUserStatusCode: (user, action) => {
       user.statusCode = action.payload;
     },
-
-    setUserSelectedJob: (user, action) => {
-      user.userSelectedJob = action.payload;
-    },
   },
 });
 
-export const { setUserSelectedJob, setUserStatusCode } = slice.actions;
+export const { setUserStatusCode } = slice.actions;
 
 const {
   userRequested,

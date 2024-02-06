@@ -11,7 +11,7 @@ import ReactPaginate from "react-paginate";
 import { useSearchParams } from "react-router-dom";
 import SearchBar from "../components/common/SearchBar";
 import NoJobSearch from "../components/job/NoJobSearch";
-import { setUserSelectedJob } from "../store/slices/user";
+import { setUserSelectedJob } from "../store/slices/job";
 
 function AllJobs() {
   const { jobs, totalCount } = useSelector(
@@ -19,7 +19,7 @@ function AllJobs() {
   );
 
   const selectedJob = useSelector(
-    (state: State) => state.entities.user.userSelectedJob
+    (state: State) => state.entities.job.selectedJob
   );
 
   const [searchedJob, setSearchJob] = useState("");
@@ -95,7 +95,7 @@ function AllJobs() {
   const renderContent = () => {
     if (jobs.length > 0)
       return (
-        <div className="flex gap-4 max-h-[82dvh]">
+        <div className="flex gap-4 max-h-[75dvh]">
           <div className="w-2/5  max-h-screen overflow-y-auto">
             <JobList
               currJob={selectedJob as IJob}
@@ -112,7 +112,7 @@ function AllJobs() {
             />
           </div>
 
-          <JobDescription job={selectedJob as IJob} />
+          <JobDescription />
         </div>
       );
 

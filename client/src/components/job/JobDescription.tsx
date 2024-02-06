@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import customBtnTheme from "../../utils/customBtnTheme";
 import { Button } from "flowbite-react";
-import { IJob } from "../../interfaces/Job";
+import { IJob, SaveUnsaveJobData } from "../../interfaces/Job";
 
 import formatDate, { findDuration } from "../../utils/dateDuration";
 import formatMoney from "../../utils/formatMoney";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
+import { userSaveJob, userUnsaveJob } from "../../store/slices/job";
 
-interface JobDescriptionProps {
-  job: IJob;
-}
-
-function JobDescription({ job }: JobDescriptionProps) {
+function JobDescription() {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
   const isApplying = pathname.includes("applyJob");
 
+  const selectedJob = useSelector(
+    (state: State) => state.entities.job.selectedJob
+  );
   const currUserId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
@@ -32,9 +33,27 @@ function JobDescription({ job }: JobDescriptionProps) {
     location,
     salary,
     savedBy,
-  } = job || {};
+  } = selectedJob || {};
 
   const hasApplied = applicants?.find((item) => item === currUserId);
+  const hasSaved = !!savedBy?.find((item) => item === currUserId);
+
+  const [jobSaved, setJobSaved] = useState(hasSaved);
+  useEffect(() => {
+    setJobSaved(hasSaved);
+  }, [hasSaved]);
+
+  useEffect(() => {}, [selectedJob]);
+
+  const handleSaveJob = (jobId: string) => {
+    const reqBody: SaveUnsaveJobData = {
+      jobId,
+    };
+    setJobSaved(!jobSaved);
+
+    if (jobSaved) return dispatch(userUnsaveJob(reqBody));
+    return dispatch(userSaveJob(reqBody));
+  };
 
   const renderApplyButton = () => {
     if (hasApplied) {
@@ -64,7 +83,7 @@ function JobDescription({ job }: JobDescriptionProps) {
           <p className="text-sm text-zinc-700">{company?.name}</p>
           <p className="text-sm text-zinc-700 b-dot">{location}</p>
           <p className="text-sm text-zinc-500 b-dot">
-            {formatDate(findDuration(createdAt))}
+            {formatDate(findDuration(createdAt as Date))}
           </p>
           <p className="text-sm text-green-600 font-semibold b-dot">
             {applicants?.length} Applicants
@@ -73,14 +92,20 @@ function JobDescription({ job }: JobDescriptionProps) {
 
         <div className="mb-5">
           <p className=" b-dot text-zinc-500 mb-1">{employmentType}</p>
-          <p className=" b-dot  text-zinc-700 ">{formatMoney(salary)}</p>
+          <p className=" b-dot  text-zinc-700 ">
+            {formatMoney(salary as string)}
+          </p>
         </div>
 
         {!isApplying && (
           <div className="flex gap-4">
             {renderApplyButton()}
-            <Button color="customGreen" theme={customBtnTheme}>
-              Save Job
+            <Button
+              color="customGreen"
+              theme={customBtnTheme}
+              onClick={() => handleSaveJob(_id as string)}
+            >
+              {jobSaved ? "Unsave Job" : "Save Job"}
             </Button>
           </div>
         )}
