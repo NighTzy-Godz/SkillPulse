@@ -4,6 +4,7 @@ import Company from "../models/Company_Model";
 import Job from "../models/Job_Model";
 import User from "../models/User_Model";
 import { ObjectId } from "mongoose";
+import JobApplication from "../models/JobApplication_Model";
 
 export const createJob = async (
   req: Request,
@@ -75,6 +76,27 @@ export const searchJobs = async (
     };
 
     res.send(resContent);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAppliedJobs = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const currUserId = req.user?._id;
+
+    const currUser = await User.findOne({ _id: currUserId });
+    if (!currUser) return res.status(404).send("User did not found");
+
+    const appliedJobs = await JobApplication.find({
+      userId: currUserId,
+    }).populate("jobId");
+
+    res.send(appliedJobs);
   } catch (error) {
     next(error);
   }
