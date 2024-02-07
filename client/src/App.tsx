@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import HomeLayout from "./pages/HomeLayout";
 import Home from "./pages/Home";
 import RegisterUser from "./pages/RegisterUser";
@@ -59,7 +59,7 @@ function App() {
 
           <Route path="/user/profile/:userId" element={<UserProfile />} />
           <Route path="/user/applyJob/:jobId" element={<ApplyJob />} />
-          <Route path="/user/jobs" element={<Jobs />} />
+          <Route path="/user/jobs" element={<Jobs />}></Route>
 
           <Route
             path="/company/profile/:companyId"

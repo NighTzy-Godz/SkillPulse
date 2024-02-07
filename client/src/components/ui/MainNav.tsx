@@ -53,7 +53,7 @@ function MainNav({ token }: MainNavProps) {
                 <Link to={`/user/profile/${userId}`}>Profile</Link>
               </Dropdown.Item>
               <Dropdown.Item>
-                <Link to="#">Saved Jobs</Link>
+                <Link to="/user/jobs"> Jobs</Link>
               </Dropdown.Item>{" "}
               <Dropdown.Item>
                 {companyFound ? (

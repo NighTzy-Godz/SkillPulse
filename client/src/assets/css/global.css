@@ -56,6 +56,11 @@
   fill: #71717a;
 }
 
+.customBorder {
+  border-left-width: 4px;
+  border-left-color: #2563eb;
+}
+
 .paginate li {
   @apply border p-2 text-center h-10 w-10 rounded-full text-sm pb-2;
 }
@@ -66,4 +71,25 @@
 
 .mainNav img {
   object-fit: cover;
+}
+
+.rejected {
+  background-color: rgba(165, 19, 19, 0.212);
+  color: rgb(231, 40, 40);
+}
+
+.accepted {
+  background: rgba(27, 199, 27, 0.226);
+  color: rgba(26, 163, 26, 0.966);
+}
+
+.reviewing,
+.proceeding {
+  background: #bfdbfe;
+  color: #3b82f6;
+}
+
+.pending {
+  background: rgba(255, 166, 0, 0.219);
+  color: rgb(204, 141, 23);
 }

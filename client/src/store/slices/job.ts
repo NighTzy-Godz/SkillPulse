@@ -7,6 +7,7 @@ import {
   SearchJobResponse,
 } from "../../interfaces/Job";
 import { apiCallBegan } from "../actions/apiActions";
+import { IJobApplication } from "../../interfaces/JobApplication";
 
 interface JobState {
   error: null | string;
@@ -15,6 +16,9 @@ interface JobState {
 
   jobResults: SearchJobResponse;
   selectedJob: null | IJob;
+
+  appliedJob: IJobApplication[];
+  savedJobs: IJob[];
 }
 
 const initialState: JobState = {
@@ -28,6 +32,8 @@ const initialState: JobState = {
     currPage: 1,
   },
   selectedJob: null,
+  appliedJob: [],
+  savedJobs: [],
 };
 
 const slice = createSlice({
@@ -69,6 +75,12 @@ const slice = createSlice({
       job.jobResults.jobs[index] = responseJob;
     },
 
+    appliedJobListSucess: (job, action) => {
+      job.loading = false;
+      job.error = null;
+      job.appliedJob = action.payload.data;
+    },
+
     setJobStatusCode: (job, action) => {
       job.statusCode = action.payload;
     },
@@ -80,6 +92,7 @@ const slice = createSlice({
 });
 
 const {
+  appliedJobListSucess,
   jobCreateSuccess,
   jobRequested,
   jobRequestFailed,
@@ -87,6 +100,14 @@ const {
   jobSaveUnsaveSuccess,
 } = slice.actions;
 export const { setJobStatusCode, setUserSelectedJob } = slice.actions;
+
+export const getAppliedJobs = () =>
+  apiCallBegan({
+    url: "/job/getAppliedJobs",
+    onStart: jobRequested.type,
+    onError: jobRequestFailed.type,
+    onSuccess: appliedJobListSucess.type,
+  });
 
 export const userSaveJob = (data: SaveUnsaveJobData) =>
   apiCallBegan({
