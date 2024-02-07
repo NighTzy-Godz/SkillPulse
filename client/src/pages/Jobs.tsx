@@ -56,7 +56,22 @@ function Jobs() {
 
   const renderAppliedJobs = () => {
     if (appliedJobs.length === 0) {
-      return <h1>There is no Applied Jobs At the moment</h1>;
+      return (
+        <div className="text-center ">
+          <h1 className="text-xl text-zinc-700 font-semibold">
+            There is no Applied Jobs at the moment{" "}
+            <span>
+              <Link
+                to="/searchJobs"
+                className="text-blue-500 underline font-medium text-lg"
+              >
+                {" "}
+                Search Job Here.
+              </Link>
+            </span>
+          </h1>
+        </div>
+      );
     }
 
     return appliedJobs.map((item) => {
@@ -64,9 +79,9 @@ function Jobs() {
         <div className="boxShadow2 rounded-lg mb-5 px-5 py-3 flex justify-between">
           <div className="">
             {" "}
-            <h1 className="text-zinc-600 font-semibold text-xl">
+            <Link to="#" className="text-zinc-600 font-semibold text-xl">
               {item.jobId.title}
-            </h1>
+            </Link>
             <p>{item.jobId.company.name}</p>
             <p className="text-zinc-400">
               {item.jobId.location} ({item.jobId.employmentType})
