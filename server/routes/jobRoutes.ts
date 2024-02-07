@@ -3,6 +3,7 @@ import {
   createJob,
   getAppliedJobs,
   getJobDescription,
+  getSavedJobs,
   saveJob,
   searchJobs,
   unsaveJob,
@@ -14,6 +15,7 @@ const router = Router();
 router.get("/getJobDescription/:jobId", getJobDescription);
 router.get("/searchJobs", searchJobs);
 router.get("/getAppliedJobs", [isAuth], getAppliedJobs);
+router.get("/getSavedJobs", [isAuth], getSavedJobs);
 
 router.post("/saveJob", [isAuth], saveJob);
 router.post("/unsaveJob", [isAuth], unsaveJob);
