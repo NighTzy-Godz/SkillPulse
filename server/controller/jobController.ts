@@ -44,7 +44,7 @@ export const getSavedJobs = async (
     if (!currUser) return res.status(404).send("User did not found");
 
     const savedJobs = await Job.find({
-      applicants: { $in: currUserId },
+      savedBy: { $in: currUserId },
     }).populate("company");
 
     res.send(savedJobs);
