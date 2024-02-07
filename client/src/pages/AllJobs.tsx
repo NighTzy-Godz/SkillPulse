@@ -19,6 +19,10 @@ function AllJobs() {
     (state: State) => state.entities.job.jobResults
   );
 
+  const selectedJob = useSelector(
+    (state: State) => state.entities.job.selectedJob
+  );
+
   const [searchedJob, setSearchJob] = useState("");
   const [searchParams, setSearchParams] = useSearchParams({
     jobSearch: "",
@@ -37,6 +41,12 @@ function AllJobs() {
     window.scrollTo(0, 0);
     dispatch(getSearchedJobs(queryData));
   }, [page]);
+
+  useEffect(() => {
+    if (!selectedJob) {
+      dispatch(setUserSelectedJob(jobs[0]));
+    }
+  }, [selectedJob, jobs]);
 
   const handleSelectJobChange = (job: IJob) => {
     dispatch(setUserSelectedJob(job));
@@ -98,7 +108,7 @@ function AllJobs() {
             />
           </div>
 
-          <JobDescription />
+          <JobDescription job={selectedJob as IJob} />
         </div>
       );
 

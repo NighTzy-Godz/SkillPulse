@@ -15,7 +15,11 @@ import {
 } from "../../store/slices/job";
 import { toast } from "react-toastify";
 
-function JobDescription() {
+interface JobDescriptionProps {
+  job: IJob;
+}
+
+function JobDescription({ job }: JobDescriptionProps) {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const isApplying = pathname.includes("applyJob");
@@ -27,15 +31,7 @@ function JobDescription() {
     (state: State) => state.entities.auth.decodedModel?._id
   );
 
-  const jobs = useSelector(
-    (state: State) => state.entities.job.jobResults.jobs
-  );
-
-  useEffect(() => {
-    if (!selectedJob) {
-      dispatch(setUserSelectedJob(jobs[0]));
-    }
-  }, [selectedJob]);
+  useEffect(() => {}, [job]);
 
   const {
     _id,
@@ -48,7 +44,7 @@ function JobDescription() {
     location,
     salary,
     savedBy,
-  } = selectedJob || {};
+  } = job || {};
 
   const hasApplied = applicants?.find((item) => item === currUserId);
   const hasSaved = !!savedBy?.find((item) => item === currUserId);

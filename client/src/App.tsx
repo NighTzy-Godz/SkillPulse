@@ -20,6 +20,7 @@ import CreateJob from "./pages/CreateJob";
 import AllJobs from "./pages/AllJobs";
 import ApplyJob from "./pages/ApplyJob";
 import Jobs from "./pages/Jobs";
+import ViewJob from "./pages/ViewJob";
 
 function App() {
   const dispatch = useDispatch();
@@ -72,6 +73,8 @@ function App() {
 
           <Route path="/cold-login" element={<AuthNavigator />} />
           <Route path="/company-navigator" element={<CompanyNavigator />} />
+          <Route path="/viewJob/:jobId" element={<ViewJob />} />
+
           <Route path="/logout" element={<Logout />} />
         </Route>
       </Routes>

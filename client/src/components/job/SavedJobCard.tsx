@@ -1,7 +1,6 @@
 import { IJob } from "../../interfaces/Job";
 
 import { Link } from "react-router-dom";
-import formatDate, { findDuration } from "../../utils/dateDuration";
 
 interface SavedJobCardProps {
   data: IJob;
@@ -9,14 +8,17 @@ interface SavedJobCardProps {
 
 function SavedJobCard(props: SavedJobCardProps) {
   const { data } = props;
-  const { title, company, location, employmentType, applicants } = data;
+  const { title, company, location, employmentType, applicants, _id } = data;
   return (
     <div className="boxShadow2 rounded-lg flex gap-3 mb-5 px-5 py-3 ">
       <div className="h-10 w-10">
         <img src={company.logo} alt="" />
       </div>
       <div className="">
-        <Link to="#" className="text-zinc-600 font-semibold text-xl">
+        <Link
+          to={`/viewJob/${_id}`}
+          className="text-zinc-600 font-semibold text-xl"
+        >
           {title}
         </Link>
         <p>{company.name}</p>
