@@ -61,7 +61,7 @@ export const getJobDescription = async (
   try {
     const { jobId } = req.params;
 
-    const job = await Job.findOne({ _id: jobId });
+    const job = await Job.findOne({ _id: jobId }).populate("company");
     if (!job) return res.status(404).send("Job did not found");
 
     res.send(job);
