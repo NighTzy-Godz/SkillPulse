@@ -16,8 +16,10 @@ function AppliedJobCard(props: AppliedJobCardProps) {
           <img src={job.company.logo} alt="" />
         </div>
         <div className="">
-          {" "}
-          <Link to="#" className="text-zinc-600 font-semibold text-xl">
+          <Link
+            to={`/viewJob/${job._id}`}
+            className="text-zinc-600 font-semibold text-xl"
+          >
             {job.title}
           </Link>
           <p>{job.company.name}</p>

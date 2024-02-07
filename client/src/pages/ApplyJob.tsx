@@ -16,6 +16,7 @@ import {
 import customBtnTheme from "../utils/customBtnTheme";
 import JobDescription from "../components/job/JobDescription";
 import { IJob } from "../interfaces/Job";
+import JobDescriptionContainer from "../components/job/JobDescriptionContainer";
 
 function ApplyJob() {
   const { jobId } = useParams();
@@ -99,8 +100,9 @@ function ApplyJob() {
               </Button>
             </form>
           </div>
-
-          <JobDescription job={userSelectedJob as IJob} />
+          <JobDescriptionContainer>
+            <JobDescription job={userSelectedJob as IJob} />
+          </JobDescriptionContainer>
         </div>
       </div>
     </div>

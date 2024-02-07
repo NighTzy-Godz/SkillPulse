@@ -31,8 +31,6 @@ function JobDescription({ job }: JobDescriptionProps) {
     (state: State) => state.entities.auth.decodedModel?._id
   );
 
-  useEffect(() => {}, [job]);
-
   const {
     _id,
     title,
@@ -102,7 +100,7 @@ function JobDescription({ job }: JobDescriptionProps) {
   };
 
   return (
-    <div className="w-3/5 max-h-screen  overflow-y-auto p-5 ">
+    <div className=" ">
       <div className="mb-10">
         <h1 className="text-2xl font-semibold mb-1 text-zinc-700 ">{title}</h1>
         <div className="flex gap-1 flex-wrap mb-4">

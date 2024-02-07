@@ -12,6 +12,7 @@ import { useSearchParams } from "react-router-dom";
 import SearchBar from "../components/common/SearchBar";
 import NoJobSearch from "../components/job/NoJobSearch";
 import { setUserSelectedJob } from "../store/slices/job";
+import JobDescriptionContainer from "../components/job/JobDescriptionContainer";
 
 function AllJobs() {
   const dispatch = useDispatch();
@@ -107,8 +108,9 @@ function AllJobs() {
               onPageChange={handlePageChange}
             />
           </div>
-
-          <JobDescription job={selectedJob as IJob} />
+          <JobDescriptionContainer>
+            <JobDescription job={selectedJob as IJob} />
+          </JobDescriptionContainer>
         </div>
       );
 

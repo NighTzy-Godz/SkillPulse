@@ -75,6 +75,12 @@ const slice = createSlice({
       job.jobResults.jobs[index] = responseJob;
     },
 
+    jobDescriptionSuccess: (job, action) => {
+      job.loading = false;
+      job.error = null;
+      job.selectedJob = action.payload.data;
+    },
+
     appliedJobListSuccess: (job, action) => {
       job.loading = false;
       job.error = null;
