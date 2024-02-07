@@ -11,14 +11,20 @@ function AppliedJobCard(props: AppliedJobCardProps) {
 
   return (
     <div className="boxShadow2 rounded-lg mb-5 px-5 py-3 flex justify-between">
-      <div className="">
-        <Link to="#" className="text-zinc-600 font-semibold text-xl">
-          {job.title}
-        </Link>
-        <p>{job.company.name}</p>
-        <p className="text-zinc-400">
-          {job.location} ({job.employmentType})
-        </p>
+      <div className="flex gap-3">
+        <div className="h-10 w-10">
+          <img src={job.company.logo} alt="" />
+        </div>
+        <div className="">
+          {" "}
+          <Link to="#" className="text-zinc-600 font-semibold text-xl">
+            {job.title}
+          </Link>
+          <p>{job.company.name}</p>
+          <p className="text-zinc-400">
+            {job.location} ({job.employmentType})
+          </p>
+        </div>
       </div>
       <div className="flex gap-2 ">
         <span
