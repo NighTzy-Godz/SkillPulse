@@ -23,7 +23,7 @@ export const getAppliedJobs = async (
       path: "jobId",
       populate: {
         path: "company",
-        select: "name",
+        select: "name logo",
       },
     });
 
