@@ -5,6 +5,8 @@ import jobLinks, { JobLink } from "../data/jobLinks";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
 import { getAppliedJobs } from "../store/slices/job";
+import AppliedJobCard from "../components/job/AppliedJobCard";
+import NoJobData from "../components/job/NoJobData";
 
 function Jobs() {
   const dispatch = useDispatch();
@@ -40,7 +42,7 @@ function Jobs() {
       <li
         key={item.id}
         onClick={() => handleJobItemClick(item.value)}
-        className={`p-3 border-l-4 border-t flex justify-between cursor-pointer${
+        className={`p-3 border-l-4 border-t flex justify-between cursor-pointer ${
           isActive ? "customBorder" : ""
         } border-zinc-300 `}
       >
@@ -56,46 +58,11 @@ function Jobs() {
 
   const renderAppliedJobs = () => {
     if (appliedJobs.length === 0) {
-      return (
-        <div className="text-center ">
-          <h1 className="text-xl text-zinc-700 font-semibold">
-            There is no Applied Jobs at the moment{" "}
-            <span>
-              <Link
-                to="/searchJobs"
-                className="text-blue-500 underline font-medium text-lg"
-              >
-                {" "}
-                Search Job Here.
-              </Link>
-            </span>
-          </h1>
-        </div>
-      );
+      return <NoJobData msg=" There is no Applied Jobs at the moment" />;
     }
 
     return appliedJobs.map((item) => {
-      return (
-        <div className="boxShadow2 rounded-lg mb-5 px-5 py-3 flex justify-between">
-          <div className="">
-            {" "}
-            <Link to="#" className="text-zinc-600 font-semibold text-xl">
-              {item.jobId.title}
-            </Link>
-            <p>{item.jobId.company.name}</p>
-            <p className="text-zinc-400">
-              {item.jobId.location} ({item.jobId.employmentType})
-            </p>
-          </div>
-          <div className="flex gap-2 ">
-            <span
-              className={`h-fit text-xs px-1.5 py-1 font-semibold rounded-lg ${item.status.toLowerCase()}`}
-            >
-              {item.status}
-            </span>
-          </div>
-        </div>
-      );
+      return <AppliedJobCard data={item} />;
     });
   };
 
