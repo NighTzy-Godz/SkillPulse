@@ -4,7 +4,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { State } from "../../store/store";
 import { FaSearch } from "react-icons/fa";
-import { useState } from "react";
+import React, { useState } from "react";
 interface MainNavProps {
   token: null | string;
 }
@@ -12,13 +12,13 @@ interface MainNavProps {
 function MainNav({ token }: MainNavProps) {
   const { pathname } = useLocation();
   const isCompanyRoute = pathname.includes("company");
-  const isUserRoute = pathname.includes("user");
 
   const [toggle, setToggle] = useState(false);
 
   const userId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
+
   const user = useSelector((state: State) => state.entities.user.userData);
   const companyFound = user?.company;
 
@@ -55,15 +55,24 @@ function MainNav({ token }: MainNavProps) {
               <Dropdown.Item>
                 <Link to="/user/jobs"> Jobs</Link>
               </Dropdown.Item>{" "}
-              <Dropdown.Item>
-                {companyFound ? (
-                  <Link to={`/company/profile/${companyFound._id}`}>
-                    Manage: {companyFound.name}
-                  </Link>
-                ) : (
+              {companyFound ? (
+                <React.Fragment>
+                  <Dropdown.Item>
+                    <Link to={`/company/manageJobPosts`}>Manage Job Posts</Link>
+                  </Dropdown.Item>{" "}
+                  <Dropdown.Item>
+                    {" "}
+                    <Link to={`/company/profile/${companyFound._id}`}>
+                      Manage: {companyFound.name}
+                    </Link>
+                  </Dropdown.Item>
+                </React.Fragment>
+              ) : (
+                <Dropdown.Item>
+                  {" "}
                   <Link to="/register-company">Register Company</Link>
-                )}
-              </Dropdown.Item>
+                </Dropdown.Item>
+              )}
               <Dropdown.Divider />
               <Dropdown.Item>
                 <Link to="/logout">Logout</Link>
