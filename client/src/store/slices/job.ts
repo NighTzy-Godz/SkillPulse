@@ -75,10 +75,16 @@ const slice = createSlice({
       job.jobResults.jobs[index] = responseJob;
     },
 
-    appliedJobListSucess: (job, action) => {
+    appliedJobListSuccess: (job, action) => {
       job.loading = false;
       job.error = null;
       job.appliedJob = action.payload.data;
+    },
+
+    savedJobListSuccess: (job, action) => {
+      job.loading = false;
+      job.error = null;
+      job.savedJobs = action.payload.data;
     },
 
     setJobStatusCode: (job, action) => {
@@ -92,12 +98,13 @@ const slice = createSlice({
 });
 
 const {
-  appliedJobListSucess,
+  appliedJobListSuccess,
   jobCreateSuccess,
   jobRequested,
   jobRequestFailed,
   jobSearchSuccess,
   jobSaveUnsaveSuccess,
+  savedJobListSuccess,
 } = slice.actions;
 export const { setJobStatusCode, setUserSelectedJob } = slice.actions;
 
@@ -106,7 +113,15 @@ export const getAppliedJobs = () =>
     url: "/job/getAppliedJobs",
     onStart: jobRequested.type,
     onError: jobRequestFailed.type,
-    onSuccess: appliedJobListSucess.type,
+    onSuccess: appliedJobListSuccess.type,
+  });
+
+export const getSavedJobs = () =>
+  apiCallBegan({
+    url: "/job/getSavedJobs",
+    onStart: jobRequested.type,
+    onError: jobRequestFailed.type,
+    onSuccess: savedJobListSuccess.type,
   });
 
 export const userSaveJob = (data: SaveUnsaveJobData) =>

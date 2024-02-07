@@ -4,9 +4,10 @@ import { Link, Outlet, useSearchParams } from "react-router-dom";
 import jobLinks, { JobLink } from "../data/jobLinks";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
-import { getAppliedJobs } from "../store/slices/job";
+import { getAppliedJobs, getSavedJobs } from "../store/slices/job";
 import AppliedJobCard from "../components/job/AppliedJobCard";
 import NoJobData from "../components/job/NoJobData";
+import SavedJobCard from "../components/job/SavedJobCard";
 
 function Jobs() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function Jobs() {
 
   useEffect(() => {
     dispatch(getAppliedJobs());
+    dispatch(getSavedJobs());
   }, []);
 
   const handleJobItemClick = (value: string) => {
@@ -62,7 +64,21 @@ function Jobs() {
     }
 
     return appliedJobs.map((item) => {
-      return <AppliedJobCard data={item} />;
+      return (
+        <React.Fragment key={item._id}>
+          <AppliedJobCard data={item} />
+        </React.Fragment>
+      );
+    });
+  };
+
+  const renderSavedJobs = () => {
+    if (savedJobs.length === 0) {
+      return <NoJobData msg=" There is no Saved Jobs at the moment" />;
+    }
+
+    return savedJobs.map((item) => {
+      return <SavedJobCard data={item} />;
     });
   };
 
@@ -70,7 +86,7 @@ function Jobs() {
     if (jobItemValue === "APPLIED") {
       return renderAppliedJobs();
     }
-    return <h1>I will show the cards for Saved</h1>;
+    return renderSavedJobs();
   };
 
   return (

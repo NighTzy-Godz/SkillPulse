@@ -8,10 +8,10 @@ interface AppliedJobCardProps {
 function AppliedJobCard(props: AppliedJobCardProps) {
   const { data } = props;
   const { jobId: job, status } = data;
+
   return (
     <div className="boxShadow2 rounded-lg mb-5 px-5 py-3 flex justify-between">
       <div className="">
-        {" "}
         <Link to="#" className="text-zinc-600 font-semibold text-xl">
           {job.title}
         </Link>
