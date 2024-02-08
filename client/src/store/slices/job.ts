@@ -17,7 +17,7 @@ interface JobState {
   jobResults: SearchJobResponse;
   selectedJob: null | IJob;
 
-  appliedJob: IJobApplication[];
+  appliedJobs: IJobApplication[];
   savedJobs: IJob[];
 }
 
@@ -32,7 +32,7 @@ const initialState: JobState = {
     currPage: 1,
   },
   selectedJob: null,
-  appliedJob: [],
+  appliedJobs: [],
   savedJobs: [],
 };
 
@@ -71,7 +71,7 @@ const slice = createSlice({
       const index = job.jobResults.jobs.findIndex(
         (item) => item._id === action.payload.data._id
       );
-      console.log(responseJob);
+
       job.jobResults.jobs[index] = responseJob;
     },
 
@@ -84,7 +84,7 @@ const slice = createSlice({
     appliedJobListSuccess: (job, action) => {
       job.loading = false;
       job.error = null;
-      job.appliedJob = action.payload.data;
+      job.appliedJobs = action.payload.data;
     },
 
     savedJobListSuccess: (job, action) => {

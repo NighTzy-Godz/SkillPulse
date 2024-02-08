@@ -1,26 +1,22 @@
-import React, { useEffect, useState } from "react";
-
-import { Link, Outlet, useSearchParams } from "react-router-dom";
-import jobLinks, { JobLink } from "../data/jobLinks";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../store/store";
 import { getAppliedJobs, getSavedJobs } from "../store/slices/job";
-import AppliedJobCard from "../components/job/AppliedJobCard";
-import NoJobData from "../components/job/NoJobData";
-import SavedJobCard from "../components/job/SavedJobCard";
-
 import JobLinks from "../components/job/JobLinks";
 import JobHeader from "../components/job/JobHeader";
+import AppliedJobCard from "../components/job/AppliedJobCard";
+import SavedJobCard from "../components/job/SavedJobCard";
+import NoJobData from "../components/job/NoJobData";
+import jobLinks from "../data/jobLinks";
+import { IJobApplication } from "../interfaces/JobApplication";
+import { IJob } from "../interfaces/Job";
 
 function Jobs() {
   const dispatch = useDispatch();
-
-  const appliedJobs = useSelector(
-    (state: State) => state.entities.job.appliedJob
+  const { appliedJobs, savedJobs } = useSelector(
+    (state: State) => state.entities.job
   );
-
-  const savedJobs = useSelector((state: State) => state.entities.job.savedJobs);
-
   const [searchParams, setSearchParams] = useSearchParams({ value: "APPLIED" });
   const jobItemValue = searchParams.get("value");
 
@@ -30,56 +26,31 @@ function Jobs() {
   }, []);
 
   const handleJobItemClick = (value: string) => {
-    setSearchParams((prev) => {
-      prev.set("value", value);
-      return prev;
-    });
+    setSearchParams({ value });
   };
 
   const renderCategoryLength = (jobCategory: string) => {
     return jobCategory === "APPLIED" ? appliedJobs.length : savedJobs.length;
   };
 
-  const renderJobLinks = jobLinks.map((item) => {
-    const isActive = item.value === jobItemValue;
-    return (
-      <React.Fragment key={item.id}>
-        <JobLinks
-          data={item}
-          isActive={isActive}
-          onJobItemClick={handleJobItemClick}
-          categoryLength={renderCategoryLength}
-        />
-      </React.Fragment>
-    );
-  });
-
-  const renderAppliedJobs = () => {
-    if (appliedJobs.length === 0) {
-      return <NoJobData msg=" There is no Applied Jobs at the moment" />;
-    }
-
-    return appliedJobs.map((item) => {
-      return (
-        <React.Fragment key={item._id}>
-          <AppliedJobCard data={item} />
-        </React.Fragment>
-      );
-    });
-  };
-
-  const renderSavedJobs = () => {
-    if (savedJobs.length === 0) {
-      return <NoJobData msg=" There is no Saved Jobs at the moment" />;
-    }
-
-    return savedJobs.map((item) => {
-      return <SavedJobCard data={item} />;
-    });
-  };
-
   const renderContent = () => {
-    return jobItemValue === "APPLIED" ? renderAppliedJobs() : renderSavedJobs();
+    const jobsToRender = jobItemValue === "APPLIED" ? appliedJobs : savedJobs;
+    if (jobsToRender.length === 0) {
+      return (
+        <NoJobData
+          msg={` There are no ${
+            jobItemValue === "APPLIED" ? "Applied" : "Saved"
+          } Jobs at the moment`}
+        />
+      );
+    }
+    return jobsToRender.map((item) =>
+      jobItemValue === "APPLIED" ? (
+        <AppliedJobCard key={item._id} data={item as IJobApplication} />
+      ) : (
+        <SavedJobCard key={item._id} data={item as IJob} />
+      )
+    );
   };
 
   return (
@@ -88,14 +59,21 @@ function Jobs() {
         <div className="flex gap-4">
           <div className="w-1/3 boxShadow2 h-fit">
             <ul>
-              <li className="flex gap-1 items-center p-3  ">
+              <li className="flex gap-1 items-center p-3">
                 <JobHeader title="My Jobs" />
               </li>
-
-              {renderJobLinks}
+              {jobLinks.map((item) => (
+                <JobLinks
+                  key={item.id}
+                  data={item}
+                  isActive={item.value === jobItemValue}
+                  onJobItemClick={handleJobItemClick}
+                  categoryLength={renderCategoryLength}
+                />
+              ))}
             </ul>
           </div>
-          <div className="w-2/3 ">{renderContent()}</div>
+          <div className="w-2/3">{renderContent()}</div>
         </div>
       </div>
     </div>
