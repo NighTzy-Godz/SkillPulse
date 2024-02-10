@@ -6,6 +6,24 @@ import User from "../models/User_Model";
 import { ObjectId } from "mongoose";
 import JobApplication from "../models/JobApplication_Model";
 
+export const getJobsCreated = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userCompanyId = req.userCompanyId;
+
+    const jobsCreated = await Job.find({
+      company: { $in: userCompanyId },
+    }).populate("company");
+
+    res.send(jobsCreated);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAppliedJobs = async (
   req: Request,
   res: Response,
@@ -32,6 +50,7 @@ export const getAppliedJobs = async (
     next(error);
   }
 };
+
 export const getSavedJobs = async (
   req: Request,
   res: Response,

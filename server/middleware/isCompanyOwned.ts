@@ -1,6 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import Company from "../models/Company_Model";
 import User from "../models/User_Model";
+import mongoose from "mongoose";
+
+declare global {
+  namespace Express {
+    interface Request {
+      userCompanyId: mongoose.ObjectId;
+    }
+  }
+}
 
 const isCompanyOwned = async (
   req: Request,
@@ -19,6 +28,8 @@ const isCompanyOwned = async (
         .send(
           "Sorry but you are not the company owner. You cannot do this action"
         );
+
+    req.userCompanyId = isCompanyOwned._id;
 
     next();
   } catch (error) {

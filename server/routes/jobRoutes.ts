@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createJob,
   getAppliedJobs,
+  getJobsCreated,
   getJobDescription,
   getSavedJobs,
   saveJob,
@@ -10,10 +11,17 @@ import {
 } from "../controller/jobController";
 import isAuth from "../middleware/isAuth";
 import isCompanyOwned from "../middleware/isCompanyOwned";
+import isUserExist from "../middleware/isUserExist";
 
 const router = Router();
 router.get("/getJobDescription/:jobId", getJobDescription);
 router.get("/searchJobs", searchJobs);
+
+router.get(
+  "/getJobsCreated",
+  [isAuth, isUserExist, isCompanyOwned],
+  getJobsCreated
+);
 router.get("/getAppliedJobs", [isAuth], getAppliedJobs);
 router.get("/getSavedJobs", [isAuth], getSavedJobs);
 
