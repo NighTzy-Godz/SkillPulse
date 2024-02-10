@@ -30,7 +30,7 @@ export interface ICompany {
   logo: string;
   size: string;
   location: string;
-  owner: IUser;
+  owner: IUser | string;
   coverPhoto: string;
   createdAt: Date;
   updatedAt: Date;

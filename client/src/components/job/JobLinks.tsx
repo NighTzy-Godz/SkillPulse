@@ -1,6 +1,6 @@
 import React from "react";
 import { IJob } from "../../interfaces/Job";
-import { JobLink } from "../../data/jobLinks";
+import { JobLink } from "../../data/userJobLinks";
 interface JobLinkProps {
   data: JobLink;
   isActive: boolean;

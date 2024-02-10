@@ -8,7 +8,7 @@ import JobHeader from "../components/job/JobHeader";
 import AppliedJobCard from "../components/job/AppliedJobCard";
 import SavedJobCard from "../components/job/SavedJobCard";
 import NoJobData from "../components/job/NoJobData";
-import jobLinks from "../data/jobLinks";
+import userJobLinks from "../data/userJobLinks";
 import { IJobApplication } from "../interfaces/JobApplication";
 import { IJob } from "../interfaces/Job";
 
@@ -62,7 +62,7 @@ function Jobs() {
               <li className="flex gap-1 items-center p-3">
                 <JobHeader title="My Jobs" />
               </li>
-              {jobLinks.map((item) => (
+              {userJobLinks.map((item) => (
                 <JobLinks
                   key={item.id}
                   data={item}

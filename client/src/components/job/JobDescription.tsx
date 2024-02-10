@@ -8,11 +8,7 @@ import formatMoney from "../../utils/formatMoney";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
-import {
-  setUserSelectedJob,
-  userSaveJob,
-  userUnsaveJob,
-} from "../../store/slices/job";
+import { userSaveJob, userUnsaveJob } from "../../store/slices/job";
 import { toast } from "react-toastify";
 
 interface JobDescriptionProps {
@@ -43,6 +39,8 @@ function JobDescription({ job }: JobDescriptionProps) {
     salary,
     savedBy,
   } = job || {};
+
+  const isOwner = currUserId === company?.owner;
 
   const hasApplied = applicants?.find((item) => item === currUserId);
   const hasSaved = !!savedBy?.find((item) => item === currUserId);
@@ -122,18 +120,19 @@ function JobDescription({ job }: JobDescriptionProps) {
           </p>
         </div>
 
-        {!isApplying && (
-          <div className="flex gap-4">
-            {renderApplyButton()}
-            <Button
-              color="customGreen"
-              theme={customBtnTheme}
-              onClick={() => handleSaveJob(_id as string)}
-            >
-              {jobSaved ? "Unsave Job" : "Save Job"}
-            </Button>
-          </div>
-        )}
+        {!isApplying ||
+          (isOwner && (
+            <div className="flex gap-4">
+              {renderApplyButton()}
+              <Button
+                color="customGreen"
+                theme={customBtnTheme}
+                onClick={() => handleSaveJob(_id as string)}
+              >
+                {jobSaved ? "Unsave Job" : "Save Job"}
+              </Button>
+            </div>
+          ))}
       </div>
 
       <div className="pb-6">

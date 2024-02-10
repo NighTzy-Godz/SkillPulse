@@ -19,6 +19,7 @@ interface JobState {
 
   appliedJobs: IJobApplication[];
   savedJobs: IJob[];
+  createdJobs: IJob[];
 }
 
 const initialState: JobState = {
@@ -34,6 +35,7 @@ const initialState: JobState = {
   selectedJob: null,
   appliedJobs: [],
   savedJobs: [],
+  createdJobs: [],
 };
 
 const slice = createSlice({
@@ -87,6 +89,12 @@ const slice = createSlice({
       job.appliedJobs = action.payload.data;
     },
 
+    createdJobListSuccess: (job, action) => {
+      job.loading = false;
+      job.error = null;
+      job.createdJobs = action.payload.data;
+    },
+
     savedJobListSuccess: (job, action) => {
       job.loading = false;
       job.error = null;
@@ -105,6 +113,7 @@ const slice = createSlice({
 
 const {
   appliedJobListSuccess,
+  createdJobListSuccess,
   jobCreateSuccess,
   jobRequested,
   jobRequestFailed,
@@ -128,6 +137,14 @@ export const getSavedJobs = () =>
     onStart: jobRequested.type,
     onError: jobRequestFailed.type,
     onSuccess: savedJobListSuccess.type,
+  });
+
+export const getCreatedJobs = () =>
+  apiCallBegan({
+    url: "/job/getJobsCreated",
+    onStart: jobRequested.type,
+    onError: jobRequestFailed.type,
+    onSuccess: createdJobListSuccess.type,
   });
 
 export const userSaveJob = (data: SaveUnsaveJobData) =>

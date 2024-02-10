@@ -1,11 +1,11 @@
 export interface JobLink {
   id: number;
   name: string;
-  link: string;
+  link?: string;
   value: string;
 }
 
-const jobLinks = [
+const userJobLinks = [
   {
     id: 0,
     name: "Saved Jobs",
@@ -21,4 +21,4 @@ const jobLinks = [
   },
 ];
 
-export default jobLinks;
+export default userJobLinks;
