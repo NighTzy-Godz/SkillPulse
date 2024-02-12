@@ -77,7 +77,7 @@ const slice = createSlice({
       job.jobResults.jobs[index] = responseJob;
     },
 
-    jobDescriptionSuccess: (job, action) => {
+    jobSelectSuccess: (job, action) => {
       job.loading = false;
       job.error = null;
       job.selectedJob = action.payload.data;
@@ -115,6 +115,7 @@ const {
   appliedJobListSuccess,
   createdJobListSuccess,
   jobCreateSuccess,
+  jobSelectSuccess,
   jobRequested,
   jobRequestFailed,
   jobSearchSuccess,
@@ -122,6 +123,14 @@ const {
   savedJobListSuccess,
 } = slice.actions;
 export const { setJobStatusCode, setUserSelectedJob } = slice.actions;
+
+export const getCompanySelectedJob = (jobId: string) =>
+  apiCallBegan({
+    url: `/job/getJobDescription/${jobId}`,
+    onStart: jobRequested.type,
+    onError: jobRequestFailed.type,
+    onSuccess: jobSelectSuccess.type,
+  });
 
 export const getAppliedJobs = () =>
   apiCallBegan({

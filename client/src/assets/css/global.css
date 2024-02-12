@@ -93,3 +93,33 @@
   background: rgba(255, 166, 0, 0.219);
   color: rgb(204, 141, 23);
 }
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+    display: none;
+  }
+}
+
+.animate-cardFadeIn {
+  animation: cardFadeIn 0.3s ease-in forwards;
+}
+.animate-cardFadeOut {
+  animation: cardFadeOut 0.3s ease-in forwards;
+}

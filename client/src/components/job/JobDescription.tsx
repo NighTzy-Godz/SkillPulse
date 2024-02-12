@@ -97,6 +97,24 @@ function JobDescription({ job }: JobDescriptionProps) {
     );
   };
 
+  const renderButtons = () => {
+    if (isOwner) return null;
+    if (!isApplying) {
+      return (
+        <div className="flex gap-4">
+          {renderApplyButton()}
+          <Button
+            color="customGreen"
+            theme={customBtnTheme}
+            onClick={() => handleSaveJob(_id as string)}
+          >
+            {jobSaved ? "Unsave Job" : "Save Job"}
+          </Button>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className=" ">
       <div className="mb-10">
@@ -119,20 +137,7 @@ function JobDescription({ job }: JobDescriptionProps) {
             {formatMoney(salary as string)}
           </p>
         </div>
-
-        {!isApplying ||
-          (isOwner && (
-            <div className="flex gap-4">
-              {renderApplyButton()}
-              <Button
-                color="customGreen"
-                theme={customBtnTheme}
-                onClick={() => handleSaveJob(_id as string)}
-              >
-                {jobSaved ? "Unsave Job" : "Save Job"}
-              </Button>
-            </div>
-          ))}
+        {renderButtons()}
       </div>
 
       <div className="pb-6">
