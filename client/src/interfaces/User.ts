@@ -5,7 +5,7 @@ export enum GENDER {
   Female = "Female",
 }
 
-export enum employmentType {
+export enum EmploymentType {
   FULL_TIME = "Full Time",
   PART_TIME = "Part Time",
 }
@@ -32,7 +32,7 @@ export interface RegisterUserData {
 
 export interface UserAddExpData {
   position: string;
-  employmentType: employmentType;
+  employmentType: EmploymentType;
   company: string;
 
   startDate: Date;
@@ -80,7 +80,7 @@ export interface IUser {
   }[];
 
   experience?: {
-    employmentType: employmentType;
+    employmentType: EmploymentType;
     company: string;
     position: string;
     startDate: Date;

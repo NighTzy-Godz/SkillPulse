@@ -83,6 +83,14 @@ const slice = createSlice({
       job.selectedJob = action.payload.data;
     },
 
+    jobUpdateSuccess: (job, action) => {
+      job.loading = false;
+      job.error = null;
+      job.selectedJob = action.payload.data;
+
+      job.statusCode = action.payload.status;
+    },
+
     appliedJobListSuccess: (job, action) => {
       job.loading = false;
       job.error = null;
@@ -119,10 +127,20 @@ const {
   jobRequested,
   jobRequestFailed,
   jobSearchSuccess,
+  jobUpdateSuccess,
   jobSaveUnsaveSuccess,
   savedJobListSuccess,
 } = slice.actions;
 export const { setJobStatusCode, setUserSelectedJob } = slice.actions;
+
+export const getSearchedJobs = (params: SearchJobQuery) =>
+  apiCallBegan({
+    url: "/job/searchJobs",
+    params,
+    onStart: jobRequested.type,
+    onError: jobRequestFailed.type,
+    onSuccess: jobSearchSuccess.type,
+  });
 
 export const getCompanySelectedJob = (jobId: string) =>
   apiCallBegan({
@@ -189,13 +207,15 @@ export const createJob = (data: CreateJobData, companyId: string) =>
     successMsg: "Successfully Create a Job Post",
   });
 
-export const getSearchedJobs = (params: SearchJobQuery) =>
+export const updateJob = (data: CreateJobData, jobId: string) =>
   apiCallBegan({
-    url: "/job/searchJobs",
-    params,
+    url: `/job/updateJob/${jobId}`,
+    data,
+    method: "PUT",
     onStart: jobRequested.type,
     onError: jobRequestFailed.type,
-    onSuccess: jobSearchSuccess.type,
+    onSuccess: jobUpdateSuccess.type,
+    successMsg: "Successfully Updated the Job Post",
   });
 
 export default slice.reducer;

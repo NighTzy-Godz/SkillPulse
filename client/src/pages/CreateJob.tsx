@@ -57,7 +57,7 @@ function CreateJob() {
   };
 
   return (
-    <div className="py-8 ">
+    <div className="py-8 h-[90dvh] grid items-center">
       <div className="container mx-auto">
         <div className="md:w-1/2 mx-auto">
           <Card className="boxShadow2">

@@ -24,6 +24,8 @@ export interface SaveUnsaveJobData {
   jobId: string;
 }
 
+export interface CreatedJobUpdateData extends CreateJobData {}
+
 export interface IJob {
   _id: string;
   title: string;
