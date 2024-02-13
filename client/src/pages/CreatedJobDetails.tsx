@@ -33,7 +33,7 @@ function CreatedJobDetails() {
       return (
         <Link
           to={`/user/profile/${item._id}`}
-          className="flex gap-2 items-center"
+          className="flex gap-2 items-center mb-2"
           key={item._id}
         >
           {" "}

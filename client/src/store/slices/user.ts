@@ -15,6 +15,8 @@ interface UserState {
   statusCode: null | number;
   error: null | string;
 
+  authUser: null | IUser;
+
   registeredCompany: null | ICompany;
   userData: null | IUser;
   userJobs: null | IJob[];
@@ -26,6 +28,7 @@ const initialState: UserState = {
   statusCode: null,
   error: null,
 
+  authUser: null,
   registeredCompany: null,
   userData: null,
   userJobs: null,
@@ -52,15 +55,16 @@ const slice = createSlice({
     },
 
     userUpdateIntroSuccess: (user, action) => {
-      (user.loading = false),
-        (user.error = null),
-        (user.userData = action.payload.data);
+      user.loading = false;
+      user.error = null;
+      user.userData = action.payload.data;
 
       user.statusCode = action.payload.status;
     },
 
     userAddExpSuccess: (user, action) => {
-      (user.loading = false), (user.error = null);
+      user.loading = false;
+      user.error = null;
       if (user.userData) {
         user.userData.experience = action.payload.data.experience;
       }
@@ -71,9 +75,9 @@ const slice = createSlice({
       if (user.userData) {
         user.userData.about = action.payload.data.about;
       }
-      (user.error = null),
-        (user.loading = false),
-        (user.statusCode = action.payload.status);
+      user.error = null;
+      user.loading = false;
+      user.statusCode = action.payload.status;
     },
 
     userRegisterCompanySuccess: (user, action) => {
@@ -84,21 +88,27 @@ const slice = createSlice({
     },
 
     userApplyJobSuccess: (user, action) => {
-      (user.loading = false),
-        (user.error = null),
-        (user.statusCode = action.payload.status);
+      user.loading = false;
+      user.error = null;
+      user.statusCode = action.payload.status;
     },
 
     userJobsSuccess: (user, action) => {
-      (user.loading = false),
-        (user.error = null),
-        (user.userJobs = action.payload.data);
+      user.loading = false;
+      user.error = null;
+      user.userJobs = action.payload.data;
+    },
+
+    userAuthSuccess: (user, action) => {
+      user.loading = false;
+      user.error = null;
+      user.authUser = action.payload.data;
     },
 
     userSelectedJobSuccess: (user, action) => {
-      (user.loading = false),
-        (user.error = null),
-        (user.userSelectedJob = action.payload.data);
+      user.loading = false;
+      user.error = null;
+      user.userSelectedJob = action.payload.data;
     },
 
     setUserStatusCode: (user, action) => {
@@ -119,6 +129,7 @@ const {
   userRegisterCompanySuccess,
   userApplyJobSuccess,
   userSelectedJobSuccess,
+  userAuthSuccess,
 } = slice.actions;
 
 export const userGetSelectedJob = (jobId: string) =>
@@ -146,6 +157,14 @@ export const getUserData = (userId: string) =>
     onStart: userRequested.type,
     onError: userRequestFailed.type,
     onSuccess: userGetDataSuccess.type,
+  });
+
+export const getAuthUserData = (userId: string) =>
+  apiCallBegan({
+    url: `/user/getUserData/${userId}`,
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userAuthSuccess.type,
   });
 
 export const updateUserIntro = (data: UserIntroEditData) =>

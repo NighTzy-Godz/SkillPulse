@@ -73,7 +73,6 @@ export interface IUser {
   bio?: string;
   skills?: string[];
   generateAuthToken(): string;
-
   education?: {
     schoolName: string;
     degree: string;

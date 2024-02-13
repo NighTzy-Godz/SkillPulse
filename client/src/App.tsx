@@ -14,7 +14,7 @@ import { setDecodedModel } from "./store/slices/auth";
 import AuthNavigator from "./pages/AuthNavigator";
 import CompanyProfile from "./pages/CompanyProfile";
 import CompanyNavigator from "./pages/CompanyNavigator";
-import { getUserData } from "./store/slices/user";
+import { getAuthUserData, getUserData } from "./store/slices/user";
 import Logout from "./pages/Logout";
 import CreateJob from "./pages/CreateJob";
 import AllJobs from "./pages/AllJobs";
@@ -46,7 +46,7 @@ function App() {
 
   useEffect(() => {
     if (userId && !user) {
-      dispatch(getUserData(userId as string));
+      dispatch(getAuthUserData(userId as string));
     }
   }, [userId]);
 

@@ -13,11 +13,10 @@ import { State } from "../store/store";
 function UserProfile() {
   const { userId } = useParams();
   const dispatch = useDispatch();
-  const user = useSelector((state: State) => state.entities.user.userData);
 
   useEffect(() => {
-    if (!user) dispatch(getUserData(userId as string));
-  }, []);
+    dispatch(getUserData(userId as string));
+  }, [userId]);
 
   return (
     <div className="sm:py-8 profile">

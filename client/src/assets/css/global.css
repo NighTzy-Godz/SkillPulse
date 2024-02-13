@@ -97,6 +97,7 @@
 @keyframes cardFadeIn {
   from {
     opacity: 0;
+    display: block;
     transform: translateY(-20px);
   }
   to {

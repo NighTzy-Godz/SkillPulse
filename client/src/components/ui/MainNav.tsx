@@ -1,5 +1,5 @@
-import { Navbar, Dropdown, Avatar, TextInput } from "flowbite-react";
-import { useDispatch, useSelector } from "react-redux";
+import { Dropdown, Avatar, TextInput } from "flowbite-react";
+import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { State } from "../../store/store";
@@ -19,7 +19,7 @@ function MainNav({ token }: MainNavProps) {
     (state: State) => state.entities.auth.decodedModel?._id
   );
 
-  const user = useSelector((state: State) => state.entities.user.userData);
+  const user = useSelector((state: State) => state.entities.user.authUser);
   const companyFound = user?.company;
 
   const navBarClass =

@@ -28,7 +28,7 @@ const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
   }, [cardRef]);
 
   return (
-    <div className="boxShadow2 relative rounded-lg mb-5 px-5 py-3 flex justify-between">
+    <div className="boxShadow2 relative rounded-lg  px-5 py-3 flex justify-between">
       <div className="flex gap-3 ">
         <div className="h-10 w-10">
           <img src={job.company.logo} alt="" />
@@ -60,12 +60,17 @@ const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
 
         <div
           className={`px-5 py-3 rounded-md boxShadow2 absolute right-0 w-60 top-5 ${
-            isDotsClicked ? "animate-cardFadeIn" : "animate-cardFadeOut"
+            isDotsClicked ? "animate-cardFadeIn" : " animate-cardFadeOut"
           }`}
         >
-          <div className="flex items-center cursor-pointer  gap-2 mb-5">
+          <div className="flex  cursor-pointer  gap-2 mb-5">
             <FaSuitcase className="w-5 h-5 text-zinc-500" />
-            <p className="text-zinc-500">Manage Job</p>
+            <Link
+              to={`/company/createdJob/${job._id}`}
+              className="text-zinc-500"
+            >
+              Manage Job
+            </Link>
           </div>
 
           <div className="flex gap-2  cursor-pointer">
