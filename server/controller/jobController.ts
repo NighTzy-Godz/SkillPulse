@@ -268,3 +268,21 @@ export const updateJob = async (
     next(error);
   }
 };
+
+export const deleteJob = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { jobId } = req.params;
+
+    const job = await Job.findOneAndDelete({ _id: jobId });
+
+    if (!job) return res.status(404).send("Job did not found");
+
+    res.send(job);
+  } catch (error) {
+    next(error);
+  }
+};

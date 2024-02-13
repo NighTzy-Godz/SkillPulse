@@ -9,6 +9,7 @@ import {
   searchJobs,
   unsaveJob,
   updateJob,
+  deleteJob,
 } from "../controller/jobController";
 import isAuth from "../middleware/isAuth";
 import isCompanyOwned from "../middleware/isCompanyOwned";
@@ -35,5 +36,11 @@ router.put(
 router.post("/saveJob", [isAuth], saveJob);
 router.post("/unsaveJob", [isAuth], unsaveJob);
 router.post("/:companyId/createJob", [isAuth, isCompanyOwned], createJob);
+
+router.delete(
+  "/deleteJob/:jobId",
+  [isAuth, isUserExist, isCompanyOwned],
+  deleteJob
+);
 
 export default router;
