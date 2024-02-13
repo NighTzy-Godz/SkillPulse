@@ -5,6 +5,7 @@ import formatDate, { findDuration } from "../../utils/dateDuration";
 import { BsThreeDots } from "react-icons/bs";
 import { FaBriefcase } from "react-icons/fa6";
 import { FaSuitcase, FaTrashAlt } from "react-icons/fa";
+import DeleteJobModal from "../modal/DeleteJobModal";
 
 interface CreatedJobCardProps {
   data: IJob;
@@ -12,6 +13,8 @@ interface CreatedJobCardProps {
 
 const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
   const [isDotsClicked, setIsDotsClicked] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
+
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,8 +30,17 @@ const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
     };
   }, [cardRef]);
 
+  const handleCloseModal = () => {
+    setIsShowModal(false);
+  };
+
   return (
     <div className="boxShadow2 relative rounded-lg  px-5 py-3 flex justify-between">
+      <DeleteJobModal
+        currJob={job}
+        isShowModal={isShowModal}
+        onCloseModal={handleCloseModal}
+      />
       <div className="flex gap-3 ">
         <div className="h-10 w-10">
           <img src={job.company.logo} alt="" />
@@ -73,7 +85,10 @@ const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
             </Link>
           </div>
 
-          <div className="flex gap-2  cursor-pointer">
+          <div
+            className="flex gap-2  cursor-pointer"
+            onClick={() => setIsShowModal(true)}
+          >
             <FaTrashAlt className="w-5 h-5 text-zinc-500" />
             <p className=" text-zinc-500">Delete Job</p>
           </div>

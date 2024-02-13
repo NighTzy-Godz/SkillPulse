@@ -91,6 +91,17 @@ const slice = createSlice({
       job.statusCode = action.payload.status;
     },
 
+    jobDeleteSuccess: (job, action) => {
+      job.statusCode = action.payload.status;
+      job.loading = false;
+      job.error = null;
+
+      const filteredCreatedJobs = job.createdJobs.filter(
+        (item) => item._id !== action.payload.data._id
+      );
+      job.createdJobs = filteredCreatedJobs;
+    },
+
     appliedJobListSuccess: (job, action) => {
       job.loading = false;
       job.error = null;
@@ -129,6 +140,7 @@ const {
   jobSearchSuccess,
   jobUpdateSuccess,
   jobSaveUnsaveSuccess,
+  jobDeleteSuccess,
   savedJobListSuccess,
 } = slice.actions;
 export const { setJobStatusCode, setUserSelectedJob } = slice.actions;
@@ -218,4 +230,13 @@ export const updateJob = (data: CreateJobData, jobId: string) =>
     successMsg: "Successfully Updated the Job Post",
   });
 
+export const deleteJob = (jobId: string) =>
+  apiCallBegan({
+    url: `/job/deleteJob/${jobId}`,
+    method: "DELETE",
+    onStart: jobRequested.type,
+    onError: jobRequestFailed.type,
+    onSuccess: jobDeleteSuccess.type,
+    successMsg: "Successfully Deleted the Job Post",
+  });
 export default slice.reducer;

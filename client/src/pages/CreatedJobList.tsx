@@ -29,9 +29,10 @@ function CreatedJobList() {
 
   const renderCreatedJobs = createdJobs.map((item) => {
     return (
-      <React.Fragment key={item._id}>
+      <div className="mb-3" key={item._id}>
+        {" "}
         <CreatedJobCard data={item} />
-      </React.Fragment>
+      </div>
     );
   });
 
