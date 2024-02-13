@@ -244,9 +244,13 @@ export const registerUser = async (
     const { error } = userRegisterValidator(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser)
+    const existingUserEmail = await User.findOne({ email });
+    if (existingUserEmail)
       return res.status(409).send("User with this email already exist");
+
+    const existingUserContact = await User.findOne({ contact });
+    if (existingUserContact)
+      return res.status(409).send("User with this contact already exist");
 
     if (password !== confirmPassword)
       return res
