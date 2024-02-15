@@ -11,9 +11,11 @@ import {
   registerUser,
   updateUserAbout,
   updateUserIntro,
+  updateUserPfp,
   userJobApplied,
 } from "../controller/userController";
 import isAuth from "../middleware/isAuth";
+import isUserExist from "../middleware/isUserExist";
 
 const router = Router();
 
@@ -21,6 +23,12 @@ router.get("/getUserData/:userId", getUserData);
 
 router.put("/updateUserIntro", [isAuth], updateUserIntro);
 router.put("/updateUserAbout", [isAuth], updateUserAbout);
+router.put(
+  "/updateUserPfp",
+  upload.single("pfp"),
+  [isAuth, isUserExist],
+  updateUserPfp
+);
 
 router.post(
   "/applyJob/:jobId",
