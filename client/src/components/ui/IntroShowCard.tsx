@@ -4,11 +4,11 @@ import { FaRegUser } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { updateUserPfp } from "../../store/slices/user";
 
-interface ProfileIntroShowCard {
+interface IntroShowCard {
   isOwner: boolean;
 }
 
-function ProfileIntroShowCard({ isOwner }: ProfileIntroShowCard) {
+function IntroShowCard({ isOwner }: IntroShowCard) {
   const dispatch = useDispatch();
 
   const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,4 +48,4 @@ function ProfileIntroShowCard({ isOwner }: ProfileIntroShowCard) {
   );
 }
 
-export default ProfileIntroShowCard;
+export default IntroShowCard;
