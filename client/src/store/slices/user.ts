@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  ChangePhotoData,
   IUser,
   UserAboutEditData,
   UserAddExpData,
@@ -111,6 +112,14 @@ const slice = createSlice({
       user.userSelectedJob = action.payload.data;
     },
 
+    userUpdatedPfpSuccess: (user, action) => {
+      user.loading = false;
+      user.error = null;
+      user.statusCode = action.payload.status;
+      user.authUser = action.payload.data;
+      user.userData = action.payload.data;
+    },
+
     setUserStatusCode: (user, action) => {
       user.statusCode = action.payload;
     },
@@ -120,6 +129,7 @@ const slice = createSlice({
 export const { setUserStatusCode } = slice.actions;
 
 const {
+  userUpdatedPfpSuccess,
   userRequested,
   userRequestFailed,
   userGetDataSuccess,
@@ -132,31 +142,20 @@ const {
   userAuthSuccess,
 } = slice.actions;
 
-export const userGetSelectedJob = (jobId: string) =>
-  apiCallBegan({
-    url: `/job/getJobDescription/${jobId}`,
-    onStart: userRequested.type,
-    onError: userRequestFailed.type,
-    onSuccess: userSelectedJobSuccess.type,
-  });
-
-export const userApplyJob = (data: UserApplyJobData, jobId: string) =>
-  apiCallBegan({
-    url: `/user/applyJob/${jobId}`,
-    data,
-    method: "POST",
-    onStart: userRequested.type,
-    onError: userRequestFailed.type,
-    onSuccess: userApplyJobSuccess.type,
-    successMsg: "Successfully applied to the job post!",
-  });
-
 export const getUserData = (userId: string) =>
   apiCallBegan({
     url: `/user/getUserData/${userId}`,
     onStart: userRequested.type,
     onError: userRequestFailed.type,
     onSuccess: userGetDataSuccess.type,
+  });
+
+export const userGetSelectedJob = (jobId: string) =>
+  apiCallBegan({
+    url: `/job/getJobDescription/${jobId}`,
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userSelectedJobSuccess.type,
   });
 
 export const getAuthUserData = (userId: string) =>
@@ -178,15 +177,15 @@ export const updateUserIntro = (data: UserIntroEditData) =>
     successMsg: "Successfully Updated Your Intro!",
   });
 
-export const addUserExp = (data: UserAddExpData) =>
+export const userApplyJob = (data: UserApplyJobData, jobId: string) =>
   apiCallBegan({
-    url: "/user/addUserExp",
+    url: `/user/applyJob/${jobId}`,
     data,
     method: "POST",
     onStart: userRequested.type,
     onError: userRequestFailed.type,
-    onSuccess: userAddExpSuccess.type,
-    successMsg: "Successfully Added Your Experience!",
+    onSuccess: userApplyJobSuccess.type,
+    successMsg: "Successfully applied to the job post!",
   });
 
 export const userRegisterCompany = (data: CompanyRegisterData) =>
@@ -209,6 +208,28 @@ export const updateUserAbout = (data: UserAboutEditData) =>
     onError: userRequestFailed.type,
     onSuccess: userUpdateAboutSuccess.type,
     successMsg: "Successfully Updated Your About!",
+  });
+
+export const updateUserPfp = (data: ChangePhotoData) =>
+  apiCallBegan({
+    url: "/user/updateUserPfp",
+    data,
+    method: "PUT",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userUpdatedPfpSuccess.type,
+    successMsg: "Successfully updated your profile picture!",
+  });
+
+export const addUserExp = (data: UserAddExpData) =>
+  apiCallBegan({
+    url: "/user/addUserExp",
+    data,
+    method: "POST",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userAddExpSuccess.type,
+    successMsg: "Successfully Added Your Experience!",
   });
 
 export default slice.reducer;

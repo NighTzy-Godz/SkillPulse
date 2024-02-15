@@ -14,6 +14,10 @@ export interface UserApplyJobData {
   resume: FileList;
 }
 
+export interface ChangePhotoData {
+  img: FileList;
+}
+
 export interface LoginUserData {
   email: string;
   password: string;

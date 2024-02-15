@@ -24,8 +24,12 @@ function JobApplicantBox({ applicants }: JobApplicantBoxProps) {
           key={item._id}
         >
           {" "}
-          <div className="h-10 w-10 ">
-            <img className="rounded-full" src={item.pfp} alt="" />
+          <div className=" ">
+            <img
+              className="rounded-full h-10 w-10 object-cover"
+              src={item.pfp}
+              alt=""
+            />
           </div>
           <div className="">
             <h1 className="font-semibold text-sm text-zinc-700">

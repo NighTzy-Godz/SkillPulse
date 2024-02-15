@@ -31,6 +31,12 @@
   width: 1.5em;
 }
 
+.mainNavPfp {
+  object-fit: cover;
+  height: 40px;
+  width: 40px;
+}
+
 .blueBtn {
   @apply transition-all duration-200 px-4 py-4 bg-blue-500 text-white hover:bg-blue-600;
 }

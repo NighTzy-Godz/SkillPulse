@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaPen } from "react-icons/fa";
-import { IJob } from "../../interfaces/Job";
+
 import formatMoney from "../../utils/formatMoney";
 import CreatedJobUpdateModal from "../modal/CreatedJobUpdateModal";
 import { useSelector } from "react-redux";

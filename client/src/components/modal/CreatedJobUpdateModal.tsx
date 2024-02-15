@@ -176,6 +176,7 @@ function CreatedJobUpdateModal({
               })}
               placeholder="Please be descriptive about job description"
               onChange={(e) => handleTextAreaChange(e)}
+              className="h-20"
             />
 
             {errors && errors.description && (

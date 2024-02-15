@@ -94,8 +94,6 @@ function UserEditIntroModal({
     dispatch(updateUserIntro(reqBody));
   };
 
-  if (loading) return <h1>LOADING.....</h1>;
-
   return (
     <Modal dismissible show={showModal} onClose={onModalClose} size="3xl">
       <Modal.Header>Edit Profile Intro</Modal.Header>

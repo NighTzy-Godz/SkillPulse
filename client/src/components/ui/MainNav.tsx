@@ -39,7 +39,14 @@ function MainNav({ token }: MainNavProps) {
               inline
               size="xs"
               arrowIcon={false}
-              label={<Avatar alt="User settings" img={user?.pfp} rounded />}
+              label={
+                <Avatar
+                  alt="User settings"
+                  img={user?.pfp}
+                  rounded
+                  className="mainNavPfp"
+                />
+              }
             >
               <Dropdown.Header>
                 <span className="block text-sm">
