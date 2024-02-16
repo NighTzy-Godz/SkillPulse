@@ -88,6 +88,7 @@ function ProfileIntro() {
           img={coverPhoto as string}
         />
         <CoverPhoto img={coverPhoto as string} isOwner={isOwner} />
+
         <div className="py-5 px-8">
           <div className="flex justify-between relative">
             <ProfilePicture img={pfp as string} isOwner={isOwner} />

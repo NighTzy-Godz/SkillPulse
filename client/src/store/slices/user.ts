@@ -112,7 +112,7 @@ const slice = createSlice({
       user.userSelectedJob = action.payload.data;
     },
 
-    userUpdatedPfpSuccess: (user, action) => {
+    userUpdatedPhotoSuccess: (user, action) => {
       user.loading = false;
       user.error = null;
       user.statusCode = action.payload.status;
@@ -129,7 +129,7 @@ const slice = createSlice({
 export const { setUserStatusCode } = slice.actions;
 
 const {
-  userUpdatedPfpSuccess,
+  userUpdatedPhotoSuccess,
   userRequested,
   userRequestFailed,
   userGetDataSuccess,
@@ -217,8 +217,19 @@ export const updateUserPfp = (data: ChangePhotoData) =>
     method: "PUT",
     onStart: userRequested.type,
     onError: userRequestFailed.type,
-    onSuccess: userUpdatedPfpSuccess.type,
+    onSuccess: userUpdatedPhotoSuccess.type,
     successMsg: "Successfully updated your profile picture!",
+  });
+
+export const updateUserCoverPhoto = (data: ChangePhotoData) =>
+  apiCallBegan({
+    url: "/user/updateUserCoverPhoto",
+    data,
+    method: "PUT",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userUpdatedPhotoSuccess.type,
+    successMsg: "Successfully updated your cover photo!",
   });
 
 export const addUserExp = (data: UserAddExpData) =>
