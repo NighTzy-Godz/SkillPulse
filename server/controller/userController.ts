@@ -168,6 +168,33 @@ export const updateUserPfp = async (
   }
 };
 
+export const updateUserCoverPhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const currUserId = req.user?._id;
+    const currUser = await User.findOne({ _id: currUserId }).populate(
+      "company"
+    );
+    if (!currUser) return res.status(404).send("User did not found");
+
+    if (!req.file)
+      return res.status(400).send("Profile picture cannot be empty");
+
+    const coverPhoto: Express.Multer.File = req.file;
+
+    currUser.coverPhoto = coverPhoto.path;
+
+    await currUser.save();
+
+    res.send(currUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateUserIntro = async (
   req: Request,
   res: Response,

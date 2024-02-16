@@ -10,6 +10,7 @@ import {
   loginUser,
   registerUser,
   updateUserAbout,
+  updateUserCoverPhoto,
   updateUserIntro,
   updateUserPfp,
   userJobApplied,
@@ -28,6 +29,13 @@ router.put(
   upload.single("pfp"),
   [isAuth, isUserExist],
   updateUserPfp
+);
+
+router.put(
+  "/updateUserCoverPhoto",
+  upload.single("coverPhoto"),
+  [isAuth, isUserExist],
+  updateUserCoverPhoto
 );
 
 router.post(
