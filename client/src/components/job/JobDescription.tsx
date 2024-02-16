@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
 import { userSaveJob, userUnsaveJob } from "../../store/slices/job";
 import { toast } from "react-toastify";
+import { IUser } from "../../interfaces/User";
 
 interface JobDescriptionProps {
   job: IJob;
@@ -41,8 +42,8 @@ function JobDescription({ job }: JobDescriptionProps) {
   } = job || {};
 
   const isOwner = currUserId === company?.owner;
-
-  const hasApplied = applicants?.find((item) => item === currUserId);
+  const applicantList: IUser[] = applicants as IUser[];
+  const hasApplied = applicantList?.find((item) => item._id === currUserId);
   const hasSaved = !!savedBy?.find((item) => item === currUserId);
 
   const [jobSaved, setJobSaved] = useState(hasSaved);
@@ -80,7 +81,7 @@ function JobDescription({ job }: JobDescriptionProps) {
           theme={customBtnTheme}
           onClick={() => {
             if (!currUserId)
-              return toast.error("Login first before saving this job");
+              return toast.error("Login first before applying this job");
           }}
         >
           Apply Job
