@@ -3,20 +3,28 @@ import ProfileCard from "../common/ProfileCard";
 import ProfileOrgBanner from "../common/ProfileOrgBanner";
 
 import { FaEdit } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserEditIntroModal from "../modal/UserEditIntroModal";
 import moment from "moment";
 
 import ProfilePicture from "../ui/ProfilePicture";
+import { setUserStatusCode } from "../../store/slices/user";
+import ShowProfilePicture from "../ui/ShowProfilePicture";
 
 function ProfileIntro() {
+  const dispatch = useDispatch();
+  const statusCode = useSelector(
+    (state: State) => state.entities.user.statusCode
+  );
   const currUserId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
+  const { showPfp } = useSelector((state: State) => state.entities.ui);
 
   const [showModal, setShowModal] = useState(false);
+  const [isProfileClicked, setIsProfileClicked] = useState(false);
 
   const user = useSelector((state: State) => state.entities.user.userData);
   const {
@@ -36,6 +44,13 @@ function ProfileIntro() {
 
   const isOwner = currUserId === _id;
   const contactDetails = [email, contact, location];
+
+  useEffect(() => {
+    if (statusCode === 200) {
+      dispatch(setUserStatusCode(null));
+      setIsProfileClicked(false);
+    }
+  }, [statusCode]);
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -60,9 +75,14 @@ function ProfileIntro() {
       );
   });
 
+  const handleProfileClick = (state: boolean) => {
+    setIsProfileClicked(state);
+  };
+
   return (
     <React.Fragment>
-      <ProfileCard className="mb-4">
+      <ProfileCard className="mb-4 relative">
+        <ShowProfilePicture showPfp={showPfp} img={pfp as string} />
         <div className="h-[30dvh] min-h-[300px] ">
           <img
             src={coverPhoto}
@@ -72,8 +92,13 @@ function ProfileIntro() {
         </div>
 
         <div className="py-5 px-8">
-          <div className="flex justify-between relative ">
-            <ProfilePicture img={pfp as string} isOwner={isOwner} />
+          <div className="flex justify-between relative">
+            <ProfilePicture
+              isProfileClicked={isProfileClicked}
+              img={pfp as string}
+              isOwner={isOwner}
+              onProfileClick={handleProfileClick}
+            />
             <div className="cursor-pointer" onClick={() => setShowModal(true)}>
               <FaEdit />
             </div>

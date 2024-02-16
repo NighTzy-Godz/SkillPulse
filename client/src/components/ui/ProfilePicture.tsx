@@ -1,35 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaPen } from "react-icons/fa";
 import IntroShowCard from "./IntroShowCard";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserStatusCode } from "../../store/slices/user";
 
 interface ProfilePicture {
+  isProfileClicked: boolean;
   img: string;
   isOwner: boolean;
+  onProfileClick(state: boolean): void;
 }
 
-function ProfilePicture({ img, isOwner }: ProfilePicture) {
-  const dispatch = useDispatch();
-  const statusCode = useSelector(
-    (state: State) => state.entities.user.statusCode
-  );
-
+function ProfilePicture({
+  isProfileClicked,
+  img,
+  isOwner,
+  onProfileClick,
+}: ProfilePicture) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isProfileClicked, setIsProfileClicked] = useState(false);
-  const cardRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (statusCode === 200) {
-      dispatch(setUserStatusCode(null));
-      setIsProfileClicked(false);
-    }
-  }, [statusCode]);
+  const cardRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
-        setIsProfileClicked(false);
+        onProfileClick(false);
       }
     }
 
@@ -44,7 +37,7 @@ function ProfilePicture({ img, isOwner }: ProfilePicture) {
         className="absolute  h-[130px] w-[130px] sm:h-[150px] sm:w-[150px]  hover:bg-gray-900 opacity-50 object-cover rounded-full cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => setIsProfileClicked(!isProfileClicked)}
+        onClick={() => onProfileClick(!isProfileClicked)}
       >
         {isHovered && (
           <FaPen className="absolute top-16 left-16 color text-neutral-50" />
@@ -53,7 +46,7 @@ function ProfilePicture({ img, isOwner }: ProfilePicture) {
       <img
         src={img}
         alt=""
-        className=" h-[130px] w-[130px] hover:bg-red-500 sm:h-[150px] sm:w-[150px] object-cover rounded-full  "
+        className=" h-[130px] w-[130px] hover:bg-red-500 sm:h-[150px] sm:w-[150px] object-cover rounded-full"
       />
 
       {isProfileClicked && <IntroShowCard isOwner={isOwner} />}
