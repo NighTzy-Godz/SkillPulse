@@ -31,6 +31,10 @@
   width: 1.5em;
 }
 
+.coverPhoto svg {
+  color: red !important;
+}
+
 .mainNavPfp {
   object-fit: cover;
   height: 40px;
@@ -53,7 +57,7 @@
 .profile svg {
   height: 1.5em;
   width: 1.5em;
-  fill: #71717a;
+  fill: #878792;
 }
 
 .hamburger svg {

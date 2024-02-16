@@ -1,21 +1,21 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { setShowPfp } from "../../store/slices/ui";
+import { setShowCoverPhoto, setShowPfp } from "../../store/slices/ui";
 import { ImCancelCircle } from "react-icons/im";
-interface ShowProfilePictureProps {
-  showPfp: boolean;
+interface ShowProfileCoverProps {
+  showCoverPhoto: boolean;
   img: string;
 }
 
-function ShowProfilePicture({ showPfp, img }: ShowProfilePictureProps) {
+function ShowProfileCover({ showCoverPhoto, img }: ShowProfileCoverProps) {
   const dispatch = useDispatch();
-  const pfpRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (pfpRef.current && !pfpRef.current.contains(e.currentTarget as Node)) {
-        document.body.style.overflow = " auto";
-        dispatch(setShowPfp(false));
+      if (imgRef.current && !imgRef.current.contains(e.currentTarget as Node)) {
+        document.body.style.overflow = "auto";
+        dispatch(setShowCoverPhoto(false));
       }
     };
 
@@ -24,24 +24,24 @@ function ShowProfilePicture({ showPfp, img }: ShowProfilePictureProps) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [pfpRef]);
+  }, [imgRef]);
 
-  const handleShowPfp = () => {
-    dispatch(setShowPfp(false));
-    document.body.style.overflow = " auto";
+  const handleShowProfileCover = () => {
+    dispatch(setShowCoverPhoto(false));
+    document.body.style.overflow = "auto";
   };
 
-  if (showPfp) {
+  if (showCoverPhoto) {
     return (
       <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 z-50">
         <div
           className="absolute top-6 left-6 cursor-pointer"
-          onClick={handleShowPfp}
+          onClick={handleShowProfileCover}
         >
           <ImCancelCircle />
         </div>
 
-        <div className="bg-red-500" ref={pfpRef}>
+        <div className="bg-red-500" ref={imgRef}>
           {" "}
           <img
             src={img}
@@ -55,4 +55,4 @@ function ShowProfilePicture({ showPfp, img }: ShowProfilePictureProps) {
   return null;
 }
 
-export default ShowProfilePicture;
+export default ShowProfileCover;

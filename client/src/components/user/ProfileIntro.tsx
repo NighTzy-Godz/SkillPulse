@@ -12,6 +12,8 @@ import moment from "moment";
 import ProfilePicture from "../ui/ProfilePicture";
 import { setUserStatusCode } from "../../store/slices/user";
 import ShowProfilePicture from "../ui/ShowProfilePicture";
+import CoverPhoto from "../ui/CoverPhoto";
+import ShowProfileCover from "../ui/ShowProfileCover";
 
 function ProfileIntro() {
   const dispatch = useDispatch();
@@ -21,7 +23,9 @@ function ProfileIntro() {
   const currUserId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
-  const { showPfp } = useSelector((state: State) => state.entities.ui);
+  const { showPfp, showCoverPhoto } = useSelector(
+    (state: State) => state.entities.ui
+  );
 
   const [showModal, setShowModal] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
@@ -75,30 +79,18 @@ function ProfileIntro() {
       );
   });
 
-  const handleProfileClick = (state: boolean) => {
-    setIsProfileClicked(state);
-  };
-
   return (
     <React.Fragment>
       <ProfileCard className="mb-4 relative">
         <ShowProfilePicture showPfp={showPfp} img={pfp as string} />
-        <div className="h-[30dvh] min-h-[300px] ">
-          <img
-            src={coverPhoto}
-            alt=""
-            className="w-full h-full  object-cover sm:rounded-t-xl"
-          />
-        </div>
-
+        <ShowProfileCover
+          showCoverPhoto={showCoverPhoto}
+          img={coverPhoto as string}
+        />
+        <CoverPhoto img={coverPhoto as string} isOwner={isOwner} />
         <div className="py-5 px-8">
           <div className="flex justify-between relative">
-            <ProfilePicture
-              isProfileClicked={isProfileClicked}
-              img={pfp as string}
-              isOwner={isOwner}
-              onProfileClick={handleProfileClick}
-            />
+            <ProfilePicture img={pfp as string} isOwner={isOwner} />
             <div className="cursor-pointer" onClick={() => setShowModal(true)}>
               <FaEdit />
             </div>
