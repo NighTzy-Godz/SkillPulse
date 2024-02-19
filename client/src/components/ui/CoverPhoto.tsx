@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowCoverPhoto } from "../../store/slices/ui";
+import { UserType, setShowCoverPhoto } from "../../store/slices/ui";
 import {
   setUserStatusCode,
   updateUserCoverPhoto,

@@ -4,9 +4,13 @@ import { useSelector } from "react-redux";
 import { State } from "../../store/store";
 import { FaEdit } from "react-icons/fa";
 import NoProfileData from "../common/NoProfileData";
+import ProfilePicture from "../ui/ProfilePicture";
 function CompanyIntro() {
   const company = useSelector(
     (state: State) => state.entities.company.currCompany
+  );
+  const currUserId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?._id
   );
 
   const {
@@ -18,7 +22,10 @@ function CompanyIntro() {
     size,
     location,
     logo,
+    owner,
   } = company || {};
+
+  const isOwner = currUserId === owner;
 
   const renderDescription = () => {
     if (!description)
@@ -39,13 +46,7 @@ function CompanyIntro() {
 
         <div className="py-5 px-8">
           <div className="flex justify-between relative ">
-            <div className="mt-[-125px]">
-              <img
-                src={logo}
-                alt=""
-                className=" h-[130px] w-[130px] sm:h-[150px] sm:w-[150px] object-cover rounded-full  "
-              />
-            </div>
+            <ProfilePicture img={logo as string} isOwner={isOwner} />
             <div className="cursor-pointer">
               <FaEdit />
             </div>

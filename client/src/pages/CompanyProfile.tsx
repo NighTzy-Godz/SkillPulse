@@ -5,6 +5,7 @@ import { getCompanyData } from "../store/slices/company";
 import { State } from "../store/store";
 import CompanyIntro from "../components/company/CompanyIntro";
 import CompanyAbout from "../components/company/CompanyAbout";
+import { UserType, setUserType } from "../store/slices/ui";
 
 function CompanyProfile() {
   const dispatch = useDispatch();
@@ -13,8 +14,10 @@ function CompanyProfile() {
   const { currCompany } = useSelector((state: State) => state.entities.company);
 
   useEffect(() => {
-    if (companyId && !currCompany)
+    if (companyId && !currCompany) {
       dispatch(getCompanyData(companyId as string));
+      dispatch(setUserType(UserType.COMPANY));
+    }
   }, [companyId, currCompany]);
   return (
     <div className="sm:py-8 profile">

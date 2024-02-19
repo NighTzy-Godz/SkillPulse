@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ICompany } from "../../interfaces/Company";
 import { apiCallBegan } from "../actions/apiActions";
+import { ChangePhotoData } from "../../interfaces/User";
 
 interface CompanyState {
   loading: boolean;
@@ -39,6 +40,13 @@ const slice = createSlice({
       company.currCompany = action.payload.data;
     },
 
+    companyUpdatedPhotoSuccess: (company, action) => {
+      company.loading = false;
+      company.error = null;
+      company.currCompany = action.payload.data;
+      company.statusCode = action.payload.status;
+    },
+
     setStatusCode: (company, action) => {
       company.statusCode = action.payload;
     },
@@ -47,8 +55,23 @@ const slice = createSlice({
 
 export const { setStatusCode } = slice.actions;
 
-const { companyRequested, companyRequestFailed, companyGetDataSuccess } =
-  slice.actions;
+const {
+  companyRequested,
+  companyUpdatedPhotoSuccess,
+  companyRequestFailed,
+  companyGetDataSuccess,
+} = slice.actions;
+
+export const updateCompanyLogo = (data: ChangePhotoData) =>
+  apiCallBegan({
+    url: "/company/updateCompanyLogo",
+    data,
+    method: "PUT",
+    onStart: companyRequested.type,
+    onError: companyRequestFailed.type,
+    onSuccess: companyUpdatedPhotoSuccess.type,
+    successMsg: "Successfully updated the company logo!",
+  });
 
 export const getCompanyData = (companyId: string) =>
   apiCallBegan({

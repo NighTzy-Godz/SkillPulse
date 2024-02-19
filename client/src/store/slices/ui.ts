@@ -1,15 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+export enum UserType {
+  USER = "user",
+  COMPANY = "company",
+}
 interface UIState {
   showPfp: boolean;
   showCoverPhoto: boolean;
   isProfileClicked: boolean;
+  userType: null | UserType;
 }
 
 const initialState: UIState = {
   showPfp: false,
   showCoverPhoto: false,
   isProfileClicked: false,
+  userType: null,
 };
 
 const slice = createSlice({
@@ -27,10 +32,18 @@ const slice = createSlice({
     setIsProfileClicked: (ui, action) => {
       ui.isProfileClicked = action.payload;
     },
+
+    setUserType: (ui, action) => {
+      ui.userType = action.payload;
+    },
   },
 });
 
-export const { setShowPfp, setIsProfileClicked, setShowCoverPhoto } =
-  slice.actions;
+export const {
+  setUserType,
+  setShowPfp,
+  setIsProfileClicked,
+  setShowCoverPhoto,
+} = slice.actions;
 
 export default slice.reducer;

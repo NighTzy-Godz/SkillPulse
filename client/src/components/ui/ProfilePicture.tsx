@@ -12,6 +12,7 @@ interface ProfilePictureProps {
 
 function ProfilePicture({ img, isOwner }: ProfilePictureProps) {
   const dispatch = useDispatch();
+
   const [isHovered, setIsHovered] = useState(false);
 
   const { isProfileClicked } = useSelector((state: State) => state.entities.ui);

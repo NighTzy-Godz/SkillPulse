@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getUserData } from "../store/slices/user";
-import { State } from "../store/store";
+
+import { UserType, setUserType } from "../store/slices/ui";
 
 function UserProfile() {
   const { userId } = useParams();
@@ -16,6 +17,7 @@ function UserProfile() {
 
   useEffect(() => {
     dispatch(getUserData(userId as string));
+    dispatch(setUserType(UserType.USER));
   }, [userId]);
 
   return (
