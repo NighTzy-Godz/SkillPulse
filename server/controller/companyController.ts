@@ -25,6 +25,30 @@ export const getCompanyData = async (
   }
 };
 
+export const searchCompany = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { searchTerm } = req.params;
+
+    let companies;
+
+    if (!searchTerm) {
+      companies = await Company.find({}).sort({ name: 1 }).limit(20);
+    } else {
+      companies = await Company.find({
+        name: { $regex: new RegExp(searchTerm, "i") },
+      }).sort({ name: 1 });
+    }
+
+    res.send(companies);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const registerCompany = async (
   req: Request,
   res: Response,
@@ -76,25 +100,24 @@ export const registerCompany = async (
   }
 };
 
-export const searchCompany = async (
+export const updateCompanyLogo = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { searchTerm } = req.params;
+    const currCompanyId = req.userCompanyId;
+    const currCompany = await Company.findOne({ _id: currCompanyId });
+    if (!currCompany) return res.status(404).send("Company did not found");
 
-    let companies;
+    if (!req.file) return res.status(400).send("Company Logo cannot be empty");
 
-    if (!searchTerm) {
-      companies = await Company.find({}).sort({ name: 1 }).limit(20);
-    } else {
-      companies = await Company.find({
-        name: { $regex: new RegExp(searchTerm, "i") },
-      }).sort({ name: 1 });
-    }
+    const logo: Express.Multer.File = req.file;
 
-    res.send(companies);
+    currCompany.logo = logo.path;
+
+    await currCompany.save();
+    res.send(currCompany);
   } catch (error) {
     next(error);
   }
