@@ -2,8 +2,10 @@ import { Request, Response, NextFunction } from "express";
 import {
   RegisterCompanyData,
   UpdateCompanyIntroData,
+  UpdateCompanyOverviewData,
   registerCompanyValidator,
   updateCompanyIntroValidator,
+  updateCompanyOverviewValidator,
 } from "../validators/companyValidator";
 import Company from "../models/Company_Model";
 import User from "../models/User_Model";
@@ -185,6 +187,31 @@ export const updateCompanyIntro = async (
       email,
       description,
     });
+
+    await company.save();
+
+    res.send(company);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateCompanyOverview = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { about }: UpdateCompanyOverviewData = req.body;
+
+    const { error } = updateCompanyOverviewValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currCompanyId = req.userCompanyId;
+    const company = await Company.findOne({ _id: currCompanyId });
+    if (!company) return res.status(404).send("Company did not found");
+
+    company.about = about;
 
     await company.save();
 

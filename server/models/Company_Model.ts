@@ -29,7 +29,7 @@ export interface ICompany extends Document {
   location: string;
   owner: mongoose.Schema.Types.ObjectId;
   coverPhoto: string;
-
+  about: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -49,6 +49,11 @@ const companySchema: Schema<ICompany> = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+
+    about: {
+      type: String,
+      default: "",
     },
 
     email: {

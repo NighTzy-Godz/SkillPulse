@@ -3,6 +3,7 @@ import {
   getCompanyData,
   registerCompany,
   searchCompany,
+  updateCompanyOverview,
   updateCompanyCoverPhoto,
   updateCompanyIntro,
   updateCompanyLogo,
@@ -33,6 +34,10 @@ router.put(
 );
 
 router.put("/updateCompanyIntro", [isAuth, isCompanyOwned], updateCompanyIntro);
-
+router.put(
+  "/updateCompanyOverview",
+  [isAuth, isCompanyOwned],
+  updateCompanyOverview
+);
 router.post("/registerCompany", [isAuth], registerCompany);
 export default router;

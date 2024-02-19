@@ -17,6 +17,10 @@ export interface UpdateCompanyIntroData {
   description: string;
 }
 
+export interface UpdateCompanyOverviewData {
+  about: string;
+}
+
 export const registerCompanyValidator = (
   data: RegisterCompanyData
 ): Joi.ValidationResult => {
@@ -117,6 +121,22 @@ export const updateCompanyIntroValidator = (
       "any.required": "Company Description is a required field",
       "string.max": "Company Description should only contain 250 characters",
       "string.min": "Company Description should have alteast 5 characters",
+    }),
+  });
+
+  return schema.validate(data);
+};
+
+export const updateCompanyOverviewValidator = (
+  data: UpdateCompanyOverviewData
+): Joi.ValidationResult => {
+  const schema = Joi.object({
+    about: Joi.string().min(5).max(1000).required().messages({
+      "string.required": "Company Overview is a required field",
+      "string.base": "Company Overview should be a type of string",
+      "any.required": "Company Overview is a required field",
+      "string.min": "Company Overview should be atleast 5 characters",
+      "string.max": "Company Overview should only contain 1000 characters",
     }),
   });
 
