@@ -23,9 +23,14 @@ export interface CompanyUpdateIntroData extends CompanyRegisterData {
   description: string;
 }
 
+export interface CompanyUpdateOverviewData {
+  about: string;
+}
+
 export interface ICompany {
   _id: string;
   isCompany: boolean;
+  about: string;
   name: string;
   description: string;
   industry: INDUSTRY;
