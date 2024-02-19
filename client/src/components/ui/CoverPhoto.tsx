@@ -7,6 +7,7 @@ import {
   updateUserCoverPhoto,
 } from "../../store/slices/user";
 import { State } from "../../store/store";
+import { updateCompanyCoverPhoto } from "../../store/slices/company";
 
 interface CoverPhotoProps {
   img: string;
@@ -18,6 +19,8 @@ function CoverPhoto({ img, isOwner }: CoverPhotoProps) {
   const statusCode = useSelector(
     (state: State) => state.entities.user.statusCode
   );
+  const userType = useSelector((state: State) => state.entities.ui.userType);
+
   const [isHovered, setIsHovered] = useState(false);
 
   const handleShowCoverPhoto = () => {
@@ -32,7 +35,7 @@ function CoverPhoto({ img, isOwner }: CoverPhotoProps) {
   };
 
   useEffect(() => {
-    if (statusCode === 200) {
+    if (statusCode === 200 && userType === UserType.USER) {
       setUserStatusCode(null);
     }
   }, [statusCode]);
@@ -42,7 +45,9 @@ function CoverPhoto({ img, isOwner }: CoverPhotoProps) {
     if (file) {
       const formData = new FormData();
       formData.append("coverPhoto", file);
-      dispatch(updateUserCoverPhoto(formData as any));
+      if (userType === UserType.USER) {
+        dispatch(updateUserCoverPhoto(formData as any));
+      } else dispatch(updateCompanyCoverPhoto(formData as any));
     }
   };
   return (
@@ -55,7 +60,7 @@ function CoverPhoto({ img, isOwner }: CoverPhotoProps) {
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleShowCoverPhoto}
       >
-        {isHovered && (
+        {isHovered && isOwner && (
           <div
             className="absolute right-6 top-6 "
             onClick={handleEditCoverPhoto}
@@ -76,7 +81,7 @@ function CoverPhoto({ img, isOwner }: CoverPhotoProps) {
       <img
         src={img}
         alt=""
-        className="w-full h-[35dvh] object-cover rounded-t-xl"
+        className="w-full h-[35dvh] min-h-[300px] max-h-[350px] object-cover rounded-t-xl"
       />
     </div>
   );

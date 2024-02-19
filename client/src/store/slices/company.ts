@@ -73,6 +73,17 @@ export const updateCompanyLogo = (data: ChangePhotoData) =>
     successMsg: "Successfully updated the company logo!",
   });
 
+export const updateCompanyCoverPhoto = (data: ChangePhotoData) =>
+  apiCallBegan({
+    url: "/company/updateCompanyCoverPhoto",
+    data,
+    method: "PUT",
+    onStart: companyRequested.type,
+    onError: companyRequestFailed.type,
+    onSuccess: companyUpdatedPhotoSuccess.type,
+    successMsg: "Successfully updated the company cover photo!",
+  });
+
 export const getCompanyData = (companyId: string) =>
   apiCallBegan({
     url: `/company/getCompanyData/${companyId}`,

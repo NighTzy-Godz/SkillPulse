@@ -5,12 +5,19 @@ import { State } from "../../store/store";
 import { FaEdit } from "react-icons/fa";
 import NoProfileData from "../common/NoProfileData";
 import ProfilePicture from "../ui/ProfilePicture";
+import CoverPhoto from "../ui/CoverPhoto";
+import ShowProfileCover from "../ui/ShowProfileCover";
+import ShowProfilePicture from "../ui/ShowProfilePicture";
 function CompanyIntro() {
   const company = useSelector(
     (state: State) => state.entities.company.currCompany
   );
   const currUserId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
+  );
+
+  const { showCoverPhoto, showPfp } = useSelector(
+    (state: State) => state.entities.ui
   );
 
   const {
@@ -36,14 +43,12 @@ function CompanyIntro() {
   return (
     <React.Fragment>
       <ProfileCard className="mb-4">
-        <div className="h-[30dvh] min-h-[300px]">
-          <img
-            src={coverPhoto}
-            alt=""
-            className="w-full h-full  object-cover sm:rounded-t-xl"
-          />
-        </div>
-
+        <CoverPhoto img={coverPhoto as string} isOwner={isOwner} />
+        <ShowProfileCover
+          showCoverPhoto={showCoverPhoto}
+          img={coverPhoto as string}
+        />
+        <ShowProfilePicture showPfp={showPfp} img={logo as string} />
         <div className="py-5 px-8">
           <div className="flex justify-between relative ">
             <ProfilePicture img={logo as string} isOwner={isOwner} />
