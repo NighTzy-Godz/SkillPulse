@@ -122,3 +122,26 @@ export const updateCompanyLogo = async (
     next(error);
   }
 };
+
+export const updateCompanyCoverPhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const currCompanyId = req.userCompanyId;
+    const currCompany = await Company.findOne({ _id: currCompanyId });
+    if (!currCompany) return res.status(404).send("Company did not found");
+
+    if (!req.file) return res.status(400).send("Company Logo cannot be empty");
+
+    const coverPhoto: Express.Multer.File = req.file;
+
+    currCompany.coverPhoto = coverPhoto.path;
+
+    await currCompany.save();
+    res.send(currCompany);
+  } catch (error) {
+    next(error);
+  }
+};

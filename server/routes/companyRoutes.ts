@@ -3,6 +3,7 @@ import {
   getCompanyData,
   registerCompany,
   searchCompany,
+  updateCompanyCoverPhoto,
   updateCompanyLogo,
 } from "../controller/companyController";
 import isAuth from "../middleware/isAuth";
@@ -21,6 +22,13 @@ router.put(
   upload.single("pfp"),
   [isAuth, isCompanyOwned],
   updateCompanyLogo
+);
+
+router.put(
+  "/updateCompanyCoverPhoto",
+  upload.single("coverPhoto"),
+  [isAuth, isCompanyOwned],
+  updateCompanyCoverPhoto
 );
 router.post("/registerCompany", [isAuth], registerCompany);
 export default router;
