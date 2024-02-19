@@ -53,7 +53,7 @@ function CoverPhoto({ img, isOwner }: CoverPhotoProps) {
   return (
     <div className="relative">
       <div
-        className={`absolute inset-0 rounded-t-xl  cursor-pointer bg-gray-900 bg-opacity-50 ${
+        className={`absolute inset-0 rounded-t-xl  cursor-pointer bg-gray-500 bg-opacity-50 ${
           isHovered ? "opacity-70" : "opacity-0"
         } transition-opacity`}
         onMouseEnter={() => setIsHovered(true)}

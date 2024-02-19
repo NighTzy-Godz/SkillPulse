@@ -19,6 +19,10 @@ export interface CompanyRegisterData {
   email: string;
 }
 
+export interface CompanyUpdateIntroData extends CompanyRegisterData {
+  description: string;
+}
+
 export interface ICompany {
   _id: string;
   isCompany: boolean;

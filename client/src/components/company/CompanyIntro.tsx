@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ProfileCard from "../common/ProfileCard";
 import { useSelector } from "react-redux";
 import { State } from "../../store/store";
@@ -8,7 +8,10 @@ import ProfilePicture from "../ui/ProfilePicture";
 import CoverPhoto from "../ui/CoverPhoto";
 import ShowProfileCover from "../ui/ShowProfileCover";
 import ShowProfilePicture from "../ui/ShowProfilePicture";
+import CompanyEditIntroModal from "../modal/CompanyEditIntroModal";
 function CompanyIntro() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const company = useSelector(
     (state: State) => state.entities.company.currCompany
   );
@@ -40,9 +43,17 @@ function CompanyIntro() {
 
     return <p className="text-gray-600">{description}</p>;
   };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <React.Fragment>
       <ProfileCard className="mb-4">
+        <CompanyEditIntroModal
+          onModalClose={handleCloseModal}
+          isModalOpen={isModalOpen}
+        />
         <CoverPhoto img={coverPhoto as string} isOwner={isOwner} />
         <ShowProfileCover
           showCoverPhoto={showCoverPhoto}
@@ -52,7 +63,10 @@ function CompanyIntro() {
         <div className="py-5 px-8">
           <div className="flex justify-between relative ">
             <ProfilePicture img={logo as string} isOwner={isOwner} />
-            <div className="cursor-pointer">
+            <div
+              className="cursor-pointer"
+              onClick={() => setIsModalOpen(true)}
+            >
               <FaEdit />
             </div>
           </div>
