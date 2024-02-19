@@ -4,6 +4,7 @@ import {
   registerCompany,
   searchCompany,
   updateCompanyCoverPhoto,
+  updateCompanyIntro,
   updateCompanyLogo,
 } from "../controller/companyController";
 import isAuth from "../middleware/isAuth";
@@ -30,5 +31,8 @@ router.put(
   [isAuth, isCompanyOwned],
   updateCompanyCoverPhoto
 );
+
+router.put("/updateCompanyIntro", [isAuth, isCompanyOwned], updateCompanyIntro);
+
 router.post("/registerCompany", [isAuth], registerCompany);
 export default router;

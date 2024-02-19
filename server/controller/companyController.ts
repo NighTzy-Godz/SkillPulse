@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import {
   RegisterCompanyData,
+  UpdateCompanyIntroData,
   registerCompanyValidator,
+  updateCompanyIntroValidator,
 } from "../validators/companyValidator";
 import Company from "../models/Company_Model";
 import User from "../models/User_Model";
@@ -141,6 +143,52 @@ export const updateCompanyCoverPhoto = async (
 
     await currCompany.save();
     res.send(currCompany);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateCompanyIntro = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      name,
+      industry,
+      size,
+      location,
+      email,
+      description,
+    }: UpdateCompanyIntroData = req.body;
+
+    const { error } = updateCompanyIntroValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currCompanyId = req.userCompanyId;
+    const company = await Company.findOne({ _id: currCompanyId });
+    if (!company) return res.status(404).send("Company did not found");
+
+    const isEmailUsed = await Company.findOne({
+      email,
+      _id: { $ne: currCompanyId },
+    });
+    if (isEmailUsed)
+      return res.status(409).send("Company with this email has been used");
+
+    company.set({
+      name,
+      industry,
+      size,
+      location,
+      email,
+      description,
+    });
+
+    await company.save();
+
+    res.send(company);
   } catch (error) {
     next(error);
   }
