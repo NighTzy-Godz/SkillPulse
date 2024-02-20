@@ -12,9 +12,10 @@ const formatDate = (date: moment.Duration) => {
   const months = date.months();
   const days = date.days();
 
-  if (days) return `${days} days ago`;
-  if (months) return `${months} months ago`;
   if (yrs) return `${yrs} years and ${months} mos`;
+  if (months) return `${months} months ago`;
+  if (days) return `${days} days ago`;
+
   return `Just a moment ago`;
 };
 

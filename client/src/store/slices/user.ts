@@ -130,6 +130,13 @@ const slice = createSlice({
         user.userData.education = action.payload.data.education;
     },
 
+    userDeleteEducation: (user, action) => {
+      user.loading = false;
+      user.error = null;
+      user.statusCode = action.payload.status;
+      if (user.userData)
+        user.userData.education = action.payload.data.education;
+    },
     setUserStatusCode: (user, action) => {
       user.statusCode = action.payload;
     },
@@ -150,7 +157,7 @@ const {
   userApplyJobSuccess,
   userSelectedJobSuccess,
   userAddEducationSuccess,
-
+  userDeleteEducation,
   userAuthSuccess,
 } = slice.actions;
 
@@ -275,6 +282,16 @@ export const addUserExp = (data: UserAddExpData) =>
     onError: userRequestFailed.type,
     onSuccess: userAddExpSuccess.type,
     successMsg: "Successfully Added Your Experience!",
+  });
+
+export const deleteUserEducation = (itemId: string) =>
+  apiCallBegan({
+    url: `/user/deleteEducation/${itemId}`,
+    method: "DELETE",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userDeleteEducation.type,
+    successMsg: "Successfully Deleted the Education Item!",
   });
 
 export default slice.reducer;
