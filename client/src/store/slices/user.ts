@@ -7,6 +7,7 @@ import {
   UserAddExpData,
   UserApplyJobData,
   UserIntroEditData,
+  UserUpdateEducationData,
 } from "../../interfaces/User";
 import { apiCallBegan } from "../actions/apiActions";
 import { ICompany, CompanyRegisterData } from "../../interfaces/Company";
@@ -149,6 +150,7 @@ const {
   userApplyJobSuccess,
   userSelectedJobSuccess,
   userAddEducationSuccess,
+
   userAuthSuccess,
 } = slice.actions;
 
@@ -240,6 +242,17 @@ export const updateUserCoverPhoto = (data: ChangePhotoData) =>
     onError: userRequestFailed.type,
     onSuccess: userUpdatedPhotoSuccess.type,
     successMsg: "Successfully updated your cover photo!",
+  });
+
+export const updateUserEducation = (data: UserUpdateEducationData) =>
+  apiCallBegan({
+    url: "/user/updateUserEducation",
+    data,
+    method: "PUT",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userAddEducationSuccess.type,
+    successMsg: "Successfully updated your education!",
   });
 
 export const addUserEducation = (data: UserAddEducationData) =>

@@ -1,22 +1,22 @@
 import { Button, FileInput, Label } from "flowbite-react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../store/store";
+import { State } from "../../store/store";
 import { useForm } from "react-hook-form";
-import InputError from "../components/common/InputError";
+import InputError from "../../components/common/InputError";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { AiOutlineLoading } from "react-icons/ai";
-import { UserApplyJobData } from "../interfaces/User";
+import { UserApplyJobData } from "../../interfaces/User";
 import {
   setUserStatusCode,
   userApplyJob,
   userGetSelectedJob,
-} from "../store/slices/user";
-import customBtnTheme from "../utils/customBtnTheme";
-import JobDescription from "../components/job/JobDescription";
-import { IJob } from "../interfaces/Job";
-import JobDescriptionContainer from "../components/job/JobDescriptionContainer";
+} from "../../store/slices/user";
+import customBtnTheme from "../../utils/customBtnTheme";
+import JobDescription from "../../components/job/JobDescription";
+import { IJob } from "../../interfaces/Job";
+import JobDescriptionContainer from "../../components/job/JobDescriptionContainer";
 
 function ApplyJob() {
   const { jobId } = useParams();

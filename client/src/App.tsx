@@ -1,28 +1,29 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import HomeLayout from "./pages/HomeLayout";
-import Home from "./pages/Home";
-import RegisterUser from "./pages/RegisterUser";
+import HomeLayout from "./pages/static/HomeLayout";
+import Home from "./pages/static/Home";
+import RegisterUser from "./pages/user/RegisterUser";
 import "react-toastify/ReactToastify.min.css";
 import { ToastContainer } from "react-toastify";
-import RegisterCompany from "./pages/RegisterCompany";
+import RegisterCompany from "./pages/company/RegisterCompany";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "./store/store";
 import { useEffect } from "react";
-import UserProfile from "./pages/UserProfile";
+import UserProfile from "./pages/user/UserProfile";
 import { jwtDecode } from "jwt-decode";
 import { setDecodedModel } from "./store/slices/auth";
-import AuthNavigator from "./pages/AuthNavigator";
-import CompanyProfile from "./pages/CompanyProfile";
-import CompanyNavigator from "./pages/CompanyNavigator";
+import AuthNavigator from "./pages/static/AuthNavigator";
+import CompanyProfile from "./pages/company/CompanyProfile";
+import CompanyNavigator from "./pages/static/CompanyNavigator";
 import { getAuthUserData, getUserData } from "./store/slices/user";
-import Logout from "./pages/Logout";
-import CreateJob from "./pages/CreateJob";
-import AllJobs from "./pages/AllJobs";
-import ApplyJob from "./pages/ApplyJob";
-import Jobs from "./pages/Jobs";
-import ViewJob from "./pages/ViewJob";
-import CreatedJobList from "./pages/CreatedJobList";
-import CreatedJobDetails from "./pages/CreatedJobDetails";
+import Logout from "./pages/static/Logout";
+import CreateJob from "./pages/jobs/CreateJob";
+import AllJobs from "./pages/jobs/AllJobs";
+import ApplyJob from "./pages/user/ApplyJob";
+import Jobs from "./pages/jobs/Jobs";
+import ViewJob from "./pages/jobs/ViewJob";
+import CreatedJobList from "./pages/company/CreatedJobList";
+import CreatedJobDetails from "./pages/company/CreatedJobDetails";
+import DetailsEducation from "./pages/user/DetailsEducation";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,6 +62,11 @@ function App() {
           <Route path="/register-company" element={<RegisterCompany />} />
 
           <Route path="/user/profile/:userId" element={<UserProfile />} />
+          <Route
+            path="/user/profile/:userId/education"
+            element={<DetailsEducation />}
+          />
+
           <Route path="/user/applyJob/:jobId" element={<ApplyJob />} />
           <Route path="/user/jobs" element={<Jobs />}></Route>
 

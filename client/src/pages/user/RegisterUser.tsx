@@ -3,18 +3,18 @@ import { Button, Label, Select, TextInput } from "flowbite-react";
 import { FaAddressCard } from "react-icons/fa";
 import { MdEmail, MdContactPhone } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
-import gender from "../data/gender";
-import customBtnTheme from "../utils/customBtnTheme";
+import gender from "../../data/gender";
+import customBtnTheme from "../../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
-import { RegisterUserData } from "../interfaces/User";
-import InputError from "../components/common/InputError";
+import { RegisterUserData } from "../../interfaces/User";
+import InputError from "../../components/common/InputError";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../store/store";
-import { setStatusCode, userRegister } from "../store/slices/auth";
-import FormHeader from "../components/common/FormHeader";
+import { State } from "../../store/store";
+import { setStatusCode, userRegister } from "../../store/slices/auth";
+import FormHeader from "../../components/common/FormHeader";
 import { PiGenderIntersexFill } from "react-icons/pi";
-import handleNumbersOnly from "../utils/handleNumbersOnly";
+import handleNumbersOnly from "../../utils/handleNumbersOnly";
 
 function RegisterUser() {
   const dispatch = useDispatch();

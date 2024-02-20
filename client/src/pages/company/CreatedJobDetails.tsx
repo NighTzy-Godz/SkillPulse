@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../store/store";
-import { getCompanySelectedJob } from "../store/slices/job";
+import { State } from "../../store/store";
+import { getCompanySelectedJob } from "../../store/slices/job";
 import { useParams } from "react-router-dom";
-import formatDate, { findDuration } from "../utils/dateDuration";
+import formatDate, { findDuration } from "../../utils/dateDuration";
 
-import { IUser } from "../interfaces/User";
+import { IUser } from "../../interfaces/User";
 
-import CreatedJobDesc from "../components/job/CreatedJobDesc";
+import CreatedJobDesc from "../../components/job/CreatedJobDesc";
 
-import JobApplicantBox from "../components/job/JobApplicantBox";
+import JobApplicantBox from "../../components/job/JobApplicantBox";
 
 function CreatedJobDetails() {
   const { jobId } = useParams();
@@ -28,8 +28,12 @@ function CreatedJobDetails() {
     <div className="py-10">
       <div className="container mx-auto">
         <div className="flex gap-3 mb-10">
-          <div className="w-14 h-14 bg-red-500">
-            <img src={selectedJob?.company.logo} alt="" />
+          <div className="w-14 h-14 ">
+            <img
+              className="h-full w-full object-cover"
+              src={selectedJob?.company.logo}
+              alt=""
+            />
           </div>
           <div className="">
             <h1 className="text-zinc-700 text-xl font-semibold">

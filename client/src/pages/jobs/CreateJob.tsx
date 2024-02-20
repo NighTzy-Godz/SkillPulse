@@ -8,15 +8,15 @@ import {
 } from "flowbite-react";
 import { ChangeEvent, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { CreateJobData } from "../interfaces/Job";
-import customBtnTheme from "../utils/customBtnTheme";
-import handleNumbersOnly from "../utils/handleNumbersOnly";
-import employmentType from "../data/employmentType";
-import InputError from "../components/common/InputError";
+import { CreateJobData } from "../../interfaces/Job";
+import customBtnTheme from "../../utils/customBtnTheme";
+import handleNumbersOnly from "../../utils/handleNumbersOnly";
+import employmentType from "../../data/employmentType";
+import InputError from "../../components/common/InputError";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createJob, setJobStatusCode } from "../store/slices/job";
-import { State } from "../store/store";
+import { createJob, setJobStatusCode } from "../../store/slices/job";
+import { State } from "../../store/store";
 
 function CreateJob() {
   const statusCode = useSelector(

@@ -1,32 +1,41 @@
 import { Button, Datepicker, Label, Modal, TextInput } from "flowbite-react";
+import { IEducation } from "../user/EducationCard";
 import { useForm } from "react-hook-form";
-import { UserAddEducationData } from "../../interfaces/User";
+import { UserUpdateEducationData } from "../../interfaces/User";
 import InputError from "../common/InputError";
 import customBtnTheme from "../../utils/customBtnTheme";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserEducation, setUserStatusCode } from "../../store/slices/user";
 import { State } from "../../store/store";
+import {
+  setUserStatusCode,
+  updateUserEducation,
+} from "../../store/slices/user";
 
-export interface IUserAddEducationModalProps {
+export interface IEditEducationModalProps {
   isModalOpen: boolean;
   onModalClose(): void;
+  data: IEducation;
 }
 
-export default function UserAddEducationModal(
-  props: IUserAddEducationModalProps
-) {
-  const { isModalOpen, onModalClose } = props;
-
+export default function EditEducationModal(props: IEditEducationModalProps) {
+  const { data, isModalOpen, onModalClose } = props;
   const { statusCode } = useSelector((state: State) => state.entities.user);
-
   const dispatch = useDispatch();
   const [selectedDate, setSelectedDate] = useState<Date>();
+
+  const values: UserUpdateEducationData = {
+    _id: data._id,
+    schoolName: data.schoolName,
+    graduateYear: data.graduateYear,
+    degree: data.degree,
+  };
+
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<UserAddEducationData>();
+    handleSubmit,
+  } = useForm<UserUpdateEducationData>({ values });
 
   useEffect(() => {
     if (statusCode === 200) {
@@ -35,19 +44,20 @@ export default function UserAddEducationModal(
     }
   }, [statusCode]);
 
-  const handleAddEducationSubmit = (data: UserAddEducationData) => {
-    const reqBody: UserAddEducationData = {
+  const handleUpdateEducationSubmit = (data: UserUpdateEducationData) => {
+    const reqBody: UserUpdateEducationData = {
       ...data,
       graduateYear: selectedDate as Date,
     };
-    dispatch(addUserEducation(reqBody));
+
+    dispatch(updateUserEducation(reqBody));
   };
 
   return (
-    <Modal show={isModalOpen} onClose={onModalClose} className="min-h-dvh">
-      <Modal.Header>Add Your Education</Modal.Header>
+    <Modal show={isModalOpen} onClose={onModalClose}>
+      <Modal.Header>Update Education</Modal.Header>
       <Modal.Body>
-        <form onSubmit={handleSubmit(handleAddEducationSubmit)}>
+        <form onSubmit={handleSubmit(handleUpdateEducationSubmit)}>
           <div className="mb-5">
             <Label className="label">Graduate Year</Label>
             <Datepicker
@@ -88,7 +98,7 @@ export default function UserAddEducationModal(
           </div>
 
           <Button color="blue" theme={customBtnTheme} type="submit">
-            Add Education
+            Update Education
           </Button>
         </form>
       </Modal.Body>

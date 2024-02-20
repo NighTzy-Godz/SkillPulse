@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCompanyData } from "../store/slices/company";
-import { State } from "../store/store";
-import CompanyIntro from "../components/company/CompanyIntro";
-import CompanyAbout from "../components/company/CompanyAbout";
-import { UserType, setUserType } from "../store/slices/ui";
+import { getCompanyData } from "../../store/slices/company";
+import { State } from "../../store/store";
+import CompanyIntro from "../../components/company/CompanyIntro";
+import CompanyAbout from "../../components/company/CompanyAbout";
+import { UserType, setUserType } from "../../store/slices/ui";
 
 function CompanyProfile() {
   const dispatch = useDispatch();

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import JobDescription from "../components/job/JobDescription";
+import JobDescription from "../../components/job/JobDescription";
 import { useDispatch, useSelector } from "react-redux";
 
-import { State } from "../store/store";
-import { IJob } from "../interfaces/Job";
-import { userGetSelectedJob } from "../store/slices/user";
+import { State } from "../../store/store";
+import { IJob } from "../../interfaces/Job";
+import { userGetSelectedJob } from "../../store/slices/user";
 
 function ViewJob() {
   const dispatch = useDispatch();

@@ -5,11 +5,14 @@ import { IoMdAdd } from "react-icons/io";
 import NoProfileData from "../common/NoProfileData";
 import { useSelector } from "react-redux";
 import { State } from "../../store/store";
-import moment from "moment";
+
 import UserAddEducationModal from "../modal/UserAddEducationModal";
+import EducationCard from "./EducationCard";
+import { Link, useParams } from "react-router-dom";
+
 function ProfileEducation() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { userId } = useParams();
   const education = useSelector(
     (state: State) => state.entities.user.userData?.education
   );
@@ -22,13 +25,7 @@ function ProfileEducation() {
     return education?.map((item, index) => {
       return (
         <React.Fragment key={index}>
-          <div className="mb-5">
-            <h3 className="text-zinc-700 font-bold">{item.schoolName}</h3>
-            <p className="text-zinc-500 text-sm">{item.degree}</p>
-            <p className="text-zinc-400 text-sm">
-              {moment(item.graduateYear).format("MMM Do")}
-            </p>
-          </div>{" "}
+          <EducationCard data={item} />
         </React.Fragment>
       );
     });
@@ -50,9 +47,12 @@ function ProfileEducation() {
           <div className="cursor-pointer" onClick={() => setIsModalOpen(true)}>
             <IoMdAdd />
           </div>
-          <div className="cursor-pointer">
+          <Link
+            to={`/user/profile/${userId}/education`}
+            className="cursor-pointer"
+          >
             <FaEdit />
-          </div>
+          </Link>
         </div>
       </div>
       {renderEducation()}

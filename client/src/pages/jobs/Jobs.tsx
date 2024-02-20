@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../store/store";
-import { getAppliedJobs, getSavedJobs } from "../store/slices/job";
-import JobLinks from "../components/job/JobLinks";
-import JobHeader from "../components/job/JobHeader";
-import AppliedJobCard from "../components/job/AppliedJobCard";
-import SavedJobCard from "../components/job/SavedJobCard";
-import NoJobData from "../components/job/NoJobData";
-import userJobLinks from "../data/userJobLinks";
-import { IJobApplication } from "../interfaces/JobApplication";
-import { IJob } from "../interfaces/Job";
+import { State } from "../../store/store";
+import { getAppliedJobs, getSavedJobs } from "../../store/slices/job";
+import JobLinks from "../../components/job/JobLinks";
+import JobHeader from "../../components/job/JobHeader";
+import AppliedJobCard from "../../components/job/AppliedJobCard";
+import SavedJobCard from "../../components/job/SavedJobCard";
+import NoJobData from "../../components/job/NoJobData";
+import userJobLinks from "../../data/userJobLinks";
+import { IJobApplication } from "../../interfaces/JobApplication";
+import { IJob } from "../../interfaces/Job";
 
 function Jobs() {
   const dispatch = useDispatch();

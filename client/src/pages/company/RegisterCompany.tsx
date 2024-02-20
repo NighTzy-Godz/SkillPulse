@@ -1,20 +1,23 @@
 import React, { useEffect } from "react";
-import FormHeader from "../components/common/FormHeader";
+import FormHeader from "../../components/common/FormHeader";
 import { Button, Label, Select, TextInput } from "flowbite-react";
-import industries from "../data/industry";
+import industries from "../../data/industry";
 import { FaAddressCard, FaIndustry } from "react-icons/fa";
 import { MdGroups, MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
-import companySize from "../data/companySize";
-import customBtnTheme from "../utils/customBtnTheme";
+import companySize from "../../data/companySize";
+import customBtnTheme from "../../utils/customBtnTheme";
 import { useForm } from "react-hook-form";
-import { CompanyRegisterData } from "../interfaces/Company";
-import InputError from "../components/common/InputError";
+import { CompanyRegisterData } from "../../interfaces/Company";
+import InputError from "../../components/common/InputError";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../store/store";
+import { State } from "../../store/store";
 
 import { useNavigate } from "react-router-dom";
-import { setUserStatusCode, userRegisterCompany } from "../store/slices/user";
+import {
+  setUserStatusCode,
+  userRegisterCompany,
+} from "../../store/slices/user";
 function RegisterCompany() {
   const navigate = useNavigate();
   const dispatch = useDispatch();

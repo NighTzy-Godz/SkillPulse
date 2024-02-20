@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { State } from "../store/store";
+import { State } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 
 function CompanyNavigator() {

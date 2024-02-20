@@ -42,8 +42,12 @@ const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
         onCloseModal={handleCloseModal}
       />
       <div className="flex gap-3 ">
-        <div className="h-10 w-10">
-          <img src={job.company.logo} alt="" />
+        <div className="h-16 w-16">
+          <img
+            className="w-full h-full object-cover rounded-full"
+            src={job.company.logo}
+            alt=""
+          />
         </div>
         <div className="">
           <Link

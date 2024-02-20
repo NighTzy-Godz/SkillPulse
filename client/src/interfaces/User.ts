@@ -24,6 +24,10 @@ export interface UserAddEducationData {
   graduateYear: Date;
 }
 
+export interface UserUpdateEducationData extends UserAddEducationData {
+  _id: string;
+}
+
 export interface LoginUserData {
   email: string;
   password: string;
@@ -84,9 +88,10 @@ export interface IUser {
   skills?: string[];
   generateAuthToken(): string;
   education?: {
+    _id: string;
     schoolName: string;
     degree: string;
-    graduateYear: string;
+    graduateYear: Date;
   }[];
 
   experience?: {

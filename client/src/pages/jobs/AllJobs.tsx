@@ -1,18 +1,18 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchedJobs } from "../store/slices/job";
-import { State } from "../store/store";
-import JobList from "../components/job/JobList";
-import JobDescription from "../components/job/JobDescription";
-import { IJob, SearchJobQuery } from "../interfaces/Job";
+import { getSearchedJobs } from "../../store/slices/job";
+import { State } from "../../store/store";
+import JobList from "../../components/job/JobList";
+import JobDescription from "../../components/job/JobDescription";
+import { IJob, SearchJobQuery } from "../../interfaces/Job";
 import ReactPaginate from "react-paginate";
 
 import { useSearchParams } from "react-router-dom";
-import SearchBar from "../components/common/SearchBar";
-import NoJobSearch from "../components/job/NoJobSearch";
-import { setUserSelectedJob } from "../store/slices/job";
-import JobDescriptionContainer from "../components/job/JobDescriptionContainer";
+import SearchBar from "../../components/common/SearchBar";
+import NoJobSearch from "../../components/job/NoJobSearch";
+import { setUserSelectedJob } from "../../store/slices/job";
+import JobDescriptionContainer from "../../components/job/JobDescriptionContainer";
 
 function AllJobs() {
   const dispatch = useDispatch();
