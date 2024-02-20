@@ -18,6 +18,12 @@ export interface ChangePhotoData {
   img: FileList;
 }
 
+export interface UserAddEducationData {
+  schoolName: string;
+  degree: string;
+  graduateYear: Date;
+}
+
 export interface LoginUserData {
   email: string;
   password: string;

@@ -15,10 +15,10 @@ function ProfileAbout() {
   const [clicked, setClicked] = useState(false);
   const [slicedData, setSlicedData] = useState("");
   useEffect(() => {
-    if (about && !clicked) {
-      setSlicedData(`${about?.slice(0, 150)} ...`);
-    } else {
+    if (about && !clicked && about.length < 150) {
       setSlicedData(about as string);
+    } else if (about && !clicked) {
+      setSlicedData(`${about?.slice(0, 150)} ...`);
     }
   }, [about, clicked]);
 
@@ -38,6 +38,7 @@ function ProfileAbout() {
   };
 
   const renderParagraph = () => {
+    if ((about?.length as number) < 150) return;
     if (about && clicked) return "... see less";
     else if (about && !clicked) return "... see more";
   };

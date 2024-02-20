@@ -3,6 +3,7 @@ import {
   ChangePhotoData,
   IUser,
   UserAboutEditData,
+  UserAddEducationData,
   UserAddExpData,
   UserApplyJobData,
   UserIntroEditData,
@@ -120,6 +121,14 @@ const slice = createSlice({
       user.userData = action.payload.data;
     },
 
+    userAddEducationSuccess: (user, action) => {
+      user.loading = false;
+      user.error = null;
+      user.statusCode = action.payload.status;
+      if (user.userData)
+        user.userData.education = action.payload.data.education;
+    },
+
     setUserStatusCode: (user, action) => {
       user.statusCode = action.payload;
     },
@@ -139,6 +148,7 @@ const {
   userRegisterCompanySuccess,
   userApplyJobSuccess,
   userSelectedJobSuccess,
+  userAddEducationSuccess,
   userAuthSuccess,
 } = slice.actions;
 
@@ -230,6 +240,17 @@ export const updateUserCoverPhoto = (data: ChangePhotoData) =>
     onError: userRequestFailed.type,
     onSuccess: userUpdatedPhotoSuccess.type,
     successMsg: "Successfully updated your cover photo!",
+  });
+
+export const addUserEducation = (data: UserAddEducationData) =>
+  apiCallBegan({
+    url: "/user/addUserEducation",
+    data,
+    method: "POST",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userAddEducationSuccess.type,
+    successMsg: "Successfully added your education",
   });
 
 export const addUserExp = (data: UserAddExpData) =>

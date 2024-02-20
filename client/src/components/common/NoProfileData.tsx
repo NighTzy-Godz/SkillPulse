@@ -7,7 +7,7 @@ interface NoProfileDataProps {
 function NoProfileData({ msg }: NoProfileDataProps) {
   return (
     <React.Fragment>
-      <p className="text-gray-600 text-lg">{msg}</p>
+      <p className="text-gray-600 ">{msg}</p>
     </React.Fragment>
   );
 }
