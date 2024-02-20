@@ -12,6 +12,7 @@ import {
   registerUser,
   updateUserAbout,
   updateUserCoverPhoto,
+  updateUserEducation,
   updateUserIntro,
   updateUserPfp,
   userJobApplied,
@@ -31,6 +32,7 @@ router.put(
   [isAuth, isUserExist],
   updateUserPfp
 );
+router.put("/updateUserEducation", [isAuth], updateUserEducation);
 
 router.put(
   "/updateUserCoverPhoto",

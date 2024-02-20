@@ -39,6 +39,7 @@ interface IUser extends Document {
   generateAuthToken(): string;
 
   education?: {
+    _id?: string;
     schoolName: string;
     degree: string;
     graduateYear: Date;

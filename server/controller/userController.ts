@@ -9,6 +9,8 @@ import {
   userAddExpValidator,
   userAddEducationValidator,
   UserAddEducationData,
+  UserUpdateEducationData,
+  userUpdateEducationValidator,
 } from "../validators/userValidator";
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
@@ -307,6 +309,42 @@ export const updateUserAbout = async (
     await foundUser.save();
 
     res.send(foundUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUserEducation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { _id, schoolName, graduateYear, degree }: UserUpdateEducationData =
+      req.body;
+
+    const { error } = userUpdateEducationValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currUserId = req.user?._id;
+    const currUser = await User.findOne({ _id: currUserId }).select(
+      "education"
+    );
+    if (!currUser) return res.status(404).send("User did not found");
+
+    let education = currUser.education?.find((item) => {
+      return item._id?.toString() === _id;
+    });
+
+    if (!education) return res.status(404).send("Education did not found");
+
+    education.schoolName = schoolName;
+    education.graduateYear = graduateYear;
+    education.degree = degree;
+
+    await currUser.save();
+
+    res.send(currUser);
   } catch (error) {
     next(error);
   }
