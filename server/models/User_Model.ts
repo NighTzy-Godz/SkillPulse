@@ -41,7 +41,7 @@ interface IUser extends Document {
   education?: {
     schoolName: string;
     degree: string;
-    graduateYear: string;
+    graduateYear: Date;
   }[];
 
   experience?: {
@@ -163,7 +163,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema({
         required: true,
       },
       graduateYear: {
-        type: String,
+        type: Date,
         required: true,
       },
     },

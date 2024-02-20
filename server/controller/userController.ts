@@ -7,6 +7,8 @@ import {
   userUpdateAboutValidator,
   UserAddExpData,
   userAddExpValidator,
+  userAddEducationValidator,
+  UserAddEducationData,
 } from "../validators/userValidator";
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
@@ -136,6 +138,37 @@ export const addUserExp = async (
     await foundUser.save();
 
     res.send(foundUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addUserEducation = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { schoolName, graduateYear, degree }: UserAddEducationData = req.body;
+
+    const { error } = userAddEducationValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currUserId = req.user?._id;
+    const currUser = await User.findOne({ _id: currUserId }).select(
+      "education"
+    );
+    if (!currUser) return res.status(404).send("User did not found");
+
+    currUser.education?.push({
+      schoolName,
+      graduateYear,
+      degree,
+    });
+
+    await currUser.save();
+
+    res.send(currUser);
   } catch (error) {
     next(error);
   }

@@ -39,6 +39,38 @@ export interface UserAddExpData {
   endDate: Date | string;
 }
 
+export interface UserAddEducationData {
+  schoolName: string;
+  degree: string;
+  graduateYear: Date;
+}
+
+export const userAddEducationValidator = (
+  data: UserAddEducationData
+): Joi.ValidationResult => {
+  const schema = Joi.object({
+    schoolName: Joi.string().required().messages({
+      "string.required": "School Name is a required field",
+      "string.base": "School Name should be a type of string",
+      "any.required": "School Name is a required field",
+    }),
+
+    degree: Joi.string().required().messages({
+      "string.required": "Degree is a required field",
+      "string.base": "Degree should be a type of string",
+      "any.required": "Degree is a required field",
+    }),
+
+    graduateYear: Joi.date().iso().required().messages({
+      "date.base": "Graduate Year should be a type of Date",
+      "date.format":
+        "Invalid date format. Please use the ISO 8601 format (e.g., YYYY-MM-DD).",
+    }),
+  });
+
+  return schema.validate(data);
+};
+
 export const userAddExpValidator = (
   data: UserAddExpData
 ): Joi.ValidationResult => {
