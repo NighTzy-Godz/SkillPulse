@@ -7,6 +7,7 @@ const upload = multer({ storage });
 import {
   addUserEducation,
   addUserExp,
+  deleteUserEducation,
   getUserData,
   loginUser,
   registerUser,
@@ -53,4 +54,5 @@ router.post("/loginUser", loginUser);
 router.post("/addUserExp", [isAuth], addUserExp);
 router.post("/addUserEducation", [isAuth], addUserEducation);
 
+router.delete("/deleteEducation/:educationId", [isAuth], deleteUserEducation);
 export default router;
