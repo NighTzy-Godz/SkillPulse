@@ -20,7 +20,7 @@ function ProfileExperience() {
 
   const renderEndDate = (endDate: string | Date) => {
     if (endDate === "Present") return "Present";
-    return moment(endDate).format("MMM Do");
+    return moment(endDate).format("MMM Do YYYY");
   };
 
   const findDuration = (startDate: Date) => {
