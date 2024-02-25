@@ -1,12 +1,6 @@
 import * as React from "react";
 import formatDate, { findDuration } from "../../utils/dateDuration";
-
-export interface IEducation {
-  _id: string;
-  schoolName: string;
-  graduateYear: Date;
-  degree: string;
-}
+import { IEducation } from "../../interfaces/User";
 
 export interface IEducationCardProps {
   data: IEducation;

@@ -14,6 +14,13 @@ export interface UserApplyJobData {
   resume: FileList;
 }
 
+export interface IEducation {
+  _id: string;
+  schoolName: string;
+  graduateYear: Date;
+  degree: string;
+}
+
 export interface ChangePhotoData {
   img: FileList;
 }
@@ -51,6 +58,10 @@ export interface UserAddExpData {
 
   startDate: Date;
   endDate: Date | string;
+}
+
+export interface UserEditExpData extends UserAddExpData {
+  _id: string;
 }
 
 export interface UserIntroEditData {
@@ -95,6 +106,7 @@ export interface IUser {
   }[];
 
   experience?: {
+    _id?: string;
     employmentType: EmploymentType;
     company: string;
     position: string;

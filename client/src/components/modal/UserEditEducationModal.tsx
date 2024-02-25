@@ -1,14 +1,13 @@
 import { Button, Datepicker, Label, Modal, TextInput } from "flowbite-react";
-import { IEducation } from "../user/EducationCard";
+
 import { useForm } from "react-hook-form";
-import { UserUpdateEducationData } from "../../interfaces/User";
+import { IEducation, UserUpdateEducationData } from "../../interfaces/User";
 import InputError from "../common/InputError";
 import customBtnTheme from "../../utils/customBtnTheme";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
 import {
-  deleteUserEducation,
   setUserStatusCode,
   updateUserEducation,
 } from "../../store/slices/user";

@@ -1,45 +1,45 @@
 import React, { useEffect, useState } from "react";
+import { IoMdAdd } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
 import NoProfileData from "../../components/common/NoProfileData";
-import EducationCard from "../../components/user/EducationCard";
-import { IoMdAdd } from "react-icons/io";
 
-import { FaEdit } from "react-icons/fa";
-import UserAddEducationModal from "../../components/modal/UserAddEducationModal";
-import EditEducationModal from "../../components/modal/UserEditEducationModal";
+import ExperienceCard from "../../components/user/ExperienceCard";
 import { useParams } from "react-router-dom";
 import { getUserData } from "../../store/slices/user";
-import { IEducation } from "../../interfaces/User";
+import { FaEdit } from "react-icons/fa";
+import UserAddExpModal from "../../components/modal/UserAddExpModal";
+import { IExperience } from "../../components/common/ProfileOrgBanner";
+import UserEditExpModal from "../../components/modal/UserEditExpModal";
 
-function DetailsEducation() {
+function DetailsExp() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [selectedEducation, setSelectedEducation] = useState<IEducation>();
+  const [selectedExp, setSelectedExp] = useState<IExperience>();
   const { userId } = useParams();
   const dispatch = useDispatch();
-
-  const education = useSelector(
-    (state: State) => state.entities.user.userData?.education
+  const experience = useSelector(
+    (state: State) => state.entities.user.userData?.experience
   );
 
   useEffect(() => {
-    if (!education) {
+    if (!experience) {
       dispatch(getUserData(userId as string));
     }
   }, [userId]);
 
-  const renderEducation = () => {
-    if (education?.length === 0)
-      return <NoProfileData msg="You dont have any education at the moment" />;
-    return education?.map((item, index) => {
+  const renderExperience = () => {
+    if (experience?.length === 0)
+      return <NoProfileData msg="You dont have any experience at the moment" />;
+    return experience?.map((item) => {
       return (
-        <div className="flex mb-3  justify-between" key={index}>
-          <EducationCard data={item} />
+        <div className="flex mb-3 justify-between" key={item.company}>
+          <ExperienceCard data={item} />
           <div
-            className="cursor-pointer mt-1"
+            className="cursor-pointer"
             onClick={() => handleUpdateModal(item)}
           >
+            {" "}
             <FaEdit className="h-6 w-6 text-zinc-600" />
           </div>
         </div>
@@ -47,12 +47,12 @@ function DetailsEducation() {
     });
   };
 
-  const handleUpdateModal = (item: IEducation) => {
-    setSelectedEducation(item);
+  const handleUpdateModal = (item: IExperience) => {
+    setSelectedExp(item);
     setIsUpdateModalOpen(true);
   };
 
-  const handleModalClose = () => {
+  const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
@@ -62,23 +62,23 @@ function DetailsEducation() {
 
   return (
     <div className="py-10">
-      {selectedEducation && (
-        <EditEducationModal
-          data={selectedEducation}
-          isModalOpen={isUpdateModalOpen}
+      {selectedExp && (
+        <UserEditExpModal
+          data={selectedExp as IExperience}
+          showModal={isUpdateModalOpen}
           onModalClose={handleUpdateModalClose}
         />
       )}
-
-      <UserAddEducationModal
-        isModalOpen={isModalOpen}
-        onModalClose={handleModalClose}
+      <UserAddExpModal
+        showModal={isModalOpen}
+        onModalClose={handleCloseModal}
       />
+
       <div className="container mx-auto">
         <div className="boxShadow2 px-10 py-6">
           <div className="mb-8 flex justify-between items-center">
             <h1 className="text-xl text-zinc-700 font-semibold">
-              Details for education
+              Details for experience
             </h1>
             <div
               className="cursor-pointer"
@@ -88,11 +88,11 @@ function DetailsEducation() {
             </div>
           </div>
 
-          {renderEducation()}
+          {renderExperience()}
         </div>
       </div>
     </div>
   );
 }
 
-export default DetailsEducation;
+export default DetailsExp;

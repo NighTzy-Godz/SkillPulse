@@ -68,6 +68,7 @@ const slice = createSlice({
     userAddExpSuccess: (user, action) => {
       user.loading = false;
       user.error = null;
+      console.log(action.payload.data);
       if (user.userData) {
         user.userData.experience = action.payload.data.experience;
       }
@@ -282,6 +283,17 @@ export const addUserExp = (data: UserAddExpData) =>
     onError: userRequestFailed.type,
     onSuccess: userAddExpSuccess.type,
     successMsg: "Successfully Added Your Experience!",
+  });
+
+export const updateUserExp = (data: UserAddExpData) =>
+  apiCallBegan({
+    url: "/user/updateUserExp",
+    data,
+    method: "PUT",
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: userAddExpSuccess.type,
+    successMsg: "Successfully Updated Your Experience!",
   });
 
 export const deleteUserEducation = (itemId: string) =>

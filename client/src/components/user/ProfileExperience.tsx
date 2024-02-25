@@ -7,37 +7,21 @@ import { useSelector } from "react-redux";
 import { State } from "../../store/store";
 import moment from "moment";
 import UserAddExpModal from "../modal/UserAddExpModal";
+import { Link } from "react-router-dom";
+import formatDate, { findDuration } from "../../utils/dateDuration";
+import ExperienceCard from "./ExperienceCard";
 function ProfileExperience() {
   const [showModal, setShowModal] = useState(false);
 
   const experience = useSelector(
     (state: State) => state.entities.user.userData?.experience
   );
+  const currUserId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?._id
+  );
 
   const handleCloseModal = () => {
     setShowModal(false);
-  };
-
-  const renderEndDate = (endDate: string | Date) => {
-    if (endDate === "Present") return "Present";
-    return moment(endDate).format("MMM Do YYYY");
-  };
-
-  const findDuration = (startDate: Date) => {
-    const start = startDate;
-    const currDate = moment();
-    const duration = moment.duration(currDate.diff(start));
-
-    return duration;
-  };
-
-  const formatDuration = (startDate: moment.Duration) => {
-    const yrs = startDate.years();
-    const months = startDate.months();
-
-    if (yrs) return `${yrs} years and ${months} mos`;
-    if (months <= 1) return "Just a month ago";
-    return `${months} mos`;
   };
 
   const renderExperience = () => {
@@ -49,37 +33,7 @@ function ProfileExperience() {
     return experience?.map((item) => {
       return (
         <React.Fragment key={item.company}>
-          <div className="flex gap-2">
-            <div className="mb-5 w-full">
-              <h3 className="text-zinc-700 font-bold text-lg">
-                {item.position}
-              </h3>
-              <div className="flex gap-2 mb-1">
-                <p className="text-zinc-600 text-sm ">{item.company}</p>
-                <p className="text-zinc-600 text-sm b-dot">
-                  {item.employmentType}
-                </p>
-              </div>
-              <div className="flex gap-2 mb-5">
-                <p className="text-zinc-600 text-sm ">
-                  {moment(item.startDate).format("MMM Do YYYY")}
-                </p>
-                <p className="text-zinc-600 text-sm ">-</p>
-                <p className="text-zinc-600 text-sm">
-                  {renderEndDate(item.endDate)}
-                </p>
-                <p className="text-zinc-600 text-sm b-dot">
-                  {formatDuration(findDuration(item.startDate))}
-                </p>
-              </div>
-
-              <div className="">
-                <p className="text-sm text-zinc-700 whitespace-pre-wrap">
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          </div>
+          <ExperienceCard data={item} />
         </React.Fragment>
       );
     });
@@ -96,9 +50,13 @@ function ProfileExperience() {
             <IoMdAdd />
           </div>
           {experience?.length !== 0 && (
-            <div className="cursor-pointer">
+            <Link
+              className="cursor-pointer"
+              to={`/user/profile/${currUserId}/experience`}
+            >
+              {" "}
               <FaEdit />
-            </div>
+            </Link>
           )}
         </div>
       </div>

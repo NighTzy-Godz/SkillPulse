@@ -5,7 +5,7 @@ import { State } from "../../store/store";
 import { EmploymentType } from "../../interfaces/User";
 
 export interface IExperience {
-  _id: string;
+  _id?: string;
   employmentType: EmploymentType;
   company: string;
   position: string;

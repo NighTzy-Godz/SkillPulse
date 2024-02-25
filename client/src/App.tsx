@@ -24,6 +24,7 @@ import ViewJob from "./pages/jobs/ViewJob";
 import CreatedJobList from "./pages/company/CreatedJobList";
 import CreatedJobDetails from "./pages/company/CreatedJobDetails";
 import DetailsEducation from "./pages/user/DetailsEducation";
+import DetailsExp from "./pages/user/DetailsExp";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,10 @@ function App() {
           <Route
             path="/user/profile/:userId/education"
             element={<DetailsEducation />}
+          />
+          <Route
+            path="/user/profile/:userId/experience"
+            element={<DetailsExp />}
           />
 
           <Route path="/user/applyJob/:jobId" element={<ApplyJob />} />
