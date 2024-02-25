@@ -50,7 +50,9 @@ export const getAppliedJobs = async (
       },
     });
 
-    res.send(appliedJobs);
+    const filteredJob = appliedJobs.filter((item) => item.jobId !== null);
+
+    res.send(filteredJob);
   } catch (error) {
     next(error);
   }
