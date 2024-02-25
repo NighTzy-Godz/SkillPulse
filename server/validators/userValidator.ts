@@ -49,6 +49,10 @@ export interface UserUpdateEducationData extends UserAddEducationData {
   _id: string;
 }
 
+export interface UserUpdateExpData extends UserAddExpData {
+  _id: string;
+}
+
 export const userAddEducationValidator = (
   data: UserAddEducationData
 ): Joi.ValidationResult => {
@@ -110,6 +114,59 @@ export const userAddExpValidator = (
   data: UserAddExpData
 ): Joi.ValidationResult => {
   const schema = Joi.object({
+    _id: Joi.string().required().messages({
+      "string.required": "Education ID is a required field",
+      "string.base": "Education ID should be a type of string",
+      "any.required": "Education ID is a required field",
+    }),
+    position: Joi.string().min(3).max(50).required().messages({
+      "string.empty": "Position cannot be empty",
+      "string.base": "This input should be a type of string",
+      "any.required": "Position is a required field",
+      "string.min": "Position should only 3 letters minimum",
+      "string.max": "Position should only contain 50 letters maximum",
+    }),
+    employmentType: Joi.string()
+      .valid(...Object.values(EmploymentType))
+      .messages({
+        "string.empty": "Employment Type cannot be empty",
+        "string.base": "Employment should be a type of string",
+        "any.only": "Invalid Employment type selected",
+        "any.required": "Employment Type is a required field",
+      }),
+
+    company: Joi.string().min(3).max(50).required().messages({
+      "string.empty": "Company Name cannot be empty",
+      "string.base": "This input should be a type of string",
+      "any.required": "Company Name is a required field",
+      "string.min": "Company Name should only 3 letters minimum",
+      "string.max": "Company Name should only contain 50 letters maximum",
+    }),
+
+    startDate: Joi.date().iso().messages({
+      "date.base": "Invalid date format. Please use a valid date.",
+      "date.format":
+        "Invalid date format. Please use the ISO 8601 format (e.g., YYYY-MM-DD).",
+    }),
+
+    endDate: Joi.alternatives(
+      Joi.string().valid("Present"),
+      Joi.date()
+    ).optional(),
+  });
+
+  return schema.validate(data);
+};
+
+export const userUpdateExpValidator = (
+  data: UserUpdateExpData
+): Joi.ValidationResult => {
+  const schema = Joi.object({
+    _id: Joi.string().required().messages({
+      "string.required": "Education ID is a required field",
+      "string.base": "Education ID should be a type of string",
+      "any.required": "Education ID is a required field",
+    }),
     position: Joi.string().min(3).max(50).required().messages({
       "string.empty": "Position cannot be empty",
       "string.base": "This input should be a type of string",

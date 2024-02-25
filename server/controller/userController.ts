@@ -11,6 +11,8 @@ import {
   UserAddEducationData,
   UserUpdateEducationData,
   userUpdateEducationValidator,
+  UserUpdateExpData,
+  userUpdateExpValidator,
 } from "../validators/userValidator";
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
@@ -359,6 +361,50 @@ export const loginUser = async (
     const token = existingUser.generateAuthToken();
 
     res.header("x-auth-token", token).send(token);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUserExp = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const {
+      _id,
+      company,
+      position,
+
+      employmentType,
+      startDate,
+      endDate,
+    }: UserUpdateExpData = req.body;
+
+    const { error } = userUpdateExpValidator(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    const currUserId = req.user?._id;
+    const currUser = await User.findOne({ _id: currUserId }).select(
+      "experience"
+    );
+    if (!currUser) return res.status(404).send("User did not found");
+
+    const experience = currUser.experience?.find((item) => {
+      return item._id?.toString() === _id;
+    });
+    if (!experience) return res.status(404).send("Experience did not found");
+
+    experience.company = company;
+    experience.employmentType = employmentType;
+    experience.endDate = endDate;
+    experience.position = position;
+    experience.startDate = startDate;
+
+    await currUser.save();
+
+    res.send(currUser);
   } catch (error) {
     next(error);
   }

@@ -14,6 +14,7 @@ import {
   updateUserAbout,
   updateUserCoverPhoto,
   updateUserEducation,
+  updateUserExp,
   updateUserIntro,
   updateUserPfp,
   userJobApplied,
@@ -34,7 +35,7 @@ router.put(
   updateUserPfp
 );
 router.put("/updateUserEducation", [isAuth], updateUserEducation);
-
+router.put("/updateUserExp", [isAuth], updateUserExp);
 router.put(
   "/updateUserCoverPhoto",
   upload.single("coverPhoto"),

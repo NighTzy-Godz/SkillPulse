@@ -46,6 +46,7 @@ interface IUser extends Document {
   }[];
 
   experience?: {
+    _id?: string;
     company: string;
     position: string;
     startDate: Date;
