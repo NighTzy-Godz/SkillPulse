@@ -9,6 +9,7 @@
     "seedCompany": "node dist/seeds/seedCompany.js",
     "seedUser": "node dist/seeds/seedUser.js",
     "seedJob": "node dist/seeds/seedJob.js",
+    "seedJobApplication": "node dist/seeds/seedJobApplication.js",
     "start": "ts-node server.ts"
   },
   "keywords": [],

@@ -1,5 +1,6 @@
 import Joi, { Schema } from "joi";
 import { EmploymentType } from "../models/User_Model";
+import { ApplicationStatus } from "../models/JobApplication_Model";
 
 export interface CreateJobData {
   title: string;
@@ -10,6 +11,11 @@ export interface CreateJobData {
 }
 
 export interface JobUpdateData extends CreateJobData {}
+
+export interface JobApplicationUpdateStatusData {
+  status: ApplicationStatus;
+  userId: string;
+}
 
 export const createJobValidator = (
   data: CreateJobData
@@ -58,6 +64,30 @@ export const createJobValidator = (
         "any.required": "Employment Type is a required field",
         "any.only": "Invalid Employment Type",
       }),
+  });
+
+  return schema.validate(data);
+};
+
+export const jobApplicationUpdateStatus = (
+  data: JobApplicationUpdateStatusData
+) => {
+  const schema: Schema<JobApplicationUpdateStatusData> = Joi.object({
+    status: Joi.string()
+      .valid(...Object.values(ApplicationStatus))
+      .required()
+      .messages({
+        "string.empty": "Job Application Status cannot be empty",
+        "string.base": "Job Application Status should be a type of string",
+        "any.required": "Job Application Status is a required field",
+        "any.only": "Invalid Job Application Status",
+      }),
+
+    userId: Joi.string().required().messages({
+      "string.empty": "User Id cannot be empty",
+      "string.base": "User Id  should be a type of string",
+      "any.required": "User Id is a required field",
+    }),
   });
 
   return schema.validate(data);

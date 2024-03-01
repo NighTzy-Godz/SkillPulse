@@ -7,15 +7,14 @@ mongoose
   .then(() => console.log("Connected to the Database - Job Application"))
   .catch((err) => console.log(`Error on Job Application, ${err}`));
 
-enum ApplicationStatus {
-  PENDING = "Pending",
-  REVIEWING = "Reviewing",
-  PROCEEDING = "Proceeding",
-  REJECTED = "Rejected",
-  ACCEPTED = "Accepted",
+export enum ApplicationStatus {
+  PENDING = "PENDING",
+  PROCEEDING = "PROCEEDING",
+  REJECTED = "REJECTED",
+  ACCEPTED = "ACCEPTED",
 }
 
-interface IJobApplication extends Document {
+export interface IJobApplication extends Document {
   jobId: mongoose.Schema.Types.ObjectId;
   userId: mongoose.Schema.Types.ObjectId;
   status: ApplicationStatus;
@@ -29,11 +28,13 @@ const jobApplicationSchema: Schema<IJobApplication> = new mongoose.Schema(
     jobId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Job",
+      required: true,
     },
 
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
 
     status: {

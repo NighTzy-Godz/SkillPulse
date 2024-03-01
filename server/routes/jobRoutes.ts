@@ -10,6 +10,8 @@ import {
   unsaveJob,
   updateJob,
   deleteJob,
+  getJobApplicants,
+  updateJobApplication,
 } from "../controller/jobController";
 import isAuth from "../middleware/isAuth";
 import isCompanyOwned from "../middleware/isCompanyOwned";
@@ -19,6 +21,11 @@ const router = Router();
 router.get("/getJobDescription/:jobId", getJobDescription);
 router.get("/searchJobs", searchJobs);
 
+router.get(
+  "/getJobApplicants/:jobId",
+  [isAuth, isUserExist, isCompanyOwned],
+  getJobApplicants
+);
 router.get(
   "/getJobsCreated",
   [isAuth, isUserExist, isCompanyOwned],
@@ -31,6 +38,11 @@ router.put(
   "/updateJob/:jobId",
   [isAuth, isUserExist, isCompanyOwned],
   updateJob
+);
+router.put(
+  "/updateJobApplication/:jobId",
+  [isAuth, isUserExist, isCompanyOwned],
+  updateJobApplication
 );
 
 router.post("/saveJob", [isAuth], saveJob);

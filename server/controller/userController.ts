@@ -17,7 +17,9 @@ import {
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
 import Job from "../models/Job_Model";
-import JobApplication from "../models/JobApplication_Model";
+import JobApplication, {
+  ApplicationStatus,
+} from "../models/JobApplication_Model";
 import mongoose, { ObjectId } from "mongoose";
 
 export const userJobApplied = async (
@@ -56,7 +58,6 @@ export const userJobApplied = async (
     const newJobApplication = new JobApplication({
       userId: currUserId,
       jobId,
-      status: "Pending",
       resume: resume.path,
     });
 

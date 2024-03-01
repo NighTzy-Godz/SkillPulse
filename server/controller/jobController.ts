@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import {
   CreateJobData,
+  JobApplicationUpdateStatusData,
   JobUpdateData,
   createJobValidator,
   jobUpdateValidator,
@@ -53,6 +54,28 @@ export const getAppliedJobs = async (
     const filteredJob = appliedJobs.filter((item) => item.jobId !== null);
 
     res.send(filteredJob);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getJobApplicants = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { jobId } = req.params;
+
+    const foundJob = await Job.findOne({ _id: jobId });
+    if (!foundJob)
+      return res.status(404).send("Found did not found. It may be deleted");
+
+    const jobApplicants = await JobApplication.find({ jobId: jobId }).populate(
+      "userId"
+    );
+
+    res.send(jobApplicants);
   } catch (error) {
     next(error);
   }
@@ -266,6 +289,32 @@ export const updateJob = async (
     await job.save();
 
     res.send(job);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateJobApplication = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { jobId } = req.params;
+
+    const { status, userId }: JobApplicationUpdateStatusData = req.body;
+
+    const jobApplication = await JobApplication.findOne({ jobId, userId });
+    if (!jobApplication)
+      return res
+        .status(404)
+        .send("Job application did not found. It may be deleted");
+
+    jobApplication.status = status;
+
+    await jobApplication.save();
+
+    res.send(jobApplication);
   } catch (error) {
     next(error);
   }
