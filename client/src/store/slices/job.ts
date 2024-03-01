@@ -7,7 +7,10 @@ import {
   SearchJobResponse,
 } from "../../interfaces/Job";
 import { apiCallBegan } from "../actions/apiActions";
-import { IJobApplication } from "../../interfaces/JobApplication";
+import {
+  IJobApplication,
+  JobApplicationUpdateStatusData,
+} from "../../interfaces/JobApplication";
 
 interface JobState {
   error: null | string;
@@ -20,6 +23,8 @@ interface JobState {
   appliedJobs: IJobApplication[];
   savedJobs: IJob[];
   createdJobs: IJob[];
+
+  jobApplicants: IJobApplication[];
 }
 
 const initialState: JobState = {
@@ -36,6 +41,8 @@ const initialState: JobState = {
   appliedJobs: [],
   savedJobs: [],
   createdJobs: [],
+
+  jobApplicants: [],
 };
 
 const slice = createSlice({
@@ -120,6 +127,21 @@ const slice = createSlice({
       job.savedJobs = action.payload.data;
     },
 
+    jobApplicantsSuccess: (job, action) => {
+      job.loading = false;
+      job.error = null;
+      job.jobApplicants = action.payload.data;
+    },
+
+    jobApplicationUpdateStatusSuccess: (job, action) => {
+      job.loading = false;
+      job.error = null;
+      const index = job.jobApplicants.findIndex((item) => {
+        return item._id === action.payload.data._id;
+      });
+      job.jobApplicants[index] = action.payload.data;
+    },
+
     setJobStatusCode: (job, action) => {
       job.statusCode = action.payload;
     },
@@ -134,6 +156,7 @@ const {
   appliedJobListSuccess,
   createdJobListSuccess,
   jobCreateSuccess,
+  jobApplicationUpdateStatusSuccess,
   jobSelectSuccess,
   jobRequested,
   jobRequestFailed,
@@ -141,9 +164,18 @@ const {
   jobUpdateSuccess,
   jobSaveUnsaveSuccess,
   jobDeleteSuccess,
+  jobApplicantsSuccess,
   savedJobListSuccess,
 } = slice.actions;
 export const { setJobStatusCode, setUserSelectedJob } = slice.actions;
+
+export const getJobApplicants = (jobId: string) =>
+  apiCallBegan({
+    url: `/job/getJobApplicants/${jobId}`,
+    onStart: jobRequested.type,
+    onError: jobRequestFailed.type,
+    onSuccess: jobApplicantsSuccess.type,
+  });
 
 export const getSearchedJobs = (params: SearchJobQuery) =>
   apiCallBegan({
@@ -184,6 +216,20 @@ export const getCreatedJobs = () =>
     onStart: jobRequested.type,
     onError: jobRequestFailed.type,
     onSuccess: createdJobListSuccess.type,
+  });
+
+export const updateJobApplicationStatus = (
+  data: JobApplicationUpdateStatusData,
+  jobId: string
+) =>
+  apiCallBegan({
+    url: `/job/updateJobApplication/${jobId}`,
+    method: "PUT",
+    data,
+    onStart: jobRequested.type,
+    onError: jobRequestFailed.type,
+    onSuccess: jobApplicationUpdateStatusSuccess.type,
+    successMsg: `Successfully set the job application as ${data.status}!`,
   });
 
 export const userSaveJob = (data: SaveUnsaveJobData) =>

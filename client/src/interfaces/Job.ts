@@ -1,11 +1,12 @@
 import { ICompany } from "./Company";
-import { IUser, employmentType } from "./User";
+import { ApplicationStatus } from "./JobApplication";
+import { IUser, EmploymentType } from "./User";
 
 export interface CreateJobData {
   title: string;
   description: string;
   salary: string;
-  employmentType: employmentType;
+  employmentType: EmploymentType;
   location: string;
 }
 
@@ -32,7 +33,7 @@ export interface IJob {
   company: ICompany;
   description: string;
   salary: string;
-  employmentType: employmentType;
+  employmentType: EmploymentType;
   location: string;
 
   savedBy: string[] | IUser[];

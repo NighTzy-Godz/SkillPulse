@@ -38,7 +38,7 @@ function CreatedJobList() {
 
   const renderContent = () => {
     if (createdJobs.length === 0)
-      return <NoJobData addLink={false} msg="You dont have" />;
+      return <NoJobData addLink={false} msg="You dont have any job posts" />;
 
     return renderCreatedJobs;
   };

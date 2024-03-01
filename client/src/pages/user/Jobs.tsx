@@ -44,6 +44,8 @@ function Jobs() {
         />
       );
     }
+
+    console.log(jobsToRender);
     return jobsToRender.map((item) =>
       jobItemValue === "APPLIED" ? (
         <AppliedJobCard key={item._id} data={item as IJobApplication} />

@@ -4,9 +4,10 @@ import { IUser } from "../../interfaces/User";
 
 interface JobApplicantBoxProps {
   applicants: IUser[];
+  jobId: string;
 }
 
-function JobApplicantBox({ applicants }: JobApplicantBoxProps) {
+function JobApplicantBox({ jobId, applicants }: JobApplicantBoxProps) {
   const renderApplicants = () => {
     if (applicants?.length === 0) {
       return (
@@ -46,6 +47,12 @@ function JobApplicantBox({ applicants }: JobApplicantBoxProps) {
   return (
     <div className=" border border-zinc-300 p-5 h-fit">
       {" "}
+      <Link
+        to={`/company/${jobId}/applicants`}
+        className="text-xs block text-blue-500 hover:underline"
+      >
+        See All Applicants
+      </Link>
       <h1 className="text-zinc-700 mb-5  text-xl">
         Applicants Count:
         <span className="text-zinc-600 font-semibold">

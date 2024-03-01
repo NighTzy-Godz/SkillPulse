@@ -19,12 +19,13 @@ import Logout from "./pages/static/Logout";
 import CreateJob from "./pages/jobs/CreateJob";
 import AllJobs from "./pages/jobs/AllJobs";
 import ApplyJob from "./pages/user/ApplyJob";
-import Jobs from "./pages/jobs/Jobs";
+import Jobs from "./pages/user/Jobs";
 import ViewJob from "./pages/jobs/ViewJob";
 import CreatedJobList from "./pages/company/CreatedJobList";
 import CreatedJobDetails from "./pages/company/CreatedJobDetails";
 import DetailsEducation from "./pages/user/DetailsEducation";
 import DetailsExp from "./pages/user/DetailsExp";
+import Applicants from "./pages/company/Applicants";
 
 function App() {
   const dispatch = useDispatch();
@@ -86,6 +87,7 @@ function App() {
             path="/company/createdJob/:jobId"
             element={<CreatedJobDetails />}
           />
+          <Route path="/company/:jobId/applicants" element={<Applicants />} />
 
           <Route path="/viewJob/:jobId" element={<ViewJob />} />
           <Route path="/searchJobs" element={<AllJobs />} />

@@ -60,7 +60,7 @@ function CreatedJobDetails() {
             <CreatedJobDesc />
           </div>
           <div className="w-1/4">
-            <JobApplicantBox applicants={applicants} />
+            <JobApplicantBox jobId={jobId as string} applicants={applicants} />
           </div>
         </div>
       </div>

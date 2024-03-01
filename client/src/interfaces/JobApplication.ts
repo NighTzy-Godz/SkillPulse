@@ -2,11 +2,15 @@ import { IJob } from "./Job";
 import { IUser } from "./User";
 
 export enum ApplicationStatus {
-  PENDING = "Pending",
-  REVIEWING = "Reviewing",
-  PROCEEDING = "Proceeding",
-  REJECTED = "Rejected",
-  ACCEPTED = "Accepted",
+  PENDING = "PENDING",
+  PROCEEDING = "PROCEEDING",
+  REJECTED = "REJECTED",
+  ACCEPTED = "ACCEPTED",
+}
+
+export interface JobApplicationUpdateStatusData {
+  status: ApplicationStatus;
+  userId: string;
 }
 
 export interface IJobApplication {
