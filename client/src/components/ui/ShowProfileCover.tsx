@@ -33,7 +33,7 @@ function ShowProfileCover({ showCoverPhoto, img }: ShowProfileCoverProps) {
 
   if (showCoverPhoto) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 z-50">
+      <div className="fixed inset-0 flex items-center justify-center  bg-black bg-opacity-75 z-50">
         <div
           className="absolute top-6 left-6 cursor-pointer"
           onClick={handleShowProfileCover}
@@ -41,7 +41,7 @@ function ShowProfileCover({ showCoverPhoto, img }: ShowProfileCoverProps) {
           <ImCancelCircle />
         </div>
 
-        <div className="bg-red-500" ref={imgRef}>
+        <div ref={imgRef}>
           {" "}
           <img
             src={img}

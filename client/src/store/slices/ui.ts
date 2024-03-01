@@ -7,11 +7,13 @@ interface UIState {
   showPfp: boolean;
   showCoverPhoto: boolean;
   isProfileClicked: boolean;
+  showResume: boolean;
   userType: null | UserType;
 }
 
 const initialState: UIState = {
   showPfp: false,
+  showResume: false,
   showCoverPhoto: false,
   isProfileClicked: false,
   userType: null,
@@ -23,6 +25,10 @@ const slice = createSlice({
   reducers: {
     setShowPfp: (ui, action) => {
       ui.showPfp = action.payload;
+    },
+
+    setShowResume: (ui, action) => {
+      ui.showResume = action.payload;
     },
 
     setShowCoverPhoto: (ui, action) => {
@@ -44,6 +50,7 @@ export const {
   setShowPfp,
   setIsProfileClicked,
   setShowCoverPhoto,
+  setShowResume,
 } = slice.actions;
 
 export default slice.reducer;
