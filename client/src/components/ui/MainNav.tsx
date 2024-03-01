@@ -33,7 +33,7 @@ function MainNav({ token }: MainNavProps) {
           </span>{" "}
         </div>
 
-        <div className="flex items-center md:order-2 ">
+        <div className="flex items-center lg:order-2 ">
           {token ? (
             <Dropdown
               inline
@@ -105,14 +105,14 @@ function MainNav({ token }: MainNavProps) {
           } lg:block lg:w-full w-3/4 `}
         >
           {" "}
-          <div className="flex items-center flex-col md:flex-row">
-            <div className="lg:w-1/2 md:w-2/5 w-full  order-2 bg">
+          <div className="flex items-center flex-col lg:flex-row">
+            <div className="lg:w-2/5 mt-3 w-full flex-col  order-2 bg">
               <TextInput
                 icon={FaSearch}
                 placeholder="Search User or Company here ..."
               />
             </div>
-            <ul className="md:flex gap-4 lg:w-1/2 md:w-3/5  w-full justify-end md:order-2">
+            <ul className="md:flex gap-4 lg:w-1/2  lg:flex-row flex-col  w-full justify-end lg:order-2">
               {!token && (
                 <NavLink to="/" className={navBarClass}>
                   Home
