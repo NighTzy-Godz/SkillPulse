@@ -17,9 +17,7 @@ import {
 import User from "../models/User_Model";
 import bcrypt from "bcrypt";
 import Job from "../models/Job_Model";
-import JobApplication, {
-  ApplicationStatus,
-} from "../models/JobApplication_Model";
+import JobApplication from "../models/JobApplication_Model";
 import mongoose, { ObjectId } from "mongoose";
 
 export const userJobApplied = async (
@@ -70,6 +68,26 @@ export const userJobApplied = async (
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
+    next(error);
+  }
+};
+
+export const getSearchedUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { searchTerm } = req.params;
+
+    const foundUsers = await User.find({
+      firstName: { $regex: new RegExp(searchTerm as string, "i") },
+    })
+      .limit(20)
+      .select("firstName lastName pfp");
+
+    res.send(foundUsers);
+  } catch (error) {
     next(error);
   }
 };

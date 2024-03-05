@@ -8,6 +8,7 @@ import {
   addUserEducation,
   addUserExp,
   deleteUserEducation,
+  getSearchedUsers,
   getUserData,
   loginUser,
   registerUser,
@@ -25,6 +26,7 @@ import isUserExist from "../middleware/isUserExist";
 const router = Router();
 
 router.get("/getUserData/:userId", getUserData);
+router.get("/searchUser/:searchTerm", getSearchedUsers);
 
 router.put("/updateUserIntro", [isAuth], updateUserIntro);
 router.put("/updateUserAbout", [isAuth], updateUserAbout);
