@@ -26,6 +26,7 @@ import CreatedJobDetails from "./pages/company/CreatedJobDetails";
 import DetailsEducation from "./pages/user/DetailsEducation";
 import DetailsExp from "./pages/user/DetailsExp";
 import Applicants from "./pages/company/Applicants";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -61,33 +62,91 @@ function App() {
           <Route index element={<Home />} />
 
           <Route path="/register-user" element={<RegisterUser />} />
-          <Route path="/register-company" element={<RegisterCompany />} />
+          <Route
+            path="/register-company"
+            element={
+              <ProtectedRoute>
+                <RegisterCompany />
+              </ProtectedRoute>
+            }
+          />
 
-          <Route path="/user/profile/:userId" element={<UserProfile />} />
+          <Route
+            path="/user/profile/:userId"
+            element={
+              <ProtectedRoute>
+                <UserProfile />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/user/profile/:userId/education"
-            element={<DetailsEducation />}
+            element={
+              <ProtectedRoute>
+                <DetailsEducation />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/user/profile/:userId/experience"
-            element={<DetailsExp />}
+            element={
+              <ProtectedRoute>
+                <DetailsExp />
+              </ProtectedRoute>
+            }
           />
 
-          <Route path="/user/applyJob/:jobId" element={<ApplyJob />} />
+          <Route
+            path="/user/applyJob/:jobId"
+            element={
+              <ProtectedRoute>
+                <ApplyJob />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/user/jobs" element={<Jobs />}></Route>
 
           <Route
             path="/company/profile/:companyId"
-            element={<CompanyProfile />}
+            element={
+              <ProtectedRoute>
+                <CompanyProfile />
+              </ProtectedRoute>
+            }
           />
 
-          <Route path="/company/:companyId/createJob" element={<CreateJob />} />
-          <Route path="/company/manageJobPosts" element={<CreatedJobList />} />
+          <Route
+            path="/company/:companyId/createJob"
+            element={
+              <ProtectedRoute>
+                <CreateJob />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/company/manageJobPosts"
+            element={
+              <ProtectedRoute>
+                <CreatedJobList />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/company/createdJob/:jobId"
-            element={<CreatedJobDetails />}
+            element={
+              <ProtectedRoute>
+                <CreatedJobDetails />
+              </ProtectedRoute>
+            }
           />
-          <Route path="/company/:jobId/applicants" element={<Applicants />} />
+          <Route
+            path="/company/:jobId/applicants"
+            element={
+              <ProtectedRoute>
+                <Applicants />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/viewJob/:jobId" element={<ViewJob />} />
           <Route path="/searchJobs" element={<AllJobs />} />
