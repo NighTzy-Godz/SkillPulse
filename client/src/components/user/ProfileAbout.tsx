@@ -15,11 +15,8 @@ function ProfileAbout() {
   const [clicked, setClicked] = useState(false);
   const [slicedData, setSlicedData] = useState("");
   useEffect(() => {
-    if (about && !clicked && about.length < 150) {
-      setSlicedData(about as string);
-    } else if (about && !clicked) {
-      setSlicedData(`${about?.slice(0, 150)} ...`);
-    }
+    if (about && clicked) setSlicedData(about as string);
+    else setSlicedData(`${about?.slice(0, 150)} ...`);
   }, [about, clicked]);
 
   const renderAbout = () => {

@@ -69,12 +69,12 @@ export default function CompanyEditOverviewModal(
               placeholder="Company Overview ...."
               {...register("about", {
                 required: "Company Overview is a required field",
-                min: {
+                minLength: {
                   value: 10,
                   message: "Company overview should be atleast 10 characters",
                 },
 
-                max: {
+                maxLength: {
                   value: 1000,
                   message:
                     "Company overview should only contain 1000 characters",

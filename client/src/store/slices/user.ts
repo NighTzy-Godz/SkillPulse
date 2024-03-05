@@ -20,6 +20,8 @@ interface UserState {
 
   authUser: null | IUser;
 
+  searchedUsers: IUser[];
+
   registeredCompany: null | ICompany;
   userData: null | IUser;
   userJobs: null | IJob[];
@@ -36,6 +38,7 @@ const initialState: UserState = {
   userData: null,
   userJobs: null,
   userSelectedJob: null,
+  searchedUsers: [],
 };
 
 const slice = createSlice({
@@ -68,7 +71,7 @@ const slice = createSlice({
     userAddExpSuccess: (user, action) => {
       user.loading = false;
       user.error = null;
-      console.log(action.payload.data);
+
       if (user.userData) {
         user.userData.experience = action.payload.data.experience;
       }
@@ -138,6 +141,12 @@ const slice = createSlice({
       if (user.userData)
         user.userData.education = action.payload.data.education;
     },
+
+    searchedUserSuccess: (user, action) => {
+      user.loading = false;
+      user.error = null;
+      user.searchedUsers = action.payload.data;
+    },
     setUserStatusCode: (user, action) => {
       user.statusCode = action.payload;
     },
@@ -147,8 +156,10 @@ const slice = createSlice({
 export const { setUserStatusCode } = slice.actions;
 
 const {
+  searchedUserSuccess,
   userUpdatedPhotoSuccess,
   userRequested,
+
   userRequestFailed,
   userGetDataSuccess,
   userUpdateIntroSuccess,
@@ -168,6 +179,14 @@ export const getUserData = (userId: string) =>
     onStart: userRequested.type,
     onError: userRequestFailed.type,
     onSuccess: userGetDataSuccess.type,
+  });
+
+export const getSearchedUsers = (searchTerm: string) =>
+  apiCallBegan({
+    url: `/user/searchUser/${searchTerm}`,
+    onStart: userRequested.type,
+    onError: userRequestFailed.type,
+    onSuccess: searchedUserSuccess.type,
   });
 
 export const userGetSelectedJob = (jobId: string) =>

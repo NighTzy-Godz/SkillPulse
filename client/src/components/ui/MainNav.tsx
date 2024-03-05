@@ -1,29 +1,54 @@
 import { Dropdown, Avatar, TextInput } from "flowbite-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { State } from "../../store/store";
-import { FaSearch } from "react-icons/fa";
-import React, { useState } from "react";
+
+import React, { ChangeEvent, useEffect, useState } from "react";
+import SearchBar from "../common/SearchBar";
+import { getSearchedUsers } from "../../store/slices/user";
+import SearchSnippet from "./SearchSnippet";
+import { setShowSearchSnippet } from "../../store/slices/ui";
 interface MainNavProps {
   token: null | string;
 }
 
 function MainNav({ token }: MainNavProps) {
-  const { pathname } = useLocation();
-  const isCompanyRoute = pathname.includes("company");
+  const dispatch = useDispatch();
+  const { showSearchSnippet } = useSelector(
+    (state: State) => state.entities.ui
+  );
 
-  const [toggle, setToggle] = useState(false);
-
+  const user = useSelector((state: State) => state.entities.user.authUser);
   const userId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
 
-  const user = useSelector((state: State) => state.entities.user.authUser);
+  const [toggle, setToggle] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const companyFound = user?.company;
 
   const navBarClass =
     "transition-all duration-200 block py-2 text-lg pr-4 pl-3  border-b border-gray-100 text-gray-700 md:border-0 md:hover:hover:text-blue-500 md:p-0";
+
+  useEffect(() => {
+    let searchId: NodeJS.Timeout;
+    if (!searchTerm) dispatch(setShowSearchSnippet(false));
+    if (searchTerm) {
+      searchId = setTimeout(() => {
+        dispatch(getSearchedUsers(searchTerm));
+        dispatch(setShowSearchSnippet(true));
+      }, 1500);
+    }
+
+    return () => clearTimeout(searchId);
+  }, [searchTerm]);
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.currentTarget.value);
+  };
+
   return (
     <div className="mainNav boxShadow2 md:py-5 py-3 relative ">
       <div className="container mx-auto flex flex-wrap items-center  gap-4 justify-between lg:justify-normal lg:flex-nowrap">
@@ -105,12 +130,13 @@ function MainNav({ token }: MainNavProps) {
           } lg:block lg:w-full w-3/4 `}
         >
           {" "}
-          <div className="flex items-center flex-col lg:flex-row">
-            <div className="lg:w-2/5 mt-3 w-full flex-col  order-2 bg">
-              <TextInput
-                icon={FaSearch}
-                placeholder="Search User or Company here ..."
+          <div className="flex items-center flex-col lg:flex-row justify-between">
+            <div className="lg:w-2/5 lg:mt-0 mt-3 w-full flex-col  order-2 bg  relative">
+              <SearchBar
+                placeholder="Search User Here ..."
+                onChange={handleSearchChange}
               />
+              {showSearchSnippet && <SearchSnippet />}
             </div>
             <ul className="md:flex gap-4 lg:w-1/2  lg:flex-row flex-col  w-full justify-end lg:order-2">
               {!token && (
@@ -127,7 +153,7 @@ function MainNav({ token }: MainNavProps) {
                   Companies
                 </NavLink>
               )}
-              {token && isCompanyRoute && (
+              {token && companyFound && (
                 <NavLink
                   to={`/company/${user?.company?._id}/createJob`}
                   className={`${navBarClass}`}

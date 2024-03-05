@@ -3,7 +3,7 @@ import React, { ChangeEvent } from "react";
 import { FaSearch } from "react-icons/fa";
 
 interface SearchBarProps {
-  value: string;
+  value?: string;
   placeholder: string;
   onChange(e: ChangeEvent<HTMLInputElement>): void;
 }

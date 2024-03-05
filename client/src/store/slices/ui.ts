@@ -4,6 +4,7 @@ export enum UserType {
   COMPANY = "company",
 }
 interface UIState {
+  showSearchSnippet: boolean;
   showPfp: boolean;
   showCoverPhoto: boolean;
   isProfileClicked: boolean;
@@ -13,6 +14,7 @@ interface UIState {
 
 const initialState: UIState = {
   showPfp: false,
+  showSearchSnippet: false,
   showResume: false,
   showCoverPhoto: false,
   isProfileClicked: false,
@@ -23,6 +25,10 @@ const slice = createSlice({
   name: "ui",
   initialState,
   reducers: {
+    setShowSearchSnippet: (ui, action) => {
+      ui.showSearchSnippet = action.payload;
+    },
+
     setShowPfp: (ui, action) => {
       ui.showPfp = action.payload;
     },
@@ -46,6 +52,7 @@ const slice = createSlice({
 });
 
 export const {
+  setShowSearchSnippet,
   setUserType,
   setShowPfp,
   setIsProfileClicked,

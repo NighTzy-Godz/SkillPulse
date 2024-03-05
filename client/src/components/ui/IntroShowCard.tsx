@@ -22,7 +22,6 @@ function IntroShowCard({ isOwner }: IntroShowCard) {
   const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.currentTarget.files && e.currentTarget.files[0];
     if (file) {
-      console.log(userType);
       const formData = new FormData();
       formData.append("pfp", file);
       if (userType === UserType.USER) dispatch(updateUserPfp(formData as any));
