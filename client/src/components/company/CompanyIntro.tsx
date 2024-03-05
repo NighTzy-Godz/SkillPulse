@@ -63,12 +63,14 @@ function CompanyIntro() {
         <div className="py-5 px-8">
           <div className="flex justify-between relative ">
             <ProfilePicture img={logo as string} isOwner={isOwner} />
-            <div
-              className="cursor-pointer"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <FaEdit />
-            </div>
+            {isOwner && (
+              <div
+                className="cursor-pointer"
+                onClick={() => setIsModalOpen(true)}
+              >
+                <FaEdit />
+              </div>
+            )}
           </div>
 
           <div className="mt-2 ">

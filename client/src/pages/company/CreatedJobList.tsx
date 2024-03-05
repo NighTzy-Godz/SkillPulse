@@ -23,10 +23,6 @@ function CreatedJobList() {
     dispatch(getCreatedJobs());
   }, []);
 
-  // const renderCategoryLength = (jobCategory: string) => {
-  //   return jobCategory === "APPLIED" ? appliedJobs.length : savedJobs.length;
-  // };
-
   const renderCreatedJobs = createdJobs.map((item) => {
     return (
       <div className="mb-3" key={item._id}>

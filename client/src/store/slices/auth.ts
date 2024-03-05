@@ -5,6 +5,7 @@ import { apiCallBegan } from "../actions/apiActions";
 export interface DecodedModel {
   _id: string;
   role: string;
+  company: string;
 }
 
 interface AuthState {

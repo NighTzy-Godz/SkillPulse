@@ -23,6 +23,9 @@ function MainNav({ token }: MainNavProps) {
   const userId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
   );
+  const currUserCompanyId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?.company
+  );
 
   const [toggle, setToggle] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -90,7 +93,9 @@ function MainNav({ token }: MainNavProps) {
               {companyFound ? (
                 <React.Fragment>
                   <Dropdown.Item>
-                    <Link to={`/company/manageJobPosts`}>Manage Job Posts</Link>
+                    <Link to={`/company/${currUserCompanyId}/manageJobPosts`}>
+                      Manage Job Posts
+                    </Link>
                   </Dropdown.Item>{" "}
                   <Dropdown.Item>
                     {" "}

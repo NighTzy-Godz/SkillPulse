@@ -27,6 +27,8 @@ import DetailsEducation from "./pages/user/DetailsEducation";
 import DetailsExp from "./pages/user/DetailsExp";
 import Applicants from "./pages/company/Applicants";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import UserOwned from "./components/common/UserOwned";
+import CompanyOwned from "./components/common/CompanyOwned";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +45,7 @@ function App() {
     if (!token) return;
     try {
       const decodedUser = jwtDecode(token);
+      console.log(decodedUser);
       dispatch(setDecodedModel(decodedUser));
       localStorage.setItem("token", token);
     } catch (error) {}
@@ -83,7 +86,9 @@ function App() {
             path="/user/profile/:userId/education"
             element={
               <ProtectedRoute>
-                <DetailsEducation />
+                <UserOwned>
+                  <DetailsEducation />
+                </UserOwned>
               </ProtectedRoute>
             }
           />
@@ -91,7 +96,9 @@ function App() {
             path="/user/profile/:userId/experience"
             element={
               <ProtectedRoute>
-                <DetailsExp />
+                <UserOwned>
+                  <DetailsExp />
+                </UserOwned>
               </ProtectedRoute>
             }
           />
@@ -119,31 +126,39 @@ function App() {
             path="/company/:companyId/createJob"
             element={
               <ProtectedRoute>
-                <CreateJob />
+                <CompanyOwned>
+                  <CreateJob />
+                </CompanyOwned>
               </ProtectedRoute>
             }
           />
           <Route
-            path="/company/manageJobPosts"
+            path="/company/:companyId/manageJobPosts"
             element={
               <ProtectedRoute>
-                <CreatedJobList />
+                <CompanyOwned>
+                  <CreatedJobList />
+                </CompanyOwned>
               </ProtectedRoute>
             }
           />
           <Route
-            path="/company/createdJob/:jobId"
+            path="/company/:companyId/createdJob/:jobId"
             element={
               <ProtectedRoute>
-                <CreatedJobDetails />
+                <CompanyOwned>
+                  <CreatedJobDetails />
+                </CompanyOwned>
               </ProtectedRoute>
             }
           />
           <Route
-            path="/company/:jobId/applicants"
+            path="/company/:companyId/:jobId/applicants"
             element={
               <ProtectedRoute>
-                <Applicants />
+                <CompanyOwned>
+                  <Applicants />
+                </CompanyOwned>
               </ProtectedRoute>
             }
           />

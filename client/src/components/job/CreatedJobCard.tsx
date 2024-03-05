@@ -6,12 +6,17 @@ import { BsThreeDots } from "react-icons/bs";
 import { FaBriefcase } from "react-icons/fa6";
 import { FaSuitcase, FaTrashAlt } from "react-icons/fa";
 import DeleteJobModal from "../modal/DeleteJobModal";
+import { useSelector } from "react-redux";
+import { State } from "../../store/store";
 
 interface CreatedJobCardProps {
   data: IJob;
 }
 
 const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
+  const currUserCompanyId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?.company
+  );
   const [isDotsClicked, setIsDotsClicked] = useState(false);
   const [isShowModal, setIsShowModal] = useState(false);
 
@@ -51,7 +56,7 @@ const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
         </div>
         <div className="">
           <Link
-            to={`/company/createdJob/${job._id}`}
+            to={`/company/${currUserCompanyId}/createdJob/${job._id}`}
             className="text-zinc-600 font-semibold text-xl"
           >
             {job.title}

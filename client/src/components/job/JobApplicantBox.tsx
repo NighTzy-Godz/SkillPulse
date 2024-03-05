@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IUser } from "../../interfaces/User";
+import { useSelector } from "react-redux";
+import { State } from "../../store/store";
 
 interface JobApplicantBoxProps {
   applicants: IUser[];
@@ -8,6 +10,9 @@ interface JobApplicantBoxProps {
 }
 
 function JobApplicantBox({ jobId, applicants }: JobApplicantBoxProps) {
+  const currUserCompanyId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?.company
+  );
   const renderApplicants = () => {
     if (applicants?.length === 0) {
       return (
@@ -48,7 +53,7 @@ function JobApplicantBox({ jobId, applicants }: JobApplicantBoxProps) {
     <div className=" border border-zinc-300 p-5 h-fit">
       {" "}
       <Link
-        to={`/company/${jobId}/applicants`}
+        to={`/company/${currUserCompanyId}/${jobId}/applicants`}
         className="text-xs block text-blue-500 hover:underline"
       >
         See All Applicants

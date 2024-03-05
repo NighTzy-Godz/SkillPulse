@@ -14,6 +14,7 @@ import JobApplicantBox from "../../components/job/JobApplicantBox";
 function CreatedJobDetails() {
   const { jobId } = useParams();
   const dispatch = useDispatch();
+
   const selectedJob = useSelector(
     (state: State) => state.entities.job.selectedJob
   );
