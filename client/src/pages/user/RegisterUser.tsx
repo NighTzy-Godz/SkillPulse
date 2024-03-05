@@ -15,10 +15,17 @@ import { setStatusCode, userRegister } from "../../store/slices/auth";
 import FormHeader from "../../components/common/FormHeader";
 import { PiGenderIntersexFill } from "react-icons/pi";
 import handleNumbersOnly from "../../utils/handleNumbersOnly";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function RegisterUser() {
   const dispatch = useDispatch();
-  const { statusCode } = useSelector((state: State) => state.entities.auth);
+  const navigate = useNavigate();
+  const { statusCode, decodedModel } = useSelector(
+    (state: State) => state.entities.auth
+  );
+
+  const currUserId = decodedModel?._id;
 
   const {
     register,
@@ -27,12 +34,20 @@ function RegisterUser() {
   } = useForm<RegisterUserData>();
 
   useEffect(() => {
+    if (currUserId) {
+      toast.error("You are already authenticated, you cannot do that action", {
+        autoClose: 2500,
+        toastId: "Auth Err",
+      });
+      return navigate(`/user/profile/${currUserId}`);
+    }
+
     if (statusCode === 200) {
       dispatch(setStatusCode(null));
 
-      // NOTE: ADD THE NAVIGATION HERE
+      navigate("/user-login");
     }
-  }, [statusCode]);
+  }, [statusCode, currUserId]);
 
   const renderOptions = gender.map((item) => {
     return (

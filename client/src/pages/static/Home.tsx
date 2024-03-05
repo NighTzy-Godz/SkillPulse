@@ -1,8 +1,8 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import React, { useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
 import { HiMail, HiLockClosed } from "react-icons/hi";
-import { CustomFlowbiteTheme } from "flowbite-react";
+
 import { useForm } from "react-hook-form";
 import { LoginUserData } from "../../interfaces/User";
 import InputError from "../../components/common/InputError";
@@ -10,8 +10,12 @@ import customBtnTheme from "../../utils/customBtnTheme";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
 import { setStatusCode, userLogin } from "../../store/slices/auth";
+import { toast } from "react-toastify";
 
 function Home() {
+  const currUserId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?._id
+  );
   const dispatch = useDispatch();
   const statusCode = useSelector(
     (state: State) => state.entities.auth.statusCode
@@ -26,12 +30,20 @@ function Home() {
   } = useForm<LoginUserData>();
 
   useEffect(() => {
+    if (currUserId) {
+      toast.error("You are already authenticated, you cannot do that action", {
+        autoClose: 2500,
+        toastId: "Auth Err",
+      });
+      return navigate(`/user/profile/${currUserId}`);
+    }
+
     if (statusCode === 200) {
       dispatch(setStatusCode(null));
 
       navigate("/cold-login");
     }
-  }, [statusCode]);
+  }, [statusCode, currUserId]);
 
   const handleLoginSubmit = (data: LoginUserData) => {
     dispatch(userLogin(data));
