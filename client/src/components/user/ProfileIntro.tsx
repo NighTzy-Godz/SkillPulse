@@ -92,9 +92,14 @@ function ProfileIntro() {
         <div className="py-5 px-8">
           <div className="flex justify-between relative">
             <ProfilePicture img={pfp as string} isOwner={isOwner} />
-            <div className="cursor-pointer" onClick={() => setShowModal(true)}>
-              <FaEdit />
-            </div>
+            {isOwner && (
+              <div
+                className="cursor-pointer"
+                onClick={() => setShowModal(true)}
+              >
+                <FaEdit />
+              </div>
+            )}
           </div>
 
           <div className="flex">
@@ -108,9 +113,6 @@ function ProfileIntro() {
                 </h1>
                 <p className="text-gray-600">{renderBio()}</p>
               </div>
-            </div>
-            <div className="flex items-center justify-center w-1/3">
-              {company && <ProfileOrgBanner />}
             </div>
           </div>
 

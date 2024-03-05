@@ -116,9 +116,12 @@ function MainNav({ token }: MainNavProps) {
               </Dropdown.Item>
             </Dropdown>
           ) : (
-            <NavLink to="/register-user" className={navBarClass}>
-              Register
-            </NavLink>
+            <>
+              {" "}
+              <NavLink to="/register-user" className={navBarClass}>
+                Register
+              </NavLink>
+            </>
           )}
 
           <div
@@ -154,6 +157,12 @@ function MainNav({ token }: MainNavProps) {
               <NavLink to="/searchJobs" className={`${navBarClass}`}>
                 Find a Job
               </NavLink>
+
+              {!token && (
+                <NavLink to="/login-user" className={navBarClass}>
+                  Login
+                </NavLink>
+              )}
 
               {token && companyFound && (
                 <NavLink
