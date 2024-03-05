@@ -139,20 +139,17 @@ function MainNav({ token }: MainNavProps) {
               {showSearchSnippet && <SearchSnippet />}
             </div>
             <ul className="md:flex gap-4 lg:w-1/2  lg:flex-row flex-col  w-full justify-end lg:order-2">
-              {!token && (
-                <NavLink to="/" className={navBarClass}>
-                  Home
-                </NavLink>
-              )}
+              <NavLink
+                to={`/${token ? `user/profile/${userId}` : ""}`}
+                className={navBarClass}
+              >
+                Home
+              </NavLink>
+
               <NavLink to="/searchJobs" className={`${navBarClass}`}>
                 Find a Job
               </NavLink>
 
-              {token && (
-                <NavLink to="/companies" className={navBarClass}>
-                  Companies
-                </NavLink>
-              )}
               {token && companyFound && (
                 <NavLink
                   to={`/company/${user?.company?._id}/createJob`}

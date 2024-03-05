@@ -27,7 +27,6 @@ function UserProfile() {
         <ProfileAbout />
         <ProfileExperience />
         <ProfileEducation />
-        <ProfileLicences />
       </div>
     </div>
   );

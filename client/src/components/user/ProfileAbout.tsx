@@ -11,9 +11,21 @@ function ProfileAbout() {
   const about = useSelector(
     (state: State) => state.entities.user.userData?.about
   );
+
+  const userId = useSelector(
+    (state: State) => state.entities.user.userData?._id
+  );
+
+  const currUserId = useSelector(
+    (state: State) => state.entities.auth.decodedModel?._id
+  );
+
+  const isOwner = currUserId === userId;
+
   const [showModal, setShowModal] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [slicedData, setSlicedData] = useState("");
+
   useEffect(() => {
     if (about && clicked) setSlicedData(about as string);
     else setSlicedData(`${about?.slice(0, 150)} ...`);
@@ -52,9 +64,11 @@ function ProfileAbout() {
       <ProfileCard className="py-5 px-8 mb-5">
         <div className="mb-3 flex justify-between">
           <h1 className="text-gray-700 text-xl font-bold">About</h1>
-          <div className="cursor-pointer" onClick={() => setShowModal(true)}>
-            <FaEdit />
-          </div>
+          {isOwner && (
+            <div className="cursor-pointer" onClick={() => setShowModal(true)}>
+              <FaEdit />
+            </div>
+          )}
         </div>
 
         {renderAbout()}
