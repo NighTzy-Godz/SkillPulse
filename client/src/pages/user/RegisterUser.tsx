@@ -15,7 +15,7 @@ import { setStatusCode, userRegister } from "../../store/slices/auth";
 import FormHeader from "../../components/common/FormHeader";
 import { PiGenderIntersexFill } from "react-icons/pi";
 import handleNumbersOnly from "../../utils/handleNumbersOnly";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function RegisterUser() {
@@ -245,6 +245,14 @@ function RegisterUser() {
               >
                 Register User
               </Button>
+            </div>
+            <div className="mt-2">
+              <p className="text-sm text-zinc-600">
+                Already have an account?{" "}
+                <Link to="/login-user" className="underline">
+                  Login Here
+                </Link>
+              </p>
             </div>
           </form>
         </div>

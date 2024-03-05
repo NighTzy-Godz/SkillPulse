@@ -23,7 +23,7 @@ function CompanyAbout() {
     if (!company?.about)
       return <NoProfileData msg="No Company Overview at the moment" />;
     return (
-      <p className="mb-5 text-gray-600  whitespace-pre-wrap pb-5">
+      <p className="mb-5 text-gray-600   whitespace-pre-wrap pb-5">
         {company?.about}
       </p>
     );

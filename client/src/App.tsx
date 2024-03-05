@@ -29,6 +29,7 @@ import Applicants from "./pages/company/Applicants";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import UserOwned from "./components/common/UserOwned";
 import CompanyOwned from "./components/common/CompanyOwned";
+import LoginUser from "./pages/user/LoginUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
           <Route index element={<Home />} />
 
           <Route path="/register-user" element={<RegisterUser />} />
+          <Route path="login-user" element={<LoginUser />} />
           <Route
             path="/register-company"
             element={

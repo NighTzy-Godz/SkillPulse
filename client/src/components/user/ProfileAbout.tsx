@@ -39,7 +39,7 @@ function ProfileAbout() {
 
     return (
       <React.Fragment>
-        <p className="mb-5 text-gray-600 text-sm whitespace-pre-wrap pb-5">
+        <p className="mb-5 text-gray-600 whitespace-pre-wrap pb-5">
           {slicedData}
         </p>
       </React.Fragment>
