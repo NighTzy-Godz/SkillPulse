@@ -7,9 +7,9 @@ import {
   TextInput,
   Textarea,
 } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { GENDER, IUser, UserIntroEditData } from "../../interfaces/User";
+import { GENDER, UserIntroEditData } from "../../interfaces/User";
 
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
@@ -32,7 +32,7 @@ function UserEditIntroModal({
   onModalClose,
 }: UserEditIntroModalProps) {
   const user = useSelector((state: State) => state.entities.user.userData);
-  const loading = useSelector((state: State) => state.entities.user.loading);
+
   const statusCode = useSelector(
     (state: State) => state.entities.user.statusCode
   );
@@ -263,9 +263,7 @@ function UserEditIntroModal({
             {errors.bio && <InputError msg={errors.bio.message as string} />}
           </div>
 
-          <Button theme={customBtnTheme} color="blue" type="submit">
-            Update Intro
-          </Button>
+          <Button theme={customBtnTheme} color="blue" type="submit"></Button>
         </form>
       </Modal.Body>
     </Modal>

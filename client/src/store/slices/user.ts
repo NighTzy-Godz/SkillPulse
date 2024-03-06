@@ -235,7 +235,8 @@ export const userRegisterCompany = (data: CompanyRegisterData) =>
     onStart: userRequested.type,
     onError: userRequestFailed.type,
     onSuccess: userRegisterCompanySuccess.type,
-    successMsg: "Successfully Registered the Company!",
+    successMsg:
+      "Successfully Registered the Company!. Please re-login to take effect.",
   });
 
 export const updateUserAbout = (data: UserAboutEditData) =>

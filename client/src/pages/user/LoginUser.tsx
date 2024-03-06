@@ -16,8 +16,8 @@ function LoginUser() {
     (state: State) => state.entities.auth.decodedModel?._id
   );
   const dispatch = useDispatch();
-  const statusCode = useSelector(
-    (state: State) => state.entities.auth.statusCode
+  const { statusCode, loading } = useSelector(
+    (state: State) => state.entities.auth
   );
 
   const navigate = useNavigate();
@@ -101,13 +101,14 @@ function LoginUser() {
                 </div>
 
                 <Button
+                  isProcessing={loading}
                   theme={customBtnTheme}
                   size="md"
                   color="blue"
                   type="submit"
                   className="w-full text-md"
                 >
-                  Login
+                  {loading ? "Logging In ..." : "Login"}
                 </Button>
 
                 <div className="mt-3 flex gap-1">

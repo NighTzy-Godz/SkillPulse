@@ -1,6 +1,6 @@
 import { Button, Label, TextInput } from "flowbite-react";
-import React, { useEffect } from "react";
-import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { HiMail, HiLockClosed } from "react-icons/hi";
 
 import { useForm } from "react-hook-form";
@@ -10,7 +10,6 @@ import customBtnTheme from "../../utils/customBtnTheme";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
 import { setStatusCode, userLogin } from "../../store/slices/auth";
-import { toast } from "react-toastify";
 
 function Home() {
   const currUserId = useSelector(
@@ -20,6 +19,8 @@ function Home() {
   const statusCode = useSelector(
     (state: State) => state.entities.auth.statusCode
   );
+
+  const loading = useSelector((state: State) => state.entities.auth.loading);
 
   const navigate = useNavigate();
 
@@ -58,7 +59,10 @@ function Home() {
               to Success Starts Here
             </p>
 
-            <NavLink to="/" className="blueBtn rounded-full  md:text-lg">
+            <NavLink
+              to="/searchJobs"
+              className="blueBtn rounded-full  md:text-lg"
+            >
               Discover Jobs
             </NavLink>
           </div>
@@ -112,13 +116,14 @@ function Home() {
                 </div>
 
                 <Button
+                  isProcessing={loading}
                   theme={customBtnTheme}
                   size="md"
                   color="blue"
                   type="submit"
                   className="w-full text-md"
                 >
-                  Login
+                  {loading ? "Logging In ..." : "Login"}
                 </Button>
 
                 <div className="mt-3 flex gap-1">

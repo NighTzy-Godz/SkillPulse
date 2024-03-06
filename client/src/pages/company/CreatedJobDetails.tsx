@@ -10,13 +10,14 @@ import { IUser } from "../../interfaces/User";
 import CreatedJobDesc from "../../components/job/CreatedJobDesc";
 
 import JobApplicantBox from "../../components/job/JobApplicantBox";
+import Loading from "../../components/common/Loading";
 
 function CreatedJobDetails() {
   const { jobId } = useParams();
   const dispatch = useDispatch();
 
-  const selectedJob = useSelector(
-    (state: State) => state.entities.job.selectedJob
+  const { selectedJob, loading } = useSelector(
+    (state: State) => state.entities.job
   );
 
   const applicants = selectedJob?.applicants as IUser[];
@@ -24,6 +25,8 @@ function CreatedJobDetails() {
   useEffect(() => {
     dispatch(getCompanySelectedJob(jobId as string));
   }, [jobId]);
+
+  if (loading) return <Loading />;
 
   return (
     <div className="py-10">

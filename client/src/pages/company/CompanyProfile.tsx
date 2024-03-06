@@ -6,12 +6,15 @@ import { State } from "../../store/store";
 import CompanyIntro from "../../components/company/CompanyIntro";
 import CompanyAbout from "../../components/company/CompanyAbout";
 import { UserType, setUserType } from "../../store/slices/ui";
+import Loading from "../../components/common/Loading";
 
 function CompanyProfile() {
   const dispatch = useDispatch();
   const { companyId } = useParams();
 
-  const { currCompany } = useSelector((state: State) => state.entities.company);
+  const { currCompany, loading } = useSelector(
+    (state: State) => state.entities.company
+  );
 
   useEffect(() => {
     if (companyId && !currCompany) {
@@ -19,6 +22,8 @@ function CompanyProfile() {
       dispatch(setUserType(UserType.COMPANY));
     }
   }, [companyId, currCompany]);
+
+  if (loading) return <Loading />;
   return (
     <div className="sm:py-8 profile">
       <div className="container mx-auto">

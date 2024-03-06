@@ -51,13 +51,15 @@ function JobApplicantBox({ jobId, applicants }: JobApplicantBoxProps) {
 
   return (
     <div className=" border border-zinc-300 p-5 h-fit">
-      {" "}
-      <Link
-        to={`/company/${currUserCompanyId}/${jobId}/applicants`}
-        className="text-xs block text-blue-500 hover:underline"
-      >
-        See All Applicants
-      </Link>
+      {applicants.length > 0 && (
+        <Link
+          to={`/company/${currUserCompanyId}/${jobId}/applicants`}
+          className="text-xs block text-blue-500 hover:underline"
+        >
+          See All Applicants
+        </Link>
+      )}
+
       <h1 className="text-zinc-700 mb-5  text-xl">
         Applicants Count:
         <span className="text-zinc-600 font-semibold">

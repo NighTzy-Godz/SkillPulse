@@ -21,7 +21,9 @@ import {
 function RegisterCompany() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { statusCode } = useSelector((state: State) => state.entities.user);
+  const { statusCode, loading } = useSelector(
+    (state: State) => state.entities.user
+  );
 
   const {
     register,
@@ -178,12 +180,15 @@ function RegisterCompany() {
 
             <div className="mt-7">
               <Button
+                isProcessing={loading}
                 type="submit"
                 theme={customBtnTheme}
                 color="blue"
                 className="w-full"
               >
-                Register Company
+                {loading
+                  ? "Registering Informations ..."
+                  : "  Register Company"}
               </Button>
             </div>
           </form>

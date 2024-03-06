@@ -35,7 +35,7 @@ function CreateJob() {
   useEffect(() => {
     if (statusCode === 200) {
       dispatch(setJobStatusCode(null));
-      return navigate(`/company/manageJobPosts`);
+      return navigate(`/company/${companyId}/manageJobPosts`);
     }
   }, [statusCode]);
 

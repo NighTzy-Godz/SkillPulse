@@ -10,15 +10,30 @@ import { useParams } from "react-router-dom";
 import { getUserData } from "../../store/slices/user";
 
 import { UserType, setUserType } from "../../store/slices/ui";
+import { State } from "../../store/store";
+import { RotatingLines } from "react-loader-spinner";
 
 function UserProfile() {
   const { userId } = useParams();
   const dispatch = useDispatch();
-
+  const loading = useSelector((state: State) => state.entities.user.loading);
   useEffect(() => {
     dispatch(getUserData(userId as string));
     dispatch(setUserType(UserType.USER));
   }, [userId]);
+
+  if (loading) {
+    return (
+      <div className="w-full h-[92dvh] grid place-content-center">
+        <RotatingLines
+          visible={true}
+          animationDuration=".75"
+          strokeColor="#3f83f8"
+          strokeWidth="5"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="sm:py-8 profile">

@@ -16,13 +16,14 @@ import {
   IJobApplication,
   JobApplicationUpdateStatusData,
 } from "../../interfaces/JobApplication";
+import Loading from "../../components/common/Loading";
 
 function Applicants() {
   const { jobId } = useParams();
 
   const dispatch = useDispatch();
-  const jobApplicants = useSelector(
-    (state: State) => state.entities.job.jobApplicants
+  const { jobApplicants, loading } = useSelector(
+    (state: State) => state.entities.job
   );
 
   const [searchParams, setSearchParams] = useSearchParams({
@@ -38,6 +39,7 @@ function Applicants() {
   };
 
   const renderJobApplicants = () => {
+    if (loading) return <Loading />;
     if (filteredApplicants.length === 0) {
       return (
         <h1 className="text-xl text-center text-zinc-700">

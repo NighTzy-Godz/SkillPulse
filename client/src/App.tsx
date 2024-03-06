@@ -113,7 +113,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/user/jobs" element={<Jobs />}></Route>
+          <Route
+            path="/user/jobs"
+            element={
+              <ProtectedRoute>
+                <Jobs />
+              </ProtectedRoute>
+            }
+          ></Route>
 
           <Route
             path="/company/profile/:companyId"

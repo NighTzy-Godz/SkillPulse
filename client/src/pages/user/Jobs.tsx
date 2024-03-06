@@ -11,10 +11,11 @@ import NoJobData from "../../components/job/NoJobData";
 import userJobLinks from "../../data/userJobLinks";
 import { IJobApplication } from "../../interfaces/JobApplication";
 import { IJob } from "../../interfaces/Job";
+import Loading from "../../components/common/Loading";
 
 function Jobs() {
   const dispatch = useDispatch();
-  const { appliedJobs, savedJobs } = useSelector(
+  const { appliedJobs, savedJobs, loading } = useSelector(
     (state: State) => state.entities.job
   );
   const [searchParams, setSearchParams] = useSearchParams({ value: "APPLIED" });
@@ -34,6 +35,7 @@ function Jobs() {
   };
 
   const renderContent = () => {
+    if (loading) return <Loading />;
     const jobsToRender = jobItemValue === "APPLIED" ? appliedJobs : savedJobs;
     if (jobsToRender.length === 0) {
       return (

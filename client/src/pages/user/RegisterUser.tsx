@@ -21,7 +21,7 @@ import { toast } from "react-toastify";
 function RegisterUser() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { statusCode, decodedModel } = useSelector(
+  const { statusCode, decodedModel, loading } = useSelector(
     (state: State) => state.entities.auth
   );
 
@@ -238,12 +238,13 @@ function RegisterUser() {
 
             <div className="mt-7">
               <Button
+                isProcessing={loading}
                 type="submit"
                 theme={customBtnTheme}
                 color="blue"
                 className="w-full"
               >
-                Register User
+                {loading ? "Registering ..." : "Register User"}
               </Button>
             </div>
             <div className="mt-2">

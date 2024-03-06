@@ -8,11 +8,12 @@ import { State } from "../../store/store";
 import { getCreatedJobs } from "../../store/slices/job";
 import CreatedJobCard from "../../components/job/CreatedJobCard";
 import NoJobData from "../../components/job/NoJobData";
+import Loading from "../../components/common/Loading";
 
 function CreatedJobList() {
   const dispatch = useDispatch();
-  const createdJobs = useSelector(
-    (state: State) => state.entities.job.createdJobs
+  const { createdJobs, loading } = useSelector(
+    (state: State) => state.entities.job
   );
   const [searchParams, setSearchParams] = useSearchParams({
     value: "JOB_POSTS",
@@ -33,6 +34,9 @@ function CreatedJobList() {
   });
 
   const renderContent = () => {
+    if (loading) {
+      return <Loading />;
+    }
     if (createdJobs.length === 0)
       return <NoJobData addLink={false} msg="You dont have any job posts" />;
 

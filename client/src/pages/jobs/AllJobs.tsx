@@ -13,9 +13,11 @@ import SearchBar from "../../components/common/SearchBar";
 import NoJobSearch from "../../components/job/NoJobSearch";
 import { setUserSelectedJob } from "../../store/slices/job";
 import JobDescriptionContainer from "../../components/job/JobDescriptionContainer";
+import Loading from "../../components/common/Loading";
 
 function AllJobs() {
   const dispatch = useDispatch();
+  const loading = useSelector((state: State) => state.entities.job.loading);
   const { jobs, totalCount } = useSelector(
     (state: State) => state.entities.job.jobResults
   );
@@ -93,6 +95,9 @@ function AllJobs() {
   };
 
   const renderContent = () => {
+    if (loading) {
+      return <Loading />;
+    }
     if (jobs.length > 0)
       return (
         <div className="flex gap-4 max-h-[75dvh]">
