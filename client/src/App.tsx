@@ -30,6 +30,7 @@ import ProtectedRoute from "./components/common/ProtectedRoute";
 import UserOwned from "./components/common/UserOwned";
 import CompanyOwned from "./components/common/CompanyOwned";
 import LoginUser from "./pages/user/LoginUser";
+import PageNotFound from "./components/ui/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -180,6 +181,7 @@ function App() {
 
           <Route path="/logout" element={<Logout />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );

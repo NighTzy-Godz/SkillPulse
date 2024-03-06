@@ -1,4 +1,3 @@
-import React from "react";
 import "../../assets/css/main_loader.css";
 function MainLoader() {
   return (
