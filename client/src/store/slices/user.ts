@@ -50,6 +50,7 @@ const slice = createSlice({
     },
 
     userRequestFailed: (user, action) => {
+      console.log(action.payload);
       user.loading = false;
       user.error = action.payload;
     },
@@ -173,13 +174,14 @@ const {
   userAuthSuccess,
 } = slice.actions;
 
-export const getUserData = (userId: string) =>
-  apiCallBegan({
+export const getUserData = (userId: string) => {
+  return apiCallBegan({
     url: `/user/getUserData/${userId}`,
     onStart: userRequested.type,
     onError: userRequestFailed.type,
     onSuccess: userGetDataSuccess.type,
   });
+};
 
 export const getSearchedUsers = (searchTerm: string) =>
   apiCallBegan({

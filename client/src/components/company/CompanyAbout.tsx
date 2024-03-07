@@ -39,7 +39,7 @@ function CompanyAbout() {
         isModalOpen={isModalOpen}
         onModalClose={handleCloseModal}
       />
-      <ProfileCard className="py-5 px-8 mb-5">
+      <ProfileCard className="sm:py-5 sm:px-8 py-3 px-5 mb-5">
         <div className="mb-3 flex justify-between">
           <h1 className="text-gray-700 text-2xl font-bold">About</h1>
           {isOwner && (

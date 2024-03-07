@@ -51,7 +51,7 @@ function JobApplicantBox({ jobId, applicants }: JobApplicantBoxProps) {
 
   return (
     <div className=" border border-zinc-300 p-5 h-fit">
-      {applicants.length > 0 && (
+      {applicants?.length > 0 && (
         <Link
           to={`/company/${currUserCompanyId}/${jobId}/applicants`}
           className="text-xs block text-blue-500 hover:underline"

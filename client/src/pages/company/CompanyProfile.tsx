@@ -26,7 +26,7 @@ function CompanyProfile() {
   if (loading) return <Loading />;
   return (
     <div className="sm:py-8 profile">
-      <div className="container mx-auto">
+      <div className="sm:container mx-auto">
         <CompanyIntro />
         <CompanyAbout />
       </div>

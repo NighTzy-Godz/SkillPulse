@@ -60,9 +60,15 @@ const api: Middleware =
 
       if (axiosError) {
         if ((errStatus as number) >= 500) {
-          toast.error("Unexpected Error Occured", { autoClose: 2500 });
+          toast.error("Unexpected Error Occured", {
+            autoClose: 2500,
+            toastId: "Err API",
+          });
         } else {
-          toast.error(axiosError as string, { autoClose: 2500 });
+          toast.error(axiosError as string, {
+            autoClose: 2500,
+            toastId: "Err API",
+          });
         }
 
         dispatch(apiCallFailed(axiosError));

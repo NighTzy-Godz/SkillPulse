@@ -47,34 +47,34 @@ function Home() {
   };
 
   return (
-    <div className="home md:h-dvh grid items-center ">
+    <div className="home md:h-dvh py-10 grid items-center ">
       <div className="container mx-auto">
-        <div className="flex gap-5 items-center">
-          <div className="mb-5 w-1/2">
-            <h1 className=" mb-6 font-bold capitalize md:text-7xl text-blue-500">
+        <div className="md:flex  md:gap-5 items-center w-full">
+          <div className="mb-16 md:w-1/2">
+            <h1 className=" mb-6 font-bold capitalize text-blue-500 lg:text-7xl sm:text-5xl text-4xl">
               Discover Your Perfect Job
             </h1>
-            <p className="mb-16 text-gray-700 md:text-xl">
+            <p className="text-base text-gray-700 lg:mb-16 mb-5 lg:text-xl ">
               Empowering Careers, Connecting Futures — SkillPulse. Your Journey
               to Success Starts Here
             </p>
 
             <NavLink
               to="/searchJobs"
-              className="blueBtn rounded-full  md:text-lg"
+              className="blueBtn rounded-full  md:text-base"
             >
               Discover Jobs
             </NavLink>
           </div>
 
-          <div className="w-1/2  ">
-            <div className="flex justify-end">
+          <div className="md:w-1/2  ">
+            <div className="flex md:justify-end justify-center">
               <form
-                className="boxShadow px-5 pt-5 pb-5 form w-3/4 "
+                className="boxShadow px-5 pt-5 pb-5 form lg:w-3/4 w-full"
                 onSubmit={handleSubmit(handleLoginSubmit)}
               >
                 <div className="mb-5">
-                  <h1 className="text-3xl text-center font-bold text-gray-600">
+                  <h1 className="md:text-3xl text-2xl text-center font-bold text-gray-600">
                     Sign In Here
                   </h1>
                 </div>

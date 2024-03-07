@@ -263,7 +263,9 @@ function UserEditIntroModal({
             {errors.bio && <InputError msg={errors.bio.message as string} />}
           </div>
 
-          <Button theme={customBtnTheme} color="blue" type="submit"></Button>
+          <Button theme={customBtnTheme} color="blue" type="submit">
+            Update Intro
+          </Button>
         </form>
       </Modal.Body>
     </Modal>

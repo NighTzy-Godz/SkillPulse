@@ -80,14 +80,14 @@ const CreatedJobCard: React.FC<CreatedJobCardProps> = ({ data: job }) => {
         </div>
 
         <div
-          className={`px-5 py-3 rounded-md boxShadow2 absolute right-0 w-60 top-5 ${
+          className={`px-5 py-3 rounded-md boxShadow2 absolute right-0 w-60 top-5 bg-white ${
             isDotsClicked ? "animate-cardFadeIn" : " animate-cardFadeOut"
           }`}
         >
           <div className="flex  cursor-pointer  gap-2 mb-5">
             <FaSuitcase className="w-5 h-5 text-zinc-500" />
             <Link
-              to={`/company/createdJob/${job._id}`}
+              to={`/company/${currUserCompanyId}/createdJob/${job._id}`}
               className="text-zinc-500"
             >
               Manage Job

@@ -37,7 +37,7 @@ function UserProfile() {
 
   return (
     <div className="sm:py-8 profile">
-      <div className="container mx-auto">
+      <div className="sm:container mx-auto">
         <ProfileIntro />
         <ProfileAbout />
         <ProfileExperience />

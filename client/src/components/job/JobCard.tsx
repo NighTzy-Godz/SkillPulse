@@ -1,5 +1,6 @@
 import React from "react";
 import { IJob } from "../../interfaces/Job";
+import { Link } from "react-router-dom";
 
 interface JobCardProps {
   data: IJob;
@@ -8,10 +9,11 @@ interface JobCardProps {
 }
 
 function JobCard({ currJob, data, onJobSelectChange }: JobCardProps) {
-  const { title, company, location, applicants } = data;
+  const { _id, title, company, location, applicants } = data;
 
   const activeClass =
     currJob?._id === data._id ? "border border-green-500" : "";
+  const currWidth = window.innerWidth;
 
   return (
     <div
@@ -19,7 +21,18 @@ function JobCard({ currJob, data, onJobSelectChange }: JobCardProps) {
       onClick={() => onJobSelectChange(data)}
     >
       <div className="mb-4">
-        <h1 className="text-xl font-semibold text-blue-500 mb-1">{title}</h1>
+        {currWidth < 768 ? (
+          <Link
+            className="text-xl font-semibold text-blue-500 mb-1"
+            to={`/viewJob/${_id}`}
+            target="_blank"
+          >
+            {title}
+          </Link>
+        ) : (
+          <h1 className="text-xl font-semibold text-blue-500 mb-1">{title}</h1>
+        )}
+
         <p className="text-zinc-600 text-sm mb-1">{company.name}</p>
         <p className="text-zinc-500 text-sm ">{location}</p>
       </div>

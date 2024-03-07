@@ -64,7 +64,7 @@ function RegisterUser() {
   return (
     <div className="py-10 h-dvh grid items-center">
       <div className="container mx-auto">
-        <div className="md:w-1/2 mx-auto">
+        <div className="lg:w-1/2 md:w-3/4 mx-auto">
           <FormHeader header="start you career here. get registered" />
 
           <form onSubmit={handleSubmit(handleRegisterSubmit)} className="form">

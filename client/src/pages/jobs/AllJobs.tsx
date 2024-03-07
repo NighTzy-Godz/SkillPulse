@@ -100,8 +100,8 @@ function AllJobs() {
     }
     if (jobs.length > 0)
       return (
-        <div className="flex gap-4 max-h-[75dvh]">
-          <div className="w-2/5  max-h-screen overflow-y-auto">
+        <div className="md:flex gap-4 md:max-h-[73dvh] max-h-dvh">
+          <div className="md:w-2/5 w-full max-h-screen overflow-y-auto">
             <JobList onJobSelectChange={handleSelectJobChange} />
             <ReactPaginate
               forcePage={parseInt(page as string) - 1}

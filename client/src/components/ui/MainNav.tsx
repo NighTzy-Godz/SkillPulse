@@ -4,7 +4,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { State } from "../../store/store";
 
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import SearchBar from "../common/SearchBar";
 import { getSearchedUsers } from "../../store/slices/user";
 import SearchSnippet from "./SearchSnippet";
@@ -29,6 +29,7 @@ function MainNav({ token }: MainNavProps) {
 
   const [toggle, setToggle] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const divRef = useRef<HTMLDivElement>(null);
 
   const companyFound = user?.company;
 
@@ -48,15 +49,28 @@ function MainNav({ token }: MainNavProps) {
     return () => clearTimeout(searchId);
   }, [searchTerm]);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (divRef.current && !divRef.current.contains(e.target as Node)) {
+        setToggle(false);
+      }
+    };
+
+    window.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [divRef]);
+
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.currentTarget.value);
   };
 
   return (
-    <div className="mainNav boxShadow2 md:py-5 py-3 relative ">
+    <div className="mainNav boxShadow2 md:py-5 py-3 relative " ref={divRef}>
       <div className="container mx-auto flex flex-wrap items-center  gap-4 justify-between lg:justify-normal lg:flex-nowrap">
         <div className=" w-auto">
-          <span className="self-center whitespace-nowrap text-blue-500 font-semibold text-2xl dark:text-white md:text-3xl text-2xl">
+          <span className="self-center whitespace-nowrap text-blue-500 font-semibold dark:text-white md:text-3xl text-2xl">
             SkillPulse
           </span>{" "}
         </div>
@@ -148,18 +162,27 @@ function MainNav({ token }: MainNavProps) {
             </div>
             <ul className="md:flex gap-4 lg:w-1/2  lg:flex-row flex-col  w-full justify-end lg:order-2">
               <NavLink
+                onClick={() => setToggle(false)}
                 to={`/${token ? `user/profile/${userId}` : ""}`}
                 className={navBarClass}
               >
                 Home
               </NavLink>
 
-              <NavLink to="/searchJobs" className={`${navBarClass}`}>
+              <NavLink
+                to="/searchJobs"
+                className={`${navBarClass}`}
+                onClick={() => setToggle(false)}
+              >
                 Find a Job
               </NavLink>
 
               {!token && (
-                <NavLink to="/login-user" className={navBarClass}>
+                <NavLink
+                  to="/login-user"
+                  className={navBarClass}
+                  onClick={() => setToggle(false)}
+                >
                   Login
                 </NavLink>
               )}
@@ -168,6 +191,7 @@ function MainNav({ token }: MainNavProps) {
                 <NavLink
                   to={`/company/${user?.company?._id}/createJob`}
                   className={`${navBarClass}`}
+                  onClick={() => setToggle(false)}
                 >
                   Post a Job
                 </NavLink>

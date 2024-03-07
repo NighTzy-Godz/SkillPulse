@@ -75,7 +75,7 @@ function DetailsEducation() {
         onModalClose={handleModalClose}
       />
       <div className="container mx-auto">
-        <div className="boxShadow2 px-10 py-6">
+        <div className="boxShadow2 md:px-10 md:py-6 sm:px-8 sm:py-4 px-6 py-3">
           <div className="mb-8 flex justify-between items-center">
             <h1 className="text-xl text-zinc-700 font-semibold">
               Details for education

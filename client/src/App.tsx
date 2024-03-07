@@ -47,7 +47,7 @@ function App() {
     if (!token) return;
     try {
       const decodedUser = jwtDecode(token);
-      console.log(decodedUser);
+
       dispatch(setDecodedModel(decodedUser));
       localStorage.setItem("token", token);
     } catch (error) {}

@@ -81,7 +81,7 @@ function CoverPhoto({ img, isOwner }: CoverPhotoProps) {
       <img
         src={img}
         alt=""
-        className="w-full h-[35dvh] min-h-[300px] max-h-[350px] object-cover rounded-t-xl"
+        className="w-full h-[35dvh] min-h-[300px] max-h-[350px] object-cover sm:rounded-t-xl"
       />
     </div>
   );

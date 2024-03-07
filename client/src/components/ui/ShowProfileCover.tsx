@@ -46,7 +46,7 @@ function ShowProfileCover({ showCoverPhoto, img }: ShowProfileCoverProps) {
           <img
             src={img}
             alt="Profile Picture"
-            className="max-w-screen-md max-h-screen mx-auto"
+            className="max-w-screen max-h-screen mx-auto"
           />
         </div>
       </div>

@@ -74,7 +74,7 @@ function UserEditAboutModal({
           </div>
 
           <Button type="submit" theme={customBtnTheme} color="blue">
-            Submit
+            Update About
           </Button>
         </form>
       </Modal.Body>

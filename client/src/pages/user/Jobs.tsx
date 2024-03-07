@@ -59,8 +59,8 @@ function Jobs() {
   return (
     <div className="py-10">
       <div className="container mx-auto">
-        <div className="flex gap-4">
-          <div className="w-1/3 boxShadow2 h-fit">
+        <div className="sm:flex gap-4">
+          <div className="sm:w-1/3 sm:mb-0 mb-8 boxShadow2 h-fit">
             <ul>
               <li className="flex gap-1 items-center p-3">
                 <JobHeader title="My Jobs" />
@@ -76,7 +76,7 @@ function Jobs() {
               ))}
             </ul>
           </div>
-          <div className="w-2/3">{renderContent()}</div>
+          <div className="sm:w-2/3">{renderContent()}</div>
         </div>
       </div>
     </div>

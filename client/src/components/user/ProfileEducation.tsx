@@ -40,7 +40,7 @@ function ProfileEducation() {
     setIsModalOpen(false);
   };
   return (
-    <ProfileCard className="px-8 py-5 mb-4">
+    <ProfileCard className="sm:px-8 sm:py-5 px-5 py-3 mb-4">
       <UserAddEducationModal
         isModalOpen={isModalOpen}
         onModalClose={handleModalClose}

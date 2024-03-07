@@ -39,7 +39,7 @@ function IntroShowCard({ isOwner }: IntroShowCard) {
   const text = userType === "user" ? "Profile Picture" : "Company Logo";
 
   return (
-    <div className="absolute w-80 boxShadow2 bg-gray-200 left-[-55px] mt-3  rounded-md">
+    <div className="absolute w-60 boxShadow2 bg-gray-200 lg:left-[-55px] md:left-[-45px] left-[-5px] mt-3  rounded-md">
       <div className="flex items-center py-3 gap-2 cursor-pointer hover:bg-gray-300 px-2">
         <FaRegUser />
         <p className="text-slate-600 " onClick={handleProfileClick}>

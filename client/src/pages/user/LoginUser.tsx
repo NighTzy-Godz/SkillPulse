@@ -49,10 +49,10 @@ function LoginUser() {
   };
 
   return (
-    <div className="home md:h-dvh grid items-center ">
+    <div className="home h-[92dvh] grid items-center ">
       <div className="container mx-auto">
         <div className="flex justify-center items-center">
-          <div className="w-2/4  ">
+          <div className="lg:w-1/3 md:w-2/4  sm:w-3/4 w-full">
             <div className="flex justify-end">
               <form
                 className="boxShadow px-5 pt-5 pb-5 form w-full "

@@ -42,7 +42,7 @@
 }
 
 .blueBtn {
-  @apply transition-all duration-200 px-4 py-4 bg-blue-500 text-white hover:bg-blue-600;
+  @apply transition-all duration-200 lg:p-4 p-3  bg-blue-500 text-white hover:bg-blue-600;
 }
 
 .label {

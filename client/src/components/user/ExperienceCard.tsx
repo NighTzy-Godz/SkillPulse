@@ -23,12 +23,17 @@ export default function ExperienceCard(props: IExperienceCardProps) {
           <p className="text-zinc-600 text-sm ">{item.company}</p>
           <p className="text-zinc-600 text-sm b-dot">{item.employmentType}</p>
         </div>
-        <div className="flex gap-2 mb-5">
-          <p className="text-zinc-600 text-sm ">
-            {moment(item.startDate).format("MMM Do YYYY")}
-          </p>
-          <p className="text-zinc-600 text-sm ">-</p>
-          <p className="text-zinc-600 text-sm">{renderEndDate(item.endDate)}</p>
+        <div className="flex gap-2 flex-wrap  mb-5">
+          <div className="flex gap-2">
+            <p className="text-zinc-600 text-sm ">
+              {moment(item.startDate).format("MMM Do YYYY")}
+            </p>
+            <p className="text-zinc-600 text-sm ">-</p>
+            <p className="text-zinc-600 text-sm">
+              {renderEndDate(item.endDate)}
+            </p>
+          </div>
+
           <p className="text-zinc-600 text-sm b-dot">
             {formatDate(findDuration(item.startDate))}
           </p>

@@ -7,7 +7,7 @@ interface ProfileCardProps {
 
 function ProfileCard({ className, children }: ProfileCardProps) {
   return (
-    <div className={`border border-slate-300   rounded-xl ${className}`}>
+    <div className={`border border-slate-300   sm:rounded-xl ${className}`}>
       {children}
     </div>
   );

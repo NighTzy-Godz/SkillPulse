@@ -89,7 +89,7 @@ function ProfileIntro() {
         />
         <CoverPhoto img={coverPhoto as string} isOwner={isOwner} />
 
-        <div className="py-5 px-8">
+        <div className="sm:py-5 sm:px-8 px-5 py-3">
           <div className="flex justify-between relative">
             <ProfilePicture img={pfp as string} isOwner={isOwner} />
             {isOwner && (
@@ -103,9 +103,9 @@ function ProfileIntro() {
           </div>
 
           <div className="flex">
-            <div className="flex w-2/3">
+            <div className="flex ">
               <div className=" ">
-                <h1 className="text-2xl font-bold text-gray-700 mt-3">
+                <h1 className="text-2xl font-bold text-gray-700 mt-3 mb-2">
                   {firstName} {lastName}
                   <span className="text-gray-500 text-sm  ">
                     {renderPronouns()}
@@ -116,7 +116,7 @@ function ProfileIntro() {
             </div>
           </div>
 
-          <div className="mt-2 flex gap-2">
+          <div className="mt-2 flex flex-wrap gap-2">
             {renderContactDetails}
             <p className="text-gray-500 text-sm b-dot">
               {moment(dateOfBirth).format("MMM Do YYYY")}

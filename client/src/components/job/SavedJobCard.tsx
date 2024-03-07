@@ -11,13 +11,17 @@ function SavedJobCard(props: SavedJobCardProps) {
   const { title, company, location, employmentType, applicants, _id } = data;
   return (
     <div className="boxShadow2 rounded-lg flex gap-3 mb-5 px-5 py-3 ">
-      <div className="h-10 w-10">
-        <img src={company.logo} alt="" />
+      <div className="sm:h-10 sm:w-10 w-8 h-8">
+        <img
+          className="w-full h-full object-cover rounded-full"
+          src={company.logo}
+          alt=""
+        />
       </div>
       <div className="">
         <Link
           to={`/viewJob/${_id}`}
-          className="text-zinc-600 font-semibold text-xl"
+          className="text-zinc-600 font-semibold sm:text-xl text-base"
         >
           {title}
         </Link>

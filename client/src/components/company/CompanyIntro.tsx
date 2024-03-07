@@ -60,7 +60,7 @@ function CompanyIntro() {
           img={coverPhoto as string}
         />
         <ShowProfilePicture showPfp={showPfp} img={logo as string} />
-        <div className="py-5 px-8">
+        <div className="sm:py-5 sm:px-8 py-3 px-5">
           <div className="flex justify-between relative ">
             <ProfilePicture img={logo as string} isOwner={isOwner} />
             {isOwner && (

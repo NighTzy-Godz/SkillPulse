@@ -43,7 +43,7 @@ function ProfileExperience() {
   };
 
   return (
-    <ProfileCard className="px-8 py-5 mb-4">
+    <ProfileCard className="sm:px-8 sm:py-5 py-3 px-5 mb-4">
       <UserAddExpModal showModal={showModal} onModalClose={handleCloseModal} />
       <div className="mb-3 flex justify-between">
         <h1 className="text-gray-700 text-xl font-bold">Experience</h1>

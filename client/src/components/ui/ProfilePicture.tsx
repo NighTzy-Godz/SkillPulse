@@ -31,9 +31,9 @@ function ProfilePicture({ img, isOwner }: ProfilePictureProps) {
   }, [cardRef]);
 
   return (
-    <div className="mt-[-125px] relative pfp" ref={cardRef}>
+    <div className="sm:mt-[-125px] mt-[-90px] relative pfp" ref={cardRef}>
       <div
-        className="absolute  h-[130px] w-[130px] sm:h-[150px] sm:w-[150px]  hover:bg-gray-900 opacity-50 object-cover rounded-full cursor-pointer"
+        className="absolute  h-[120px] w-[120px] sm:h-[150px] sm:w-[150px]  hover:bg-gray-900 opacity-50 object-cover rounded-full cursor-pointer"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => dispatch(setIsProfileClicked(!isProfileClicked))}

@@ -59,11 +59,11 @@ function CreatedJobDetails() {
             </div>
           </div>
         </div>
-        <div className="flex gap-5">
-          <div className="w-3/4 ">
+        <div className="md:flex gap-5">
+          <div className="md:w-3/4 md:mb-0 mb-5 ">
             <CreatedJobDesc />
           </div>
-          <div className="w-1/4">
+          <div className="md:w-1/4">
             <JobApplicantBox jobId={jobId as string} applicants={applicants} />
           </div>
         </div>
