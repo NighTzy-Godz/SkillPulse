@@ -14,6 +14,7 @@
     "@types/moment": "^2.13.0",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.3",
+    "dotenv": "^16.4.5",
     "flowbite-react": "^0.7.2",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",

@@ -33,7 +33,7 @@ function JobCard({ currJob, data, onJobSelectChange }: JobCardProps) {
           <h1 className="text-xl font-semibold text-blue-500 mb-1">{title}</h1>
         )}
 
-        <p className="text-zinc-600 text-sm mb-1">{company.name}</p>
+        <p className="text-zinc-600 text-sm mb-1">{company?.name}</p>
         <p className="text-zinc-500 text-sm ">{location}</p>
       </div>
 

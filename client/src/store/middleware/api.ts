@@ -1,7 +1,8 @@
 import { Middleware } from "redux";
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { toast } from "react-toastify";
-const baseURL = "http://localhost:8080/api";
+const baseURL = import.meta.env.VITE_BASE_URL;
+
 import {
   apiCallBegan,
   apiCallFailed,

@@ -10,6 +10,7 @@ import customBtnTheme from "../../utils/customBtnTheme";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
 import { setStatusCode, userLogin } from "../../store/slices/auth";
+import { toast } from "react-toastify";
 
 function Home() {
   const currUserId = useSelector(
@@ -31,14 +32,14 @@ function Home() {
   } = useForm<LoginUserData>();
 
   useEffect(() => {
-    if (currUserId) {
-      return navigate(`/user/profile/${currUserId}`);
-    }
-
     if (statusCode === 200) {
       dispatch(setStatusCode(null));
 
       navigate("/cold-login");
+    }
+
+    if (currUserId) {
+      return navigate(`/user/profile/${currUserId}`);
     }
   }, [statusCode, currUserId]);
 

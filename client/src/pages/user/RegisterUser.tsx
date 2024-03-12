@@ -45,7 +45,7 @@ function RegisterUser() {
     if (statusCode === 200) {
       dispatch(setStatusCode(null));
 
-      navigate("/user-login");
+      navigate("/login-user");
     }
   }, [statusCode, currUserId]);
 
