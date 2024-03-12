@@ -29,7 +29,7 @@ function CreatedJobDetails() {
   if (loading) return <Loading />;
 
   return (
-    <div className="py-10">
+    <div className="py-10 min-h-[90dvh]">
       <div className="container mx-auto">
         <div className="flex gap-3 mb-10">
           <div className="w-14 h-14 ">

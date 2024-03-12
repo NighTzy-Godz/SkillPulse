@@ -4,7 +4,7 @@ interface NoJobSearchProps {
 
 function NoJobSearch({ jobSearch }: NoJobSearchProps) {
   return (
-    <div>
+    <div className="min-h-[75dvh]">
       {" "}
       <h3 className="text-lg mb-3">
         The Search <span className="font-semibold">{jobSearch}</span> {""}did

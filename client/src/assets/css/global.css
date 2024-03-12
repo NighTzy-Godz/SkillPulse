@@ -14,6 +14,12 @@
   }
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 .mainNav .active {
   @apply bg-blue-500 text-white md:bg-transparent md:text-blue-500;
 }

@@ -57,7 +57,7 @@ function Jobs() {
   };
 
   return (
-    <div className="py-10">
+    <div className="py-10 min-h-[92dvh]">
       <div className="container mx-auto">
         <div className="sm:flex gap-4">
           <div className="sm:w-1/3 sm:mb-0 mb-8 boxShadow2 h-fit">

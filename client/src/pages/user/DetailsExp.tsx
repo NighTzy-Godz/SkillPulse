@@ -61,7 +61,7 @@ function DetailsExp() {
   };
 
   return (
-    <div className="py-10">
+    <div className="py-10 min-h-[90dvh]">
       {selectedExp && (
         <UserEditExpModal
           data={selectedExp as IExperience}

@@ -61,7 +61,7 @@ function DetailsEducation() {
   };
 
   return (
-    <div className="py-10">
+    <div className="py-10 min-h-[92dvh]">
       {selectedEducation && (
         <EditEducationModal
           data={selectedEducation}
