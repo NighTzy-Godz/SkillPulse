@@ -117,8 +117,11 @@ export const getUserData = async (
 ) => {
   try {
     const { userId } = req.params;
-
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(404).send("User did not found");
+    }
     const currUser = await User.findOne({ _id: userId }).populate("company");
+
     if (!currUser) return res.status(404).send("User did not found");
 
     res.send(currUser);

@@ -260,6 +260,7 @@ userSchema.methods.generateAuthToken = function (this) {
     {
       _id: this._id,
       role: this.role,
+      company: this.company,
     },
     jwtSecretPass
   );
