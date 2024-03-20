@@ -28,7 +28,7 @@ function ProfileAbout() {
 
   useEffect(() => {
     if (about && clicked) setSlicedData(about as string);
-    else setSlicedData(`${about?.slice(0, 150)} ...`);
+    else setSlicedData(`${about?.slice(0, 180)} ...`);
   }, [about, clicked]);
 
   const renderAbout = () => {
@@ -47,7 +47,7 @@ function ProfileAbout() {
   };
 
   const renderParagraph = () => {
-    if ((about?.length as number) < 150) return;
+    if ((about?.length as number) < 180) return;
     if (about && clicked) return "... see less";
     else if (about && !clicked) return "... see more";
   };

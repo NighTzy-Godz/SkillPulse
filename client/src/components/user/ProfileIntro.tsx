@@ -111,7 +111,10 @@ function ProfileIntro() {
                     {renderPronouns()}
                   </span>
                 </h1>
-                <p className="text-gray-600">{renderBio()}</p>
+                <div className="lg:w-3/5">
+                  {" "}
+                  <p className="text-gray-600">{renderBio()}</p>
+                </div>
               </div>
             </div>
           </div>

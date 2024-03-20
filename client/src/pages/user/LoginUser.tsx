@@ -36,10 +36,6 @@ function LoginUser() {
     }
 
     if (currUserId) {
-      toast.error("You are already authenticated, you cannot do that action", {
-        autoClose: 2500,
-        toastId: "Auth Err",
-      });
       return navigate(`/user/profile/${currUserId}`);
     }
   }, [statusCode, currUserId]);
