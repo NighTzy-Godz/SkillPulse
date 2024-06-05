@@ -13,6 +13,19 @@ const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 const PROD_URL = process.env.PROD_URL;
 
+const app = express();
+
+app.use(json());
+app.use(urlencoded({ extended: true }));
+
+app.use("/api/user", userRoutes);
+app.use("/api/company", companyRoutes);
+app.use("/api/job", jobRoutes);
+
+app.get("/healthcheck", (req, res) => {
+  res.send("Hi There");
+});
+
 mongoose
   .connect(DB_URL!, {
     useNewUrlParser: true,
@@ -25,26 +38,6 @@ mongoose
   .catch((err) => {
     console.error("Error connecting to MongoDB", err);
   });
-const app = express();
-
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
-
-app.use(json());
-app.use(urlencoded({ extended: true }));
-
-app.use("/api/user", userRoutes);
-app.use("/api/company", companyRoutes);
-app.use("/api/job", jobRoutes);
-
-app.get("/healthcheck", (req, res) => {
-  res.send("Hi There");
-});
 
 const keepDBAlive = async () => {
   try {
