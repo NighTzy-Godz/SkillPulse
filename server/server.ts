@@ -44,7 +44,7 @@ app.use("/api/company", companyRoutes);
 app.use("/api/job", jobRoutes);
 
 app.get("/healthcheck", (req, res) => {
-  res.send("Hi");
+  res.send("Hi There");
 });
 
 const keepDBAlive = async () => {
