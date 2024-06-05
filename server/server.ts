@@ -14,6 +14,14 @@ const DB_URL = process.env.DB_URL;
 const PROD_URL = process.env.PROD_URL;
 
 const app = express();
+app.use(
+  cors({
+    origin: "*", // Adjust as needed
+    credentials: true,
+
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
