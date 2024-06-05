@@ -35,7 +35,6 @@ app.use(
   })
 );
 
-console.log(process.env);
 app.use(json());
 app.use(urlencoded({ extended: true }));
 
