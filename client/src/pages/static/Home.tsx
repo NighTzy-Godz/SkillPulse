@@ -51,6 +51,8 @@ function Home() {
   };
 
   const handleDemoLogin = () => {
+    console.log(DEMO_EMAIL, DEMO_PASSWORD);
+
     const reqBody: LoginUserData = {
       email: DEMO_EMAIL,
       password: DEMO_PASSWORD,
