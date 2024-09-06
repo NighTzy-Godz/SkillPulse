@@ -52,6 +52,7 @@ export interface RegisterUserData {
 }
 
 export interface UserAddExpData {
+  _id: string;
   position: string;
   employmentType: EmploymentType;
   company: string;

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../store/store";
 import customBtnTheme from "../../utils/customBtnTheme";
 import { addUserExp, setUserStatusCode } from "../../store/slices/user";
+import { v4 as uuidv4 } from "uuid";
 
 interface UserAddExpModalProps {
   onModalClose(): void;
@@ -56,6 +57,7 @@ function UserAddExpModal({ showModal, onModalClose }: UserAddExpModalProps) {
 
     const reqBody: UserAddExpData = {
       ...formData,
+      _id: uuidv4(),
       endDate: endJobDate,
       startDate,
     };
