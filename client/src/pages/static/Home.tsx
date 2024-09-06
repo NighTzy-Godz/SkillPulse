@@ -12,6 +12,9 @@ import { State } from "../../store/store";
 import { setStatusCode, userLogin } from "../../store/slices/auth";
 import { toast } from "react-toastify";
 
+const DEMO_EMAIL = import.meta.env.VITE_DEMO_EMAIL;
+const DEMO_PASSWORD = import.meta.env.VITE_DEMO_PASSWORD;
+
 function Home() {
   const currUserId = useSelector(
     (state: State) => state.entities.auth.decodedModel?._id
@@ -45,6 +48,15 @@ function Home() {
 
   const handleLoginSubmit = (data: LoginUserData) => {
     dispatch(userLogin(data));
+  };
+
+  const handleDemoLogin = () => {
+    const reqBody: LoginUserData = {
+      email: DEMO_EMAIL,
+      password: DEMO_PASSWORD,
+    };
+
+    dispatch(userLogin(reqBody));
   };
 
   return (
@@ -135,6 +147,15 @@ function Home() {
                   >
                     Register Here
                   </Link>
+                </div>
+
+                <div className="mt-5 text-center">
+                  <p
+                    className="cursor-pointer underline text-blue-500 text-sm"
+                    onClick={handleDemoLogin}
+                  >
+                    Login Here as a Demo User
+                  </p>
                 </div>
               </form>
             </div>

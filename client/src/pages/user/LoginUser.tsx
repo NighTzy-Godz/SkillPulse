@@ -10,6 +10,8 @@ import { Button, Label, TextInput } from "flowbite-react";
 import { HiLockClosed, HiMail } from "react-icons/hi";
 import InputError from "../../components/common/InputError";
 import customBtnTheme from "../../utils/customBtnTheme";
+const DEMO_EMAIL = import.meta.env.VITE_DEMO_EMAIL;
+const DEMO_PASSWORD = import.meta.env.VITE_DEMO_PASSWORD;
 
 function LoginUser() {
   const currUserId = useSelector(
@@ -42,6 +44,15 @@ function LoginUser() {
 
   const handleLoginSubmit = (data: LoginUserData) => {
     dispatch(userLogin(data));
+  };
+
+  const handleDemoLogin = () => {
+    const reqBody: LoginUserData = {
+      email: DEMO_EMAIL,
+      password: DEMO_PASSWORD,
+    };
+
+    dispatch(userLogin(reqBody));
   };
 
   return (
@@ -115,6 +126,15 @@ function LoginUser() {
                   >
                     Register Here
                   </Link>
+                </div>
+
+                <div className="mt-5 text-center">
+                  <p
+                    className="cursor-pointer underline text-blue-500 text-sm"
+                    onClick={handleDemoLogin}
+                  >
+                    Login Here as a Demo User
+                  </p>
                 </div>
               </form>
             </div>
